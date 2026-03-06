@@ -1,0 +1,218 @@
+/* ESTILS EDITOR */
+
+.editor-styles-wrapper .opacity {
+    opacity: 1;
+}
+
+.editor-styles-wrapper {
+    background-color: #ffffff !important;
+}
+
+.opacity {
+    opacity: 0;
+ }
+ 
+ .FromLeft {
+     position: relative;
+     left: -100vw;
+ }
+ 
+ .FromRight {
+     position: relative;
+     right: -100vw;
+  }
+
+  .rotate180 { transform:rotate(180deg); }
+  .rotate0 { transform:rotate(0deg); }
+  .rotate5 { transform:rotate(5deg); }
+  .rotate10 { transform:rotate(10deg); }
+  .rotate15 { transform:rotate(15deg); }
+  .rotate20 { transform:rotate(20deg); }
+  .rotate25 { transform:rotate(25deg); }
+  .rotate30 { transform:rotate(30deg); }
+  .rotate35 { transform:rotate(35deg); }
+  .rotate40 { transform:rotate(40deg); }
+  .rotate45 { transform:rotate(45deg); }
+  .rotate50 { transform:rotate(50deg); }
+  .rotate55 { transform:rotate(55deg); }
+  .rotate60 { transform:rotate(60deg); }
+  .rotate66 { transform:rotate(65deg); }
+  .rotate70 { transform:rotate(70deg); }
+  .rotate75 { transform:rotate(75deg); }
+  .rotate80 { transform:rotate(80deg); }
+  .rotate85 { transform:rotate(85deg); }
+  .rotate90 { transform:rotate(90deg); }
+
+  .rotate-5 { transform:rotate(-5deg); }
+  .rotate-10 { transform:rotate(-10deg); }
+  .rotate-15 { transform:rotate(-15deg); }
+  .rotate-20 { transform:rotate(-20deg); }
+  .rotate-25 { transform:rotate(-25deg); }
+  .rotate-30 { transform:rotate(-30deg); }
+  .rotate-35 { transform:rotate(-35deg); }
+  .rotate-40 { transform:rotate(-40deg); }
+  .rotate-45 { transform:rotate(-45deg); }
+  .rotate-50 { transform:rotate(-50deg); }
+  .rotate-55 { transform:rotate(-55deg); }
+  .rotate-60 { transform:rotate(-60deg); }
+  .rotate-66 { transform:rotate(-65deg); }
+  .rotate-70 { transform:rotate(-70deg); }
+  .rotate-75 { transform:rotate(-75deg); }
+  .rotate-80 { transform:rotate(-80deg); }
+  .rotate-85 { transform:rotate(-85deg); }
+  .rotate-90 { transform:rotate(-90deg); }
+
+  
+
+  .rotate0 { transform:rotate(0deg); }
+  .editor-styles-wrapper .rotate5 { transform:rotate(5deg); }
+  .editor-styles-wrapper .rotate10 { transform:rotate(10deg); }
+  .editor-styles-wrapper .rotate15 { transform:rotate(15deg); }
+  .editor-styles-wrapper .rotate20 { transform:rotate(20deg); }
+  .editor-styles-wrapper .rotate25 { transform:rotate(25deg); }
+  .editor-styles-wrapper .rotate30 { transform:rotate(30deg); }
+  .editor-styles-wrapper .rotate35 { transform:rotate(35deg); }
+  .editor-styles-wrapper .rotate40 { transform:rotate(40deg); }
+  .editor-styles-wrapper .rotate45 { transform:rotate(45deg); }
+  .editor-styles-wrapper .rotate50 { transform:rotate(50deg); }
+  .editor-styles-wrapper .rotate55 { transform:rotate(55deg); }
+  .editor-styles-wrapper .rotate60 { transform:rotate(60deg); }
+  .editor-styles-wrapper .rotate65 { transform:rotate(65deg); }
+  .editor-styles-wrapper .rotate70 { transform:rotate(70deg); }
+  .editor-styles-wrapper .rotate75 { transform:rotate(75deg); }
+  .editor-styles-wrapper .rotate80 { transform:rotate(80deg); }
+  .editor-styles-wrapper .rotate85 { transform:rotate(85deg); }
+  .editor-styles-wrapper .rotate90 { transform:rotate(90deg); }
+
+  .editor-styles-wrapper .rotate-5 { transform:rotate(-5deg); }
+  .editor-styles-wrapper .rotate-10 { transform:rotate(-10deg); }
+  .editor-styles-wrapper .rotate-15 { transform:rotate(-15deg); }
+  .editor-styles-wrapper .rotate-20 { transform:rotate(-20deg); }
+  .editor-styles-wrapper .rotate-25 { transform:rotate(-25deg); }
+  .editor-styles-wrapper .rotate-30 { transform:rotate(-30deg); }
+  .editor-styles-wrapper .rotate-35 { transform:rotate(-35deg); }
+  .editor-styles-wrapper .rotate-40 { transform:rotate(-40deg); }
+  .editor-styles-wrapper .rotate-45 { transform:rotate(-45deg); }
+  .editor-styles-wrapper .rotate-50 { transform:rotate(-50deg); }
+  .editor-styles-wrapper .rotate-55 { transform:rotate(-55deg); }
+  .editor-styles-wrapper .rotate-60 { transform:rotate(-60deg); }
+  .editor-styles-wrapper .rotate-66 { transform:rotate(-65deg); }
+  .editor-styles-wrapper .rotate-70 { transform:rotate(-70deg); }
+  .editor-styles-wrapper .rotate-75 { transform:rotate(-75deg); }
+  .editor-styles-wrapper .rotate-80 { transform:rotate(-80deg); }
+  .editor-styles-wrapper .rotate-85 { transform:rotate(-85deg); }
+  .editor-styles-wrapper .rotate-90 { transform:rotate(-90deg); }
+
+ 
+ /* ESTILS EDITOR */
+ 
+ .editor-styles-wrapper h1.editor-post-title {
+     color:gray;
+ }
+ 
+ .editor-styles-wrapper .opacity {
+     opacity: 1;
+     border:1px dashed gray;
+ }
+ 
+ .editor-styles-wrapper .opacity::before {
+     content: 'Opacity ON';
+     color: gray;
+     top:-2rem;
+     text-transform: uppercase;
+     font-size: 1.2rem;
+     left:calc(50% - 80px);
+     width: 160px;
+ }
+ 
+ .editor-styles-wrapper .FromLeft{ 
+     left:0;
+     border-left: 1px dashed red;
+     position: relative;
+ } 
+ 
+ .editor-styles-wrapper .FromRight{
+     right:0;
+     border-right: 1px dashed green;
+     position: relative;
+ } 
+ 
+ 
+ .editor-styles-wrapper .FromRight::before{
+     content: 'FromRight On';
+     color:green;
+     position: absolute;
+     text-align: center;
+     text-transform: uppercase;
+     font-size: 1.2rem;
+     top:-2rem;
+     left:calc(50% - 80px);
+     width: 160px;
+ } 
+ 
+ .editor-styles-wrapper .FromLeft::before{
+     content: 'FromLeft On';
+     color:red;
+     position: absolute;
+     text-transform: uppercase;
+     font-size: 1.2rem;
+     top:-2rem;
+     left:calc(50% - 80px);
+     width: 160px;
+ } 
+
+ /* TXT */
+
+
+.editor-styles-wrapper .AnimateText {
+        border: 1px dashed aqua;
+        position: relative;   
+ }
+
+.editor-styles-wrapper .AnimateText::before{
+    content: 'Animated Text';
+    color:aqua;
+    position: absolute;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    top:-2rem;
+    left:50%;
+    width: 100%;
+} 
+
+
+/* ----- Style the elements ----- */
+
+  /* Wrap the image and alt text */
+  /* Will be added with js */
+  .ghub-scroll-box-wrapper figure.wp-block-image img{ 
+    /* display: block; */
+    position: relative;
+  }
+
+/* The alt text itself */
+/* Will be added with js */
+  .ghub-scroll-box-wrapper figure.wp-block-image p.alt {
+    position: absolute;
+    opacity: 0;
+    top:0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    padding-top: calc(50% - 6rem);
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-bottom: calc(50% - 6rem);
+    font-size: 2rem;
+    line-height: 120%;
+    text-align: center;
+    background-color: rgba(0,0,0,0.5);
+    transition: all 300ms ease;
+    transition-delay: 100ms;
+  }
+
+/* Hovering over the wrapper shows its alt p*/
+.ghub-scroll-box-wrapper figure.wp-block-image:hover > p.alt { 
+    opacity: 1; 
+    transition-delay: 0s;
+  }
+ 
+ 

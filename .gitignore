@@ -11,3 +11,4 @@ plugins/hello.php
 *.log
 *.sql
 node_modules/
+.lando.yml

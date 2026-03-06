@@ -1,0 +1,25 @@
+
+.hide-phone,
+.hide-tablet,
+.hide-desktop {
+    display: none; 
+}
+
+
+@media (min-width: 768px) {
+    .hide-phone {
+        display: block; 
+    }
+}
+
+@media (min-width: 1024px) {
+    .hide-tablet {
+        display: block; 
+    }
+}
+
+@media (min-width: 1024px) {
+    .hide-desktop {
+        display: none;
+    }
+}

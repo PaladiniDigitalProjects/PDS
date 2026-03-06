@@ -1,0 +1,185 @@
+{
+    "$schema": "https://json.schemastore.org/block.json",
+    "apiVersion": 2,
+    "name": "ghub/accordion",
+    "title": "Accordion",
+    "description": "Create an organized and visually appealing FAQ section on your website with the Accordion Block with FAQ Schema option, featuring an instant search function for easy navigation.",
+    "category": "ghub-products",
+    "keywords": [
+        "accordion",
+        "toggle",
+        "collapsible"
+    ],
+    "version": "1.0.0",
+    "textdomain": "ghub-accordion",
+    "attributes": {
+        "accordionIcon": {
+            "type": "string",
+            "default": "arrow"
+        },
+        "showPlaceholder": {
+            "type": "boolean",
+            "default": true
+        },
+        "iconPosition": {
+            "type": "string",
+            "default": "right"
+        },
+        "iconSpacing": {
+            "type": "string",
+            "default": "10px"
+        },
+        "enableFAQSchema": {
+            "type": "boolean",
+            "default": false
+        },
+        "isShowIcon": {
+            "type": "boolean",
+            "default": true
+        },
+        "isOpenOneAtATime": {
+            "type": "boolean",
+            "default": false
+        },
+        "isOpenFirst": {
+            "type": "boolean",
+            "default": false
+        },
+        "titleColor": {
+            "type": "string",
+            "default": null
+        },
+        "activeTitleColor": {
+            "type": "string",
+            "default": null
+        },
+        "contentColor": {
+            "type": "string",
+            "default": null
+        },
+        "accordionBackground": {
+            "type": "string",
+            "default": null
+        },
+        "accordionGradientBackground": {
+            "type": "string",
+            "default": null
+        },
+        "activeAccordionBackground": {
+            "type": "string",
+            "default": null
+        },
+        "activeAccordionGradientBackground": {
+            "type": "string",
+            "default": null
+        },
+        "accordionPadding": {
+            "type": "object",
+            "default": {}
+        },
+        "accordionGap": {
+            "type": "string",
+            "default": ""
+        },
+        "accordionBorder": {
+            "type": "object",
+            "default": {}
+        },
+        "accordionBorderRadius": {
+            "type": "object",
+            "default": {}
+        },
+        "titleBorderRadius": {
+            "type": "object",
+            "default": {}
+        },
+        "titleBorder": {
+            "type": "object",
+            "default": {}
+        },
+        "contentBorderRadius": {
+            "type": "object",
+            "default": {}
+        },
+        "contentBorder": {
+            "type": "object",
+            "default": {}
+        },
+        "titleBackground": {
+            "type": "string",
+            "default": null
+        },
+        "titleGradientBackground": {
+            "type": "string",
+            "default": null
+        },
+        "titleActiveGradientBackground": {
+            "type": "string",
+            "default": null
+        },
+        "titleActiveBackground": {
+            "type": "string",
+            "default": null
+        },
+        "contentBackground": {
+            "type": "string",
+            "default": null
+        },
+        "contentGradientBackground": {
+            "type": "string",
+            "default": null
+        },
+        "contentActiveGradientBackground": {
+            "type": "string",
+            "default": null
+        },
+        "titlePadding": {
+            "type": "object",
+            "default": {
+                "top": "10px",
+                "right": "20px",
+                "bottom": "10px",
+                "left": "20px"
+            }
+        },
+        "contentPadding": {
+            "type": "object",
+            "default": {
+                "top": "10px",
+                "right": "20px",
+                "bottom": "10px",
+                "left": "20px"
+            }
+        }
+    },
+    "supports": {
+        "align": [
+            "full",
+            "wide"
+        ],
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true,
+            "__experimentalFontFamily": true,
+            "__experimentalTextDecoration": true,
+            "__experimentalFontStyle": true,
+            "__experimentalFontWeight": true,
+            "__experimentalLetterSpacing": true,
+            "__experimentalTextTransform": true,
+            "__experimentalDefaultControls": {
+                "fontSize": true
+            }
+        }
+    },
+    "providesContext": {
+        "isOpenOneAtATime": "isOpenOneAtATime",
+        "accordionIcon": "accordionIcon",
+        "isShowIcon": "isShowIcon",
+        "iconPosition": "iconPosition",
+        "enableFAQSchema": "enableFAQSchema"
+    },
+    "editorStyle": "gutenberghub-accordion-gutenberg-style",
+    "editorScript": "gutenberghub-accordion-gutenberg-script",
+    "viewScript": "gutenberghub-accordion-frontend",
+    "style": "gutenberghub-accordion-frontend-style"
+}

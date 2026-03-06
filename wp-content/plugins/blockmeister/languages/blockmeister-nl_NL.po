@@ -1,0 +1,518 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BlockMeister\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-01 09:46+0000\n"
+"PO-Revision-Date: 2022-07-28 16:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: Nederlands\n"
+"Language: nl_NL\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0.1"
+
+#. translators: placeholder will be replaced by the number of the patterns that were imported
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1026
+#, php-format
+msgid "%d patterns imported."
+msgstr "%d patronen geïmporteerd."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:660
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:756
+msgid "Activate"
+msgstr "Activeer"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:165
+msgid "Active"
+msgstr "Actief"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:49
+msgid "Add New"
+msgstr "Nieuw patroon"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Keywords_Taxonomy.php:32
+msgid "Add New Keyword"
+msgstr "Nieuw trefwoord toevoegen"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:50
+msgid "Add New Pattern"
+msgstr "Nieuw patroon toevoegen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:62
+msgid "Add to Block patterns"
+msgstr "Voegt toe aan Blokpatronen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/document-settings-slotfill.js:34
+msgid "Adding of custom CSS to blocks is disabled."
+msgstr "Toevoegen van eigen CSS aan blokken is gedeactiveerd."
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/document-settings-slotfill.js:33
+msgid "Adding of custom CSS to blocks is enabled."
+msgstr "Toevoegen van eigen CSS aan blokken is geactiveerd."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:58
+msgid "All Patterns"
+msgstr "Alle patronen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:71
+msgid "Base width used for scaling down the preview."
+msgstr "Basisbreedte voor het schalen van het voorbeeld."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:61
+msgid ""
+"Be aware: if selected, when BlockMeister is being uninstalled, all data "
+"created through BlockMeister will be deleted, definitely! This does not "
+"affect block patterns inserted in posts or pages though."
+msgstr ""
+"Opgelet: als geselecteerd dan wordt tijdens deïnstallatie van BlokMeister "
+"alle data die door/met BlockMeister gecreëerd werd definitief verwijderd! "
+"Dit heeft geen invloed op blokpatronen die aan berichten of pagina's zijn "
+"toegevoegd. "
+
+#: src/pattern-builder-premium/filters/block-scope-css-editor.js:112
+msgid "Block CSS"
+msgstr "Blok CSS"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:72
+msgid "Block Pattern"
+msgstr "Blokpatroon"
+
+#. Description of the plugin
+msgid ""
+"Block pattern builder. Lets you easily and visually create custom block "
+"patterns."
+msgstr ""
+"Blokpatroon ontwerptool. Laat je makkelijk en op een visuele manier je eigen "
+"blokpatronen creëren."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:99
+msgid "Block pattern revisions"
+msgstr "Blockpatroon revisies"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:49
+msgid "Block Pattern Settings"
+msgstr "Blokpatroon Instellingen"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:71
+msgid "Block Patterns"
+msgstr "Blokpatronen"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+msgid "BlockMeister"
+msgstr "BlockMeister"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:51
+msgid "BlockMeister Plugin Uninstall Settings"
+msgstr "BlockMeister Plug-in Deïnstallatie Instellingen"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:489
+msgid "Categories"
+msgstr "Categorieën"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:683
+msgid "Clone"
+msgstr "Kloon"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:926
+msgid "clone"
+msgstr "kloon"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:975
+msgid "Cloning of not registered pattern failed."
+msgstr "Klonen van niet geregistreerd patroon is mislukt."
+
+#: includes/JSON_File_Uploader.php:34
+msgid "Close uploader"
+msgstr "Sluit uploader"
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:152
+msgid "Contained blocks are locked; they can't be moved, removed or added."
+msgstr ""
+"Opgenomen blokken zijn vergrendeld; ze kunnen niet verplaats, verwijderd of "
+"toegevoegd worden."
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:153
+msgid "Contained blocks are unlocked."
+msgstr "Opgenomen blokken zijn ontgrendeld."
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:80
+msgid "Create Pattern"
+msgstr "Maak Patroon"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Category_Taxonomy.php:42
+msgid "Custom Pattern Categories"
+msgstr "Eigen Patrooncategorieën"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:655
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:759
+msgid "Deactivate"
+msgstr "Deactiveer"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Category_Taxonomy.php:93
+msgid "Default category"
+msgstr "Standaar categorie"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:59
+#| msgid "Delete all data when I uninstall this plugin."
+msgid "Delete all data when I uninstall this plugin"
+msgstr "Verwijder alle data wanneer ik deze plugin verwijder"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:58
+msgid "Description (for screen readers)"
+msgstr "Beschrijving (voor schermlezers)"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:703
+msgid "Download"
+msgstr "Download"
+
+#: includes/JSON_File_Uploader.php:32
+msgid "Drop files to upload"
+msgstr "Drop te uploaden bestanden "
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:51
+msgid "Edit Pattern"
+msgstr "Patroon bewerken"
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/document-settings-slotfill.js:30
+msgid "Enable block CSS editor"
+msgstr "Activeer blok CSS editor"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Editor.php:23
+msgid "Enter pattern name"
+msgstr "Voer patroonnaam in"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:63
+msgid "Filter pattern list"
+msgstr "Patronenlijst filteren"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#| msgid "https://wpblockmeister.com"
+msgid "https://wpblockmeister.com/"
+msgstr "https://wpblockmeister.com"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:92
+msgid ""
+"If checked (default), block patterns registered by your active theme and "
+"plugins will be loaded."
+msgstr ""
+"Als aangevinkt (standaard), blokpatronen die door je actieve theme en "
+"plugins zijn geregistreerd worden geladen. "
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:83
+msgid ""
+"If checked (default), the standard set of local and remote core WordPress "
+"block patterns will be loaded."
+msgstr ""
+"Als aangevinkt (standaard), de standaard set van lokale en remote core "
+"WordPress blokpatronen worden geladen."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:74
+msgid ""
+"If checked (default), the standard set of local core WordPress block "
+"patterns will be loaded."
+msgstr ""
+"Als aangevinkt (standaard), the standaard set van lokale core WordPress "
+"blokpatronen worden geladen."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:317
+msgid "Import"
+msgstr "Importeren"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1081
+msgid "import"
+msgstr "importeren"
+
+#: includes/JSON_File_Uploader.php:100
+msgid "Imported file has invalid file extension."
+msgstr "Geïmporteerd bestand heeft een incorrecte bestandsextensie."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:171
+msgid "Inactive"
+msgstr "Inactief"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:61
+msgid "Insert into pattern"
+msgstr "Invoegen in patroon"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1047
+msgid "Invalid data format."
+msgstr "Incorrecte data indeling."
+
+#: includes/JSON_File_Uploader.php:38
+msgid "Keep your site safe!"
+msgstr "Houdt je website veilig!"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Keywords_Taxonomy.php:31
+msgid "Keyword"
+msgstr "Trefwoord"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:490
+#: includes/Pattern_Builder/BlockMeister_Pattern_Keywords_Taxonomy.php:30
+msgid "Keywords"
+msgstr "Trefwoorden"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:90
+#| msgid "Load block patterns registered by themes and plugins."
+msgid "Load block patterns registered by themes and plugins"
+msgstr "Laad blokpatronen geregistreerd door thema's en plug-ins"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:81
+msgid "Load local and remote core block patterns"
+msgstr "Laad lokale en remote core blokpatronen"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:72
+msgid "Load local core block patterns"
+msgstr "Laad lokale core blokpatronen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:155
+msgid "Lock contained blocks"
+msgstr "Vergrendel opgenomen blokken"
+
+#: build/pattern-builder/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:132
+msgid "Locking"
+msgstr "Vergrendelen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:55
+msgid "Max. 20 lowercase alphanumeric characters, dashes or underscores."
+msgstr ""
+"Max. 20 alfanumerieke tekens in kleine letters, streepjes of "
+"onderstrepingstekens. "
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:45
+msgid "Name"
+msgstr "Naam"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:52
+msgid "New Pattern"
+msgstr "Nieuw patroon"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:66
+msgid "New pattern settings"
+msgstr "Nieuw patroon instellingen"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:56
+msgid "No pattern found."
+msgstr "Geen patronen gevonden."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:57
+msgid "No patterns found in Trash."
+msgstr "Geen patronen gevonden in prullenbak."
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:82
+msgid ""
+"Note: after the pattern has been created, you'll need to reload the page to "
+"make the pattern visible in the inserter."
+msgstr ""
+"Opmerking: nadat het patroon is aangemaakt moet je de pagina opnieuw laden "
+"om het patroon in de 'inserter' zichtbaar te maken."
+
+#: includes/JSON_File_Uploader.php:39
+msgid ""
+"Only import patterns you downloaded from trusted sources or manually "
+"validate the pattern code before importing."
+msgstr ""
+"Importeer alleen patronen die je gedownload hebt van vertrouwde bronnen óf "
+"valideer de patrooncode voor dat je deze importeert."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:48
+msgid "Pattern"
+msgstr "Patroon"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:49
+msgid "Pattern '%s' created."
+msgstr "Patroon '%s' is gecreëerd."
+
+#. translators: placeholder will be replaced by the name of the pattern that was activated
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:862
+#, php-format
+msgid "Pattern '%s' has been activated."
+msgstr "Patroon '%s' is geactiveerd."
+
+#. translators: placeholder will be replaced by the name of the pattern that was cloned
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:970
+#, php-format
+msgid "Pattern '%s' has been cloned."
+msgstr "Patroon '%s' is gekloond."
+
+#. translators: placeholder will be replaced by the name of the pattern that was deactivated
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:894
+#, php-format
+msgid "Pattern '%s' has been deactivated."
+msgstr "Patroon '%s' is gedeactiveerd."
+
+#. translators: placeholder will be replaced by the name of the pattern
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1023
+#, php-format
+msgid "Pattern '%s' has been imported."
+msgstr "Patroon '%s' is geïmporteerd."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:59
+msgid "Pattern Archives"
+msgstr "Patronenarchief"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:60
+msgid "Pattern Attributes"
+msgstr "Patroonattributen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:70
+msgid "Pattern name"
+msgstr "Patroonnaam"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:67
+msgid "Pattern published privately."
+msgstr "Patroon privé gepubliceerd."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:66
+msgid "Pattern published."
+msgstr "Patroon gepubliceerd."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:68
+msgid "Pattern reverted to draft."
+msgstr "Patroon teruggezet naar concept."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:69
+msgid "Pattern scheduled."
+msgstr "Patroon gepland."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:70
+msgid "Pattern updated."
+msgstr "Patroon bijgewerkt."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:47
+msgid "Patterns"
+msgstr "Patronen"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:65
+msgid "Patterns list"
+msgstr "Patronenlijst"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:64
+msgid "Patterns list navigation"
+msgstr "Patronenlijst-navigatie"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:282
+msgid "Registered"
+msgstr "Geregistreerd"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:55
+msgid "Search Patterns"
+msgstr "Patronen zoeken"
+
+#: includes/JSON_File_Uploader.php:33
+msgid "Select Files"
+msgstr "Selecteer Bestanden"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:101
+msgid ""
+"Set to 0 (default) to disable revisions or set the number of revisions (max "
+"1000) of your custom patterns to keep."
+msgstr ""
+"Stel in op 0 (standaard) om revisies uit te schakelen of stel het aantal "
+"revisies van je eigen patronen om te bewaren in (max 1000)."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:25
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:35
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:29
+msgid "Settings"
+msgstr "Instellingen"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:51
+msgid "Slug (internal name)"
+msgstr "Slug (interne naam)"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Category_List_Table.php:46
+msgid "Source"
+msgstr "Bron"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Editor.php:26
+msgid "Start writing or type / to choose a block to add to your block pattern"
+msgstr ""
+"Begin met schrijven of type / om een blok te kiezen om toe te voegen aan je "
+"blokpatroon"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:995
+msgid "There where no files uploaded to import."
+msgstr "Er zijn geen bestanden geüpload om te importeren."
+
+#: src/pattern-builder-premium/filters/block-scope-css-editor.js:113
+msgid ""
+"Tips: \n"
+"add an additional unique CSS classname for this block. Start any of your "
+"selectors with that class."
+msgstr ""
+"Tips:\n"
+"voeg een extra unieke CSS  klassenaam toe voor dit blok. Start al je "
+"selecters met deze klassenaam."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:814
+msgid "Unknown action"
+msgstr "Onbekende actie"
+
+#: includes/JSON_File_Uploader.php:91
+msgid "Uploaded file is empty."
+msgstr "Geüpload bestand is leeg."
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:62
+msgid "Uploaded to this pattern"
+msgstr "Geüpload naar dit patroon"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Category_List_Table.php:67
+msgid "User"
+msgstr "Gebruiker"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:53
+msgid "View Pattern"
+msgstr "Patroon bekijken"
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:54
+msgid "View Patterns"
+msgstr "Patronen bekijken"
+
+#: build/pattern-builder/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:64
+msgid "Viewport width"
+msgstr "Viewportbreedte"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Category_List_Table.php:64
+msgid "WordPress/Theme/Plugin"
+msgstr "WordPress/Thema/Plug-in"
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:867
+msgid "You have insufficient rights to activate patterns."
+msgstr "Je rechten zijn niet toereikend om patronen te activeren. "
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:978
+msgid "You have insufficient rights to clone patterns."
+msgstr "Je rechten zijn niet toereikend om patronen te klonen."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:898
+msgid "You have insufficient rights to deactivate patterns."
+msgstr "Je rechten zijn niet toereikend om patronen te deactiveren."
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1030
+msgid "You have insufficient rights to import patterns."
+msgstr "Je rechten zijn niet toereikend om patronen te importeren."

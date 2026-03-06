@@ -1,0 +1,192 @@
+// LOGO
+
+.wp-block-site-logo {
+  width: 100%;
+  max-width: 6rem;
+  
+  @include tablet{
+    max-width: 7rem;
+  }
+
+  @include laptop {
+    max-width: 8rem;
+  }
+
+  @include large{
+    max-width: 10rem;
+  }
+}
+
+// HEADER PAGES
+
+header.wp-block-template-part {
+  padding: 1rem;
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+  width: calc(100% - 2rem);
+
+  @include tablet{
+    padding: 1rem;
+  }
+
+  @include laptop {
+    padding: 1rem;
+  }
+  
+  &.headerup {
+    transform: translateY(-10rem);
+  }
+
+  &.fullheader {
+    transition: 0.35s;
+    transform: translateY(0);
+  }
+
+  & + main {
+    padding-top: 4rem;
+
+    @include tablet{
+      padding-top: 6rem;
+    }
+  
+    @include laptop {
+      padding-top: 10rem;
+    }
+  }
+
+  .has-global-padding {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  /* MNU HEADER */
+
+  ul.wp-block-navigation {
+    li {
+      display:none;
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        display: block;
+        font-size: 1.25rem !important;
+        line-height: 100% !important;
+        font-weight: 100 !important;
+      }
+
+      &:nth-child(2) {
+        display: block;
+        background-color: #ffffff;
+        color:#000000;
+        border-radius: 2px;
+        padding: 0.65rem 1rem;
+        &:hover {
+          color: #000000;
+          background-color: #e2e2e2;
+        }
+      }
+    }
+  }
+
+}
+
+main {
+  margin-top: 0 !important;
+}
+
+html.has-modal-open  {
+  header.wp-block-template-part {
+    background-color: #000000;
+  &.headerup,
+  &.fullheader {
+    height: 100%;
+    background: transparent;
+    }
+  }
+}
+
+
+// // HEADER SINGLE
+
+// .single {  
+//   header.wp-block-template-part {
+//     background-color: transparent;
+//     // &.fullheader {
+//       // background-color:rgba(255, 255, 255, 0.5);
+//     // }
+
+//     .wp-block-site-logo {
+//       img{
+//         filter: invert(100%);
+//       }
+//     }
+//   }
+// }
+
+// html.has-modal-open {
+//   .single {
+//     header.wp-block-template-part {
+//       .wp-block-site-logo {
+//         img{
+//           filter: invert(0);
+//         }
+//       }
+//     }
+//   }
+// }
+
+.gutenberghub-query-taxonomy-menu {
+  button.wp-element-button {
+  &.is-active-menu {
+      color:rgb(103, 103, 103) !important;
+      font-weight: 400;
+  }
+} 
+}
+
+
+.wp-block-search__inside-wrapper {
+  &:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) {
+    border: 0 solid #949494;
+    box-sizing: border-box;
+    padding: 0 !important;
+    margin-top: -1rem;
+  }
+
+  .wp-block-search__input {
+    appearance: none;
+    border-left: 1px solid #000 !important;
+    flex-grow: 1;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 3rem;
+    padding: 0 0.5rem;
+    text-decoration: unset !important;
+    border-radius: 0 !important;
+    background: transparent;
+    font-weight: 400;
+    color: #000000 !important;
+  }
+}
+
+
+/* menu */
+
+.wp-block-navigation ul, .wp-block-navigation ul li {
+  list-style: none;
+  margin-left: 1rem;
+  margin-top: 0
+
+}
+
+.screen-reader-text {
+  display: none;
+}
+
+.pll-switcher-select {
+background: transparent;
+color: white;
+border: none;
+font-size: 1.4rem;
+top:-3px;
+}

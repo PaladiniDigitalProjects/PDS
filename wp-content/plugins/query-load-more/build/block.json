@@ -1,0 +1,94 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "ghub/query-load-more",
+  "version": "1.0.0",
+  "title": "Query Load More",
+  "category": "ghub-products",
+  "description": "The Load More block in WordPress Gutenberg is a game-changer! It allows users to display a set number of posts initially and then load more with a single click.",
+  "attributes": {
+    "autoTrigger": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "loadingText": {
+      "type": "string",
+      "default": "Loading..."
+    },
+    "label": {
+      "type": "string",
+      "default": "Load More"
+    }
+  },
+  "supports": {
+    "anchor": true,
+    "className": false,
+    "__experimentalBorder": {
+      "color": true,
+      "radius": true,
+      "style": true,
+      "width": true,
+      "__experimentalDefaultControls": {
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "__experimentalLayout": {
+      "allowSwitching": false,
+      "allowInheriting": false,
+      "allowOrientation": false,
+      "allowSpaceBetween": false,
+      "allowVerticalAlignment": false,
+      "default": {
+        "type": "flex"
+      }
+    },
+    "color": {
+      "gradients": false,
+      "background": false,
+      "link": true,
+      "text": false
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalFontStyle": true,
+      "__experimentalFontWeight": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalTextTransform": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
+      }
+    },
+    "__unstablePasteTextInline": true
+  },
+  "ancestor": [
+    "core/query"
+  ],
+  "usesContext": [
+    "query",
+    "queryId",
+    "ghubQueryId"
+  ],
+  "textdomain": "query-load-more",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "gutenberghub-query-load-more-plugin-frontend-script"
+}

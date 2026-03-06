@@ -1,0 +1,21 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css C:\Users\salman\AppData\Roaming\nvm\v16.0.0\node_modules\@wordpress\scripts\node_modules\css-loader\dist\cjs.js??ruleSet[1].rules[4].use[1]!C:\Users\salman\AppData\Roaming\nvm\v16.0.0\node_modules\@wordpress\scripts\node_modules\postcss-loader\dist\cjs.js??ruleSet[1].rules[4].use[2]!C:\Users\salman\AppData\Roaming\nvm\v16.0.0\node_modules\@wordpress\scripts\node_modules\sass-loader\dist\cjs.js??ruleSet[1].rules[4].use[3]!./src/editor.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+.ghub-query-load-more {
+  cursor: pointer;
+  display: flex;
+}
+.ghub-query-load-more .ghub_query_load_more_link {
+  cursor: pointer;
+}
+.ghub-query-load-more.justify-content-left {
+  justify-content: flex-start;
+}
+.ghub-query-load-more.justify-content-center {
+  justify-content: center;
+}
+.ghub-query-load-more.justify-content-right {
+  justify-content: flex-end;
+}
+
+/*# sourceMappingURL=index.css.map*/

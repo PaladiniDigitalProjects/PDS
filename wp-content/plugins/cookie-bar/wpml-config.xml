@@ -1,0 +1,6 @@
+<wpml-config>
+  <admin-texts>
+    <key name="cookie_bar_message"/>
+    <key name="cookie_bar_button"/>
+  </admin-texts>
+</wpml-config>

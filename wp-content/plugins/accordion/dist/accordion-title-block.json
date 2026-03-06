@@ -1,0 +1,86 @@
+{
+    "$schema": "https://json.schemastore.org/block.json",
+    "apiVersion": 2,
+    "name": "ghub/accordion-title",
+    "title": "Accordion Title",
+    "description": "Accordion title block.",
+    "category": "ghub-products",
+    "keywords": [
+        "accordion",
+        "title"
+    ],
+    "version": "1.0.0",
+    "textdomain": "ghub-accordion",
+    "attributes": {
+        "enableFAQSchema": {
+            "type": "boolean"
+        },
+        "accordionIcon": {
+            "type": "string"
+        },
+        "iconPosition": {
+            "type": "string"
+        },
+        "isShowIcon": {
+            "type": "boolean"
+        },
+        "justification": {
+            "type": "string",
+            "default": "space-between"
+        }
+    },
+    "supports": {
+        "color": {
+            "gradients": true,
+            "link": false,
+            "__experimentalDefaultControls": {
+                "background": true,
+                "text": true
+            }
+        },
+        "spacing": {
+            "margin": true,
+            "padding": true
+        },
+        "__experimentalBorder": {
+            "color": true,
+            "radius": true,
+            "style": true,
+            "width": true,
+            "__experimentalDefaultControls": {
+                "color": true,
+                "radius": true,
+                "style": true,
+                "width": true
+            }
+        },
+        "typography": {
+            "fontSize": true,
+            "lineHeight": true,
+            "__experimentalFontFamily": true,
+            "__experimentalTextDecoration": true,
+            "__experimentalFontStyle": true,
+            "__experimentalFontWeight": true,
+            "__experimentalLetterSpacing": true,
+            "__experimentalTextTransform": true,
+            "__experimentalDefaultControls": {
+                "fontSize": true
+            }
+        }
+    },
+    "usesContext": [
+        "isOpen",
+        "isOpenOneAtATime",
+        "accordionIcon",
+        "isShowIcon",
+        "iconPosition",
+        "enableFAQSchema"
+    ],
+    "parent": [
+        "ghub/accordion-item"
+    ],
+    "editorStyle": "gutenberghub-accordion-gutenberg-style",
+    "editorScript": "gutenberghub-accordion-gutenberg-script",
+    "viewScript": "gutenberghub-accordion-frontend",
+    "style": "gutenberghub-accordion-frontend-style"
+}

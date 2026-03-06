@@ -1,0 +1,391 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WPForms Mailchimp 2.5.1\n"
+"Report-Msgid-Bugs-To: https://wpforms.com/support/\n"
+"Last-Translator: WPForms <support@wpforms.com>\n"
+"Language-Team: WPForms <support@wpforms.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-06-26T11:01:44+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: wpforms-mailchimp\n"
+
+#. Plugin Name of the plugin
+msgid "WPForms Mailchimp"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://wpforms.com"
+msgstr ""
+
+#. Description of the plugin
+msgid "Mailchimp integration with WPForms."
+msgstr ""
+
+#. Author of the plugin
+msgid "WPForms"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:172
+msgid "Mailchimp Subscription error"
+msgstr ""
+
+#. translators: %s - error details.
+#: deprecated/class-mailchimp.php:218
+msgid "API auth error: %s"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:258
+msgid "API connect error"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:284
+#: deprecated/class-mailchimp.php:353
+msgid "Mailchimp API error"
+msgstr ""
+
+#. translators: %s - error message.
+#: deprecated/class-mailchimp.php:292
+msgid "API list error: %s"
+msgstr ""
+
+#. translators: %s - error message.
+#: deprecated/class-mailchimp.php:324
+msgid "API groups error: %s"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:349
+msgid "API fields error: No fields"
+msgstr ""
+
+#. translators: %s - error message.
+#: deprecated/class-mailchimp.php:361
+msgid "API fields error: %s"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:383
+msgid "Add New Account"
+msgstr ""
+
+#. translators: %s - provider name.
+#: deprecated/class-mailchimp.php:386
+#: deprecated/class-mailchimp.php:454
+msgid "%s API Key"
+msgstr ""
+
+#. translators: %s - provider name.
+#. translators: %s - current provider name.
+#: deprecated/class-mailchimp.php:388
+#: deprecated/class-mailchimp.php:456
+#: templates/settings/new-account-connection.php:37
+msgid "%s Account Nickname"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:390
+msgid "Connect"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:415
+msgid "Options"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:424
+msgid "Send welcome email"
+msgstr ""
+
+#: deprecated/class-mailchimp.php:434
+msgid "Use double opt-in"
+msgstr ""
+
+#: src/Plugin.php:163
+msgid "Your forms are currently using an outdated Mailchimp integration that is no longer supported. Please update your forms to use the new integration to avoid losing subscribers."
+msgstr ""
+
+#: src/Plugin.php:166
+msgid "Click here for more details."
+msgstr ""
+
+#: src/Provider/Api.php:137
+msgid "Unknown Group"
+msgstr ""
+
+#: src/Provider/Core.php:30
+msgid "Mailchimp"
+msgstr ""
+
+#: src/Provider/Helpers.php:21
+msgid "Invalid Mailchimp API credentials. Please check your information and try again."
+msgstr ""
+
+#: src/Provider/Process.php:277
+msgid "A contact with that email address is already subscribed."
+msgstr ""
+
+#: src/Provider/Process.php:312
+msgid "A contact with that email address was unsubscribed and resubscription is not allowed."
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:174
+#: src/Provider/Settings/PageIntegrations.php:37
+msgid "Please provide a valid API Key."
+msgstr ""
+
+#. translators: %s - error details.
+#: src/Provider/Settings/FormBuilder.php:203
+#: src/Provider/Settings/PageIntegrations.php:60
+msgid "Mailchimp API error: %s"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:239
+msgid "New Mailchimp Account"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:275
+msgid "Marketing provider connection"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:429
+msgid "Missing a valid API key."
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:556
+msgid "Subscriber Email"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:561
+msgid "--- Select Email Field ---"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:653
+#: templates/builder/error.php:9
+#: templates/settings/new-account-connection.php:39
+msgid "Something went wrong while performing an AJAX request."
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:656
+msgid "Full"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:657
+msgid "First"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:658
+msgid "Middle"
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:659
+msgid "Last"
+msgstr ""
+
+#. translators: %1$s - Mailchimp page URL: Collect Consent with GDPR Forms, %2$s - audience name, %3$s - connection name.
+#: src/Provider/Settings/FormBuilder.php:663
+msgid "<a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">Marketing Permissions</a> are required for the \"<strong>%2$s</strong>\" audience of the \"<strong>%3$s</strong>\" connection. Please add a GDPR field to your form."
+msgstr ""
+
+#: src/Provider/Settings/FormBuilder.php:677
+msgid "--- Select Mailchimp Field ---"
+msgstr ""
+
+#: src/Provider/Settings/PageIntegrations.php:43
+msgid "Account with those credentials has been already added."
+msgstr ""
+
+#: templates/builder/archive.php:14
+#: templates/builder/general.php:35
+msgid "Archive"
+msgstr ""
+
+#: templates/builder/archive.php:18
+msgid "Contact will be removed from an audience and will not count towards Mailchimp account billing. You can add them back to an audience later."
+msgstr ""
+
+#: templates/builder/connection.php:22
+msgid "Select Account"
+msgstr ""
+
+#: templates/builder/connection.php:25
+msgid "--- Select Account ---"
+msgstr ""
+
+#: templates/builder/delete.php:14
+#: templates/builder/general.php:36
+msgid "Permanently Delete"
+msgstr ""
+
+#: templates/builder/delete.php:18
+msgid "Contact and their personal data will be permanently removed from an audience. <strong>You cannot add them back later</strong>."
+msgstr ""
+
+#: templates/builder/general.php:8
+msgid "Select Audience"
+msgstr ""
+
+#: templates/builder/general.php:12
+msgid "--- No Audiences ---"
+msgstr ""
+
+#: templates/builder/general.php:12
+msgid "--- Select Audience ---"
+msgstr ""
+
+#: templates/builder/general.php:23
+msgid "You have no audience yet. Consider creating at least one."
+msgstr ""
+
+#: templates/builder/general.php:29
+msgid "Action To Perform"
+msgstr ""
+
+#: templates/builder/general.php:32
+msgid "--- Select Action ---"
+msgstr ""
+
+#: templates/builder/general.php:33
+#: templates/builder/subscribe.php:14
+msgid "Subscribe"
+msgstr ""
+
+#: templates/builder/general.php:34
+#: templates/builder/unsubscribe.php:14
+msgid "Unsubscribe"
+msgstr ""
+
+#: templates/builder/general.php:37
+msgid "Record Event"
+msgstr ""
+
+#: templates/builder/record-event.php:14
+msgid "Record Events"
+msgstr ""
+
+#: templates/builder/record-event.php:21
+msgid "Event Name"
+msgstr ""
+
+#: templates/builder/record-event.php:22
+#: templates/builder/subscribe.php:65
+msgid "e.g., wpforms"
+msgstr ""
+
+#: templates/builder/record-event.php:24
+msgid "Must be 2-30 characters long and only contain letters, numbers, underscores, and dashes."
+msgstr ""
+
+#: templates/builder/required-fields.php:16
+msgid "--- Select Form Field ---"
+msgstr ""
+
+#: templates/builder/subscribe.php:22
+msgid "Select Groups"
+msgstr ""
+
+#: templates/builder/subscribe.php:23
+msgid "We also noticed that you have some groups (segments) in your list. You can select specific list groups below if needed. This is optional."
+msgstr ""
+
+#: templates/builder/subscribe.php:29
+msgid "--- No Groups ---"
+msgstr ""
+
+#: templates/builder/subscribe.php:29
+msgid "Select group(s)"
+msgstr ""
+
+#: templates/builder/subscribe.php:44
+msgid "Select Tags"
+msgstr ""
+
+#: templates/builder/subscribe.php:47
+msgid "Tags To Add"
+msgstr ""
+
+#: templates/builder/subscribe.php:50
+#: templates/builder/subscribe.php:76
+msgid "--- No Tags ---"
+msgstr ""
+
+#: templates/builder/subscribe.php:50
+#: templates/builder/subscribe.php:76
+msgid "Select tag(s)"
+msgstr ""
+
+#: templates/builder/subscribe.php:58
+#: templates/builder/subscribe.php:84
+msgid "Select one or more of the existing tags."
+msgstr ""
+
+#: templates/builder/subscribe.php:63
+msgid "New Tags to Add"
+msgstr ""
+
+#: templates/builder/subscribe.php:67
+msgid "Comma-separated list of tags is accepted."
+msgstr ""
+
+#: templates/builder/subscribe.php:73
+msgid "Tags To Remove"
+msgstr ""
+
+#: templates/builder/subscribe.php:90
+msgid "Note"
+msgstr ""
+
+#: templates/builder/subscribe.php:96
+msgid "Enter a note"
+msgstr ""
+
+#. translators: %s - WPForms.com URL to the list of Smart Tags.
+#: templates/builder/subscribe.php:103
+msgid "You can use <a href=\"%s\" target=\"_blank\" rel=\"noopener noreferrer\">Smart Tags</a> in notes."
+msgstr ""
+
+#: templates/builder/subscribe.php:134
+msgid "Enable double opt-in"
+msgstr ""
+
+#: templates/builder/subscribe.php:138
+msgid "Send contacts an opt-in confirmation email when they subscribe to audience."
+msgstr ""
+
+#: templates/builder/subscribe.php:159
+msgid "Mark subscriber as VIP"
+msgstr ""
+
+#: templates/builder/subscribe.php:181
+msgid "Update the profile if this contact is already in an audience"
+msgstr ""
+
+#: templates/builder/subscribe.php:203
+msgid "Notify users that they are already subscribed"
+msgstr ""
+
+#: templates/builder/subscribe.php:205
+msgid "The user will not be notified when \"Update the profile\" option is enabled."
+msgstr ""
+
+#: templates/builder/unsubscribe.php:18
+msgid "Unsubscribed contacts count towards Mailchimp account bill. To remove them from billing, please use Archive action instead."
+msgstr ""
+
+#. translators: %1$s - Connection date.
+#: templates/settings/connected-account.php:22
+msgid "Connected on: %1$s"
+msgstr ""
+
+#: templates/settings/connected-account.php:30
+msgid "Disconnect"
+msgstr ""
+
+#. translators: %1$s - Documentation URL, %2$s - current provider name.
+#: templates/settings/new-account-connection.php:17
+msgid "If you need help connecting WPForms to %2$s, <a href=\"%1$s\" rel=\"noopener noreferrer\" target=\"_blank\">read our documentation</a>."
+msgstr ""
+
+#. translators: %s - current provider name.
+#: templates/settings/new-account-connection.php:35
+msgid "%s API Key *"
+msgstr ""

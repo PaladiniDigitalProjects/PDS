@@ -1,0 +1,466 @@
+# Copyright (C) 2022 BlockMeister
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: BlockMeister 3.1.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/blockmeister\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2022-07-28T15:26:10+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.6.0\n"
+"X-Domain: blockmeister\n"
+
+#. Plugin Name of the plugin
+#. Author of the plugin
+msgid "BlockMeister"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://wpblockmeister.com/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Block pattern builder. Lets you easily and visually create custom block patterns."
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:32
+msgid "Drop files to upload"
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:33
+msgid "Select Files"
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:34
+msgid "Close uploader"
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:38
+msgid "Keep your site safe!"
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:39
+msgid "Only import patterns you downloaded from trusted sources or manually validate the pattern code before importing."
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:91
+msgid "Uploaded file is empty."
+msgstr ""
+
+#: includes/JSON_File_Uploader.php:100
+msgid "Imported file has invalid file extension."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Category_List_Table.php:46
+msgid "Source"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Category_List_Table.php:64
+msgid "WordPress/Theme/Plugin"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Category_List_Table.php:67
+msgid "User"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Editor.php:23
+msgid "Enter pattern name"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_Editor.php:26
+msgid "Start writing or type / to choose a block to add to your block pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:165
+msgid "Active"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:171
+msgid "Inactive"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:282
+msgid "Registered"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:317
+msgid "Import"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:489
+msgid "Categories"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:490
+#: includes/Pattern_Builder/BlockMeister_Pattern_Keywords_Taxonomy.php:30
+msgid "Keywords"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:655
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:759
+msgid "Deactivate"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:660
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:756
+msgid "Activate"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:683
+msgid "Clone"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:703
+msgid "Download"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:814
+msgid "Unknown action"
+msgstr ""
+
+#. translators: placeholder will be replaced by the name of the pattern that was activated
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:862
+msgid "Pattern '%s' has been activated."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:867
+msgid "You have insufficient rights to activate patterns."
+msgstr ""
+
+#. translators: placeholder will be replaced by the name of the pattern that was deactivated
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:894
+msgid "Pattern '%s' has been deactivated."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:898
+msgid "You have insufficient rights to deactivate patterns."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:926
+msgid "clone"
+msgstr ""
+
+#. translators: placeholder will be replaced by the name of the pattern that was cloned
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:970
+msgid "Pattern '%s' has been cloned."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:975
+msgid "Cloning of not registered pattern failed."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:978
+msgid "You have insufficient rights to clone patterns."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:995
+msgid "There where no files uploaded to import."
+msgstr ""
+
+#. translators: placeholder will be replaced by the name of the pattern
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1023
+msgid "Pattern '%s' has been imported."
+msgstr ""
+
+#. translators: placeholder will be replaced by the number of the patterns that were imported
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1026
+msgid "%d patterns imported."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1030
+msgid "You have insufficient rights to import patterns."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1047
+msgid "Invalid data format."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Pattern_List_Table.php:1081
+msgid "import"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:25
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:35
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:29
+msgid "Settings"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:49
+msgid "Block Pattern Settings"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:51
+msgid "BlockMeister Plugin Uninstall Settings"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:59
+msgid "Delete all data when I uninstall this plugin"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:61
+msgid "Be aware: if selected, when BlockMeister is being uninstalled, all data created through BlockMeister will be deleted, definitely! This does not affect block patterns inserted in posts or pages though."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:72
+msgid "Load local core block patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:74
+msgid "If checked (default), the standard set of local core WordPress block patterns will be loaded."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:81
+msgid "Load local and remote core block patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:83
+msgid "If checked (default), the standard set of local and remote core WordPress block patterns will be loaded."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:90
+msgid "Load block patterns registered by themes and plugins"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:92
+msgid "If checked (default), block patterns registered by your active theme and plugins will be loaded."
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:99
+msgid "Block pattern revisions"
+msgstr ""
+
+#: includes/Pattern_Builder/Admin/BlockMeister_Settings.php:101
+msgid "Set to 0 (default) to disable revisions or set the number of revisions (max 1000) of your custom patterns to keep."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Category_Taxonomy.php:42
+msgid "Custom Pattern Categories"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Category_Taxonomy.php:93
+msgid "Default category"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Keywords_Taxonomy.php:31
+msgid "Keyword"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Keywords_Taxonomy.php:32
+msgid "Add New Keyword"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:47
+msgid "Patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:48
+msgid "Pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:49
+msgid "Add New"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:50
+msgid "Add New Pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:51
+msgid "Edit Pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:52
+msgid "New Pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:53
+msgid "View Pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:54
+msgid "View Patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:55
+msgid "Search Patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:56
+msgid "No pattern found."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:57
+msgid "No patterns found in Trash."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:58
+msgid "All Patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:59
+msgid "Pattern Archives"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:60
+msgid "Pattern Attributes"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:61
+msgid "Insert into pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:62
+msgid "Uploaded to this pattern"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:63
+msgid "Filter pattern list"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:64
+msgid "Patterns list navigation"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:65
+msgid "Patterns list"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:66
+msgid "Pattern published."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:67
+msgid "Pattern published privately."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:68
+msgid "Pattern reverted to draft."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:69
+msgid "Pattern scheduled."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:70
+msgid "Pattern updated."
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:71
+msgid "Block Patterns"
+msgstr ""
+
+#: includes/Pattern_Builder/BlockMeister_Pattern_Post_Type.php:72
+msgid "Block Pattern"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:132
+msgid "Locking"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:152
+msgid "Contained blocks are locked; they can't be moved, removed or added."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:153
+msgid "Contained blocks are unlocked."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/block-locking-panel.js:155
+msgid "Lock contained blocks"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/document-settings-slotfill.js:30
+msgid "Enable block CSS editor"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/document-settings-slotfill.js:33
+msgid "Adding of custom CSS to blocks is enabled."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder-premium.js:1
+#: src/pattern-builder-premium/plugins/document-settings-slotfill.js:34
+msgid "Adding of custom CSS to blocks is disabled."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:45
+msgid "Name"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:51
+msgid "Slug (internal name)"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:55
+msgid "Max. 20 lowercase alphanumeric characters, dashes or underscores."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:58
+msgid "Description (for screen readers)"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:64
+msgid "Viewport width"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/document-settings-panel.js:71
+msgid "Base width used for scaling down the preview."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:67
+msgid "New pattern settings"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:1
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:71
+msgid "Pattern name"
+msgstr ""
+
+#. translators: placeholder will be replaced by the name of the pattern that was created
+#: build/pattern-builder/pattern-builder.js:3
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:50
+msgid "Pattern '%s' created."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:3
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:81
+msgid "Create Pattern"
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:3
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:83
+msgid "Note: after the pattern has been created, you'll need to reload the page to make the pattern visible in the inserter."
+msgstr ""
+
+#: build/pattern-builder/pattern-builder.js:3
+#: src/pattern-builder/plugins/selected-blocks-to-pattern.js:63
+msgid "Add to Block patterns"
+msgstr ""
+
+#: src/pattern-builder-premium/filters/block-scope-css-editor.js:112
+msgid "Block CSS"
+msgstr ""
+
+#: src/pattern-builder-premium/filters/block-scope-css-editor.js:113
+msgid ""
+"Tips: \n"
+"add an additional unique CSS classname for this block. Start any of your selectors with that class."
+msgstr ""

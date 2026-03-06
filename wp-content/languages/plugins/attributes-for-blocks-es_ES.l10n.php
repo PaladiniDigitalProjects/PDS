@@ -1,0 +1,2 @@
+<?php
+return ['x-generator'=>'GlotPress/4.0.1','translation-revision-date'=>'2022-05-03 08:28:37+0000','plural-forms'=>'nplurals=2; plural=n != 1;','project-id-version'=>'Plugins - Attributes for Blocks - Stable (latest release)','language'=>'es','messages'=>['websevendev'=>'websevendev','Allows to add HTML attributes to Gutenberg blocks.'=>'Permite agregar atributos HTML a los bloques de Gutenberg.','https://wordpress.org/plugins/attributes-for-blocks'=>'https://wordpress.org/plugins/attributes-for-blocks','Attributes for Blocks'=>'Atributos para bloques']];

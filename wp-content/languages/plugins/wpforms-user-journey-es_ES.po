@@ -1,0 +1,105 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-05-27T20:51:00+00:00\n"
+"PO-Revision-Date: 2025-05-27T20:51:00+00:00\n"
+"Language: \n"
+
+#. Plugin Name of the plugin
+msgid "WPForms User Journey"
+msgstr "WPForms User Journey"
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://wpforms.com"
+msgstr "https://wpforms.com"
+
+#. Description of the plugin
+msgid "User Journey addon for WPForms."
+msgstr "Extensión User Journey para WPForms."
+
+#. Author of the plugin
+msgid "WPForms"
+msgstr "WPForms"
+
+#. translators: %d - form id.
+#: src/Admin/Entries.php:104
+#: src/View.php:46
+#: src/View.php:205
+msgid "Form (#%d)"
+msgstr "Formulario (#%d)"
+
+#: src/Process.php:161
+msgid "Referrer"
+msgstr "Referente"
+
+#: src/SmartTags.php:78
+#: src/SmartTags.php:146
+#: src/SmartTags.php:182
+#: src/SmartTags.php:243
+#: src/SmartTags.php:265
+msgid "Entry User Journey"
+msgstr "Viaje del usuario durante el envío"
+
+#. translators: %1$s - number of steps; %2$s - total time spent.
+#: src/View.php:157
+#: src/View.php:222
+msgid "User took %1$s over %2$s"
+msgstr "El usuario hizo %1$s durante %2$s"
+
+#. translators: Total number of steps taken.
+#: src/View.php:160
+#: src/View.php:225
+msgid "%s step"
+msgid_plural "%s steps"
+msgstr[0] "%s paso"
+msgstr[1] "%s pasos"
+
+#: src/View.php:174
+msgid "abandoned"
+msgstr "abandonado"
+
+#: src/View.php:174
+#: src/View.php:236
+msgid "submitted"
+msgstr "enviado"
+
+#: src/View.php:266
+msgid "No title"
+msgstr "Sin título"
+
+#: templates/confirmation/journal-record.php:34
+#: templates/email/journal-record.php:43
+#: templates/entries/journal-record.php:40
+msgid "Search Results"
+msgstr "Resultados de la búsqueda"
+
+#: templates/confirmation/journal-record.php:36
+#: templates/email/journal-record.php:45
+#: templates/entries/journal-record.php:42
+msgid "Homepage"
+msgstr "Página de inicio"
+
+#: templates/confirmation/journal-record.php:42
+#: templates/email/journal-record.php:51
+#: templates/entries/journal-record.php:48
+msgid "Go to URL"
+msgstr "Ir a la URL"
+
+#: templates/entries/journal-record.php:54
+msgid "Toggle URL parameter display"
+msgstr "Alternar visualización de parámetros de URL"
+
+#: templates/entries/metabox.php:21
+msgid "User Journey"
+msgstr "Viaje del usuario"
+
+#: templates/entries/metabox.php:30
+msgid "There's no user journey for this entry."
+msgstr "No hay ningún viaje de usuario para este envío."

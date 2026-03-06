@@ -1,0 +1,151 @@
+
+// ICO MENU
+
+.wp-block-navigation__responsive-container-close,
+.wp-block-navigation__responsive-container-open{
+  background-color: transparent;
+  svg {
+    height: 2rem !important;
+    width: 2rem !important;  
+
+    @include laptop {
+      height: 3rem !important;
+      width: 3rem !important;  
+    }
+  }
+}
+
+/* LENGUAGE NAV */
+
+.lenguaje {
+  font-size:1.6rem !important;
+}
+
+.wp-block-navigation__submenu-container {
+  background-color: transparent !important;
+  font-size:1.8rem !important;
+  .wp-block-navigation-item  {
+    width: 100%;
+    line-height: 80%;
+    text-align: right;
+    font-size:1.6rem !important;
+    justify-content: right;
+  }
+}
+
+.wp-block-navigation__container {
+  display: flex;
+  flex-direction: row !important;
+}
+
+
+// ICO MENU PROJECTES
+
+
+// .wp-block-navigation__responsive-container-close,
+// .wp-block-navigation__responsive-container-open {
+//   background:none !important;
+//   svg {
+//     filter: invert(100%);
+//   }
+// }
+
+
+
+// MENU ACTIU
+/*
+.wp-block-navigation__responsive-container.is-menu-open {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    
+    @include tablet{
+        padding: 1rem;
+    }
+            
+    @include laptop {
+        padding: 1.5rem 1rem;
+    }
+            
+    @include large {
+        padding: 2rem 0;
+    }
+}
+ 
+:is(.wp-block-navigation__responsive-container.is-menu-open) {
+    .logo-negativo {
+        display: block !important;
+        position: absolute;
+    }
+}
+
+*/
+
+.custom-logo-link {
+  border:none !important;
+  padding: 0;
+  &:focus {
+    border: none !important;
+  }
+}
+
+
+.current-language-item {
+  font-size: 20px !important;
+  color:white !important;
+}
+
+
+.ContactUs {
+  a {
+    color:black !important;
+    text-decoration: none;
+  }
+}
+
+
+.wp-block-navigation__submenu-container .wp-block-navigation-item .wp-block-navigation-item__label {
+  font-size: 20px !important;
+  padding: 0 1rem !important;
+  color:white !important;
+}
+
+.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+  padding: 0.5rem 0 !important;
+}
+
+
+.wp-block-navigation .has-child .wp-block-navigation__submenu-container {
+  border:0px solid white !important;
+}
+
+.page-template-default h1.wp-block-post-title{
+  display:none;
+}
+
+#ico-menu,
+#back {
+  margin-block-start: 0;
+  cursor: pointer;
+  @include laptop {
+    margin-block-start: -0.5rem;
+  }
+}
+
+
+.page-template-menu-pag {
+  .wp-block-heading > a {
+    text-decoration: none;
+    transition: 0.35s;
+    border-bottom: 1px solid white;
+    &:hover {
+      text-decoration: none;
+      border-bottom: 1px solid black;
+    }
+  }
+}
+
+.page-template-blog-alternative {
+  
+}

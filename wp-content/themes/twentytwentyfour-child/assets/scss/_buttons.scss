@@ -1,0 +1,88 @@
+// .wp-block-button__link{
+//    color:$white !important;
+//    &:hover {
+//       background-color: $white;
+//       color:$primary !important;
+//    }
+// }
+
+.menu-seccion {
+   text-align: center !important;
+   .wp-block-button__link{
+      box-shadow: none;
+      font-weight: 300;
+      &:hover {
+         border:0 solid $primary;
+         color:$primary !important;
+      }
+   }
+   
+}
+
+.wp-block-button.is-style-arrow-button {
+   .wp-element-button {
+      position: relative;
+      padding-right: 2.5rem !important;
+      border-radius: 0;
+      &:after {
+         content:' ';
+         background: url('../images/arrow-next.svg') center no-repeat;
+         position: absolute;
+         top: calc(50% - 1rem);
+         bottom: calc(50% - 1rem);
+         right: 0.35rem;
+         width: 2rem;
+         height: 1.9rem;
+      }
+      
+      &:hover {         
+         &:after {
+            background: url('../images/arrow-next-hover.svg') center no-repeat;
+            }
+         }
+
+         &.has-black-color {
+            &:after {        
+               filter: invert(100%);
+            }
+         }
+      }
+   }
+
+   /* TAMANY */
+
+//    p a:where(:not(.wp-element-button)) {
+//       color: var(--wp--preset--color--contrast);
+//   }
+
+   // a:where(:not(.wp-element-button)) {
+   //    font-family: var(--wp--preset--font-family--lato); 
+   //    font-size: 1rem;
+   //    line-height: 130%;
+   // }
+
+
+   // div.wpforms-container-full input[type=submit],
+   // div.wpforms-container-full button[type=submit],
+   // div.wpforms-container-full .wpforms-page-button {
+   //    float: right;
+   // }
+
+   /* COOKIES */
+
+
+   #eu-cookie-bar {
+      display: none;
+      direction: ltr;
+      color: #ffffff;
+      min-height: 20px;
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 99999;
+      padding: 1rem 2rem;
+      background-color: #2e363f;
+      text-align: center;
+      font-size: 1rem;
+  }
