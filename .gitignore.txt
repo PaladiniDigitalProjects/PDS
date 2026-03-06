@@ -1,0 +1,13 @@
+# WordPress core y uploads — NO versionar
+uploads/
+upgrade/
+
+# Plugins y temas de terceros — NO versionar
+plugins/akismet/
+plugins/hello.php
+
+# Archivos de sistema
+.DS_Store
+*.log
+*.sql
+node_modules/
