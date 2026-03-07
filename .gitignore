@@ -1,14 +1,13 @@
-# WordPress core y uploads — NO versionar
-uploads/
-upgrade/
+# Ignorar todo por defecto
+*
 
-# Plugins y temas de terceros — NO versionar
-plugins/akismet/
-plugins/hello.php
+# Excepto el tema y plugins custom
+!themes/
+!themes/twentytwentyfour-child/
+!themes/twentytwentyfour-child/**
+!uploads/2026/**
 
-# Archivos de sistema
-.DS_Store
-*.log
-*.sql
-node_modules/
-.lando.yml
+!plugins/
+# Añade aquí tus plugins custom con el mismo patrón
+# !plugins/mi-plugin-custom/
+# !plugins/mi-plugin-custom/**
