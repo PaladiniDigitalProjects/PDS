@@ -1,0 +1,11 @@
+{
+  "name": "twentytwentyfour-child",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "sass assets/scss/estils.scss:assets/css/estils.css assets/scss/admin-styles.scss:assets/css/admin-styles.css assets/scss/login-styles.scss:assets/css/login-styles.css assets/scss/partners.scss:assets/css/partners.css --style=compressed --no-source-map --silence-deprecation=import",
+    "watch": "sass --watch assets/scss/estils.scss:assets/css/estils.css assets/scss/admin-styles.scss:assets/css/admin-styles.css assets/scss/login-styles.scss:assets/css/login-styles.css assets/scss/partners.scss:assets/css/partners.css --style=expanded --source-map --silence-deprecation=import"
+  },
+  "devDependencies": {
+    "sass": "^1.85.0"
+  }
+}

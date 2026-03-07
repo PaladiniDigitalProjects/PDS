@@ -10,9 +10,9 @@
 }
 /* REM FONT SIZE */
 :root {
-  --wp--style--root--padding-left:0;
-  --wp--style--root--padding-right:0;
-  --wp--preset--color--base:#000000;
+  --wp--style--root--padding-left: 0;
+  --wp--style--root--padding-right: 0;
+  --wp--preset--color--base: #000000;
 }
 
 *:focus {
@@ -20,6 +20,7 @@
 }
 
 html.SolutionsOn body {
+  border: 10px solid red;
   -webkit-transition: 0.5s;
   transition: 0.5s;
   background-color: rgb(237, 232, 221) !important;
@@ -45,6 +46,7 @@ html.aboutOn .sliderAbout {
 }
 
 body {
+  border: 10px solid red;
   -webkit-transition: 1s;
   transition: 1s;
   background-color: var(--wp--preset--color--base);
@@ -120,7 +122,7 @@ a {
 
 :root {
   --swiper-navigation-color: #ffffff;
-  --swiper-theme-color:#ffffff;
+  --swiper-theme-color: #ffffff;
   --wpforms-button-background-color: red;
   --wpforms-button-text-color: #ffffff;
 }
@@ -372,7 +374,6 @@ p strong {
      -moz-column-gap: 0.5rem;
           column-gap: 0.5rem;
   row-gap: 0.5rem;
-  /* IMAGE SIZE */
 }
 @media only screen and (min-width: 320px) {
   .grid {
@@ -505,6 +506,9 @@ p strong {
 }
 .grid > .wp-block-group {
   width: 100%;
+}
+.grid {
+  /* IMAGE SIZE */
 }
 .grid .wp-block-image .aligncenter,
 .grid .wp-block-image .alignleft,
@@ -2374,6 +2378,8 @@ body.show:after {
 
 .wp-block-relacionado {
   padding-bottom: 2rem;
+  margin-top: 6rem !important;
+  border-top: 0.1rem solid #656565;
 }
 .wp-block-relacionado .wp-block-heading {
   margin: 2rem 0 4rem !important;
@@ -2427,6 +2433,9 @@ body.show:after {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
 }
+.wp-block-relacionado ul li:first-child {
+  display: none !important;
+}
 @media only screen and (min-width: 768px) {
   .wp-block-relacionado ul {
     gap: 1rem;
@@ -2444,6 +2453,54 @@ body.show:after {
   }
 }
 
+.nadal-2025 {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 !important;
+  height: 100vh;
+}
+.nadal-2025 .p5Canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw !important;
+  height: 70vh !important;
+  z-index: 1;
+  margin-left: -2rem !important;
+}
+@media only screen and (min-width: 1240px) {
+  .nadal-2025 .p5Canvas {
+    height: 100vh !important;
+    margin-left: -4rem !important;
+  }
+}
+.nadal-2025 .Nadal-form {
+  position: absolute;
+  top: 70vh !important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+@media only screen and (min-width: 1240px) {
+  .nadal-2025 .Nadal-form {
+    top: 10rem !important;
+    width: 360px;
+    left: 4rem !important;
+  }
+}
+
+.noticies-PDS {
+  border-bottom: 1px solid #ffffff;
+}
+
 .featured-fixed {
   position: fixed !important;
   width: 100vw !important;
@@ -2456,47 +2513,12 @@ body.show:after {
 .single header.wp-block-template-part.fullheader {
   background: transparent !important;
 }
-.single .single-content > div {
-  padding: 2rem 1rem !important;
-}
-.single .single-content .single-data {
-  width: 100%;
-  -webkit-box-orient: vertical !important;
-  -webkit-box-direction: normal !important;
-      -ms-flex-direction: column !important;
-          flex-direction: column !important;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-.single .single-content .wp-block-post-title {
+.single .single-data,
+.single .wp-block-post-title {
   width: 100%;
 }
-.single .single-content .entry-content {
+.single .entry-content {
   padding: 0 !important;
-}
-@media only screen and (min-width: 768px) {
-  .single .single-content .single-data {
-    -webkit-box-orient: horizontal !important;
-    -webkit-box-direction: normal !important;
-        -ms-flex-direction: row !important;
-            flex-direction: row !important;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-  }
-  .single .single-content > div {
-    padding: 3rem !important;
-  }
-}
-@media only screen and (min-width: 1024px) {
-  .single .single-content > div {
-    padding: 4rem !important;
-  }
-  .single .single-content .article-title {
-    margin-top: 1rem;
-    padding-right: 18rem;
-  }
 }
 
 .swiper-pagination {
