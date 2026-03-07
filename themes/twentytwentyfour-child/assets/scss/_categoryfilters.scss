@@ -1,0 +1,91 @@
+
+.data-target-div1 {
+    padding: 3rem 0;
+    #caf-filter-layout1 {
+    li {
+        a {
+            background-color: $primary;
+            color:$white;
+            padding: 0.5rem 1rem;
+            margin: 0;
+            font-size: 16px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            &.active {
+                background-color: $white;
+                color:$primary;
+            }
+
+            &[data-id="1"] {
+                display:none;
+                }
+            }
+        } 
+    }
+}
+
+
+.caf-row {
+    background: $primary url('../images/cercle-pattern.png') top left repeat;
+    
+    .error-caf {
+        padding: 20px;
+        background: transparent;
+        color:$white;
+    }
+
+    .caf-post-layout1 {
+        background-color: transparent;
+        .manage-layout1 {
+            box-shadow: 0 0 0 0 #0000;
+            background-color: transparent;
+            transition: 0.5s;
+        }
+
+        #manage-post-area {
+            background-color: $primary;
+        }
+
+        .caf-post-title {
+            background-color: $primary;
+            text-align: center;
+            a {
+                color:$white !important;
+            }
+        }
+
+        .caf-meta-content,
+        .caf-content,
+        .caf-content-read-more {
+            display: none;
+        }
+    }
+ }
+
+ .caf-featured-img-box {
+    transition: 0.35s;
+    &:hover {
+        transform: scale(1.1);
+    }
+ }
+
+
+@keyframes skew {
+    from {opacity:0;}
+    to {opacity:1;}   
+}
+
+.caf-animate-skew1 {
+    animation: skew 0.75s;
+}
+
+
+.fa-spinner:before {
+    content: " ";
+    display: block;
+    background: url("../images/ico-mts.png") center no-repeat;
+    background-size: 100% 100%;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+  }

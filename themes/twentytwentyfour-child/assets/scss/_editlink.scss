@@ -1,0 +1,31 @@
+.edit-post-link {
+    border:0.2rem solid $white;
+    border-radius: 50%;
+    width: 5rem;
+    height: 5rem;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: $primary;
+    z-index: 9999;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+    transition: 1s;
+    a {
+        color:$black;
+        text-transform: uppercase;
+        font-size: 1rem;
+        line-height: 5rem;
+        text-align: center;
+        display: block;
+        text-decoration: none;
+        letter-spacing: 0.075rem;
+    }
+
+    &:hover {
+        box-shadow: 0 0 0 0 rgba(174, 174, 174, 0);
+        -webkit-box-shadow: 0 0 0 0 rgba(174, 174, 174, 0);
+         -moz-box-shadow: 0 0 0 0 rgba(174, 174, 174, 0);
+    }
+}

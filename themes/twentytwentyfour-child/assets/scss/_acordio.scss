@@ -1,0 +1,44 @@
+
+.wp-block-aab-group-accordion {
+  border-top: 0.1rem solid $gray;
+  .wp-block-aab-accordion-item {
+      &.aagb__accordion_active {
+        border-color: transparent !important;
+        border-width: 0 !important;
+        border-style: solid !important;
+        .aagb__accordion_head {
+          border-bottom: 0 solid $gray;
+        }
+    }
+    .aagb__accordion_head {
+      border-bottom: 0.1rem solid $gray;
+    }
+
+    .aagb__accordion_body {
+      border:none !important;
+    }
+    
+    .aagb__accordion_heading {
+      display: block;
+      width: 100%;
+      padding: 1rem 0;
+
+    .aagb__accordion_title {
+      @include font-size(14);
+      font-weight: 600;
+      font-family: "Lato", sans-serif;
+      }
+    }
+
+    .aagb__icon {
+      width: 2rem !important;
+      height: 2rem !important;
+      margin: 0 0 0 -1rem;
+      color:$gray;
+        &:before {
+          @include font-size(14);
+          line-height: 100%;
+        }
+    }
+  }
+}
