@@ -1,4 +1,3 @@
-
 // /* LLISTA DE NOTICIES */
 
 .nadal-2025 {
@@ -63,7 +62,6 @@
 }
 
 .single {
-    // background: transparent !important;
     header.wp-block-template-part.fullheader {
         background: transparent !important;  
     }
@@ -72,25 +70,11 @@
     .single-data,
     .wp-block-post-title {
         width: 100%;
-        max-width: 86%;
     }
     .entry-content {
         padding: 0 !important;
     }
-
 }
-
-
-// .swiper-horizontal>.swiper-pagination-progressbar,
-// .swiper-pagination-progressbar.swiper-pagination-horizontal,
-// .swiper-pagination-progressbar.swiper-pagination-vertical.swiper-pagination-progressbar-opposite,
-// .swiper-vertical>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite {
-//     width: 100%;
-//     height: var(--swiper-pagination-progressbar-size, 1px);
-//     left: 0;
-//     top: 100%;
-//     bottom: 0 !important;
-// }
 
 .swiper-pagination {
     margin-top: 2rem !important;

@@ -38,50 +38,6 @@
   flex-direction: row !important;
 }
 
-
-// ICO MENU PROJECTES
-
-
-// .wp-block-navigation__responsive-container-close,
-// .wp-block-navigation__responsive-container-open {
-//   background:none !important;
-//   svg {
-//     filter: invert(100%);
-//   }
-// }
-
-
-
-// MENU ACTIU
-/*
-.wp-block-navigation__responsive-container.is-menu-open {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 999;
-    
-    @include tablet{
-        padding: 1rem;
-    }
-            
-    @include laptop {
-        padding: 1.5rem 1rem;
-    }
-            
-    @include large {
-        padding: 2rem 0;
-    }
-}
- 
-:is(.wp-block-navigation__responsive-container.is-menu-open) {
-    .logo-negativo {
-        display: block !important;
-        position: absolute;
-    }
-}
-
-*/
-
 .custom-logo-link {
   border:none !important;
   padding: 0;
@@ -97,7 +53,7 @@
 }
 
 
-.ContactUs {
+.PDS_ContactUs {
   a {
     color:black !important;
     text-decoration: none;
@@ -146,6 +102,51 @@
   }
 }
 
-.page-template-blog-alternative {
-  
+ /* MNU HEADER */
+
+ ul.wp-block-navigation {
+  li {
+
+      display: block;
+      font-size: 1rem !important;
+      line-height: 100% !important;
+      font-weight: 200 !important;
+
+      &.current-menu-item{
+        a {
+          font-weight: bold !important;
+        }
+      }
+    
+
+    &.ContactUs {
+      display: block;
+      background-color: #0000FF;
+      color:#FFFFFF;
+      border-radius: 0.3rem;
+      padding: 0.65rem 1rem;
+      &:hover {
+        color: #FFFFFF;
+        background-color: #3131fa;
+      }
+    }
+  }
+}
+
+
+.page-template-default, .single {
+  ul.FooterNav li.wp-block-navigation-link a.wp-block-navigation-item__content,
+  .wp-block-social-links .wp-social-link a.wp-block-social-link-anchor,
+  p.visitUs {
+    color:#000000 !important;
+  }
+}
+
+
+
+.home {
+  ul.FooterNav li.wp-block-navigation-link a.wp-block-navigation-item__content,
+  .wp-block-social-links .wp-social-link a.wp-block-social-link-anchor {
+    color:$white !important;
+  }
 }

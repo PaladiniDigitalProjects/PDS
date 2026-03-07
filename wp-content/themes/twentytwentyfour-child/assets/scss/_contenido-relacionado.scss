@@ -42,6 +42,10 @@
           transform: scale(1.05);
         }
       }
+
+      &:first-child {
+        display: none !important;
+      }
     }
 
     @include tablet { 
