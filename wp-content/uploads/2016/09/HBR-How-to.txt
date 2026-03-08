@@ -1,0 +1,110 @@
+PRESENTATIONS
+How to Give a Killer Presentation
+Chris Anderson
+FROM THE JUNE 2013 ISSUE
+
+ 
+EXPLORE THE ARCHIVE
+A little more than a year ago, on a trip to Nairobi, Kenya, some colleagues and I met a 12-year-old Masai boy named Richard Turere, who told us a fascinating story. His family raises livestock on the edge of a vast national park, and one of the biggest challenges is protecting the animals from lions—especially at night. Richard had noticed that placing lamps in a field didn’t deter lion attacks, but when he walked the field with a torch, the lions stayed away. From a young age, he’d been interested in electronics, teaching himself by, for example, taking apart his parents’ radio. He used that experience to devise a system of lights that would turn on and off in sequence—using solar panels, a car battery, and a motorcycle indicator box—and thereby create a sense of movement that he hoped would scare off the lions. He installed the lights, and the lions stopped attacking. Soon villages elsewhere in Kenya began installing Richard’s “lion lights.”
+
+The story was inspiring and worthy of the broader audience that our TED conference could offer, but on the surface, Richard seemed an unlikely candidate to give a TED Talk. He was painfully shy. His English was halting. When he tried to describe his invention, the sentences tumbled out incoherently. And frankly, it was hard to imagine a preteenager standing on a stage in front of 1,400 people accustomed to hearing from polished speakers such as Bill Gates, Sir Ken Robinson, and Jill Bolte Taylor.
+
+But Richard’s story was so compelling that we invited him to speak. In the months before the 2013 conference, we worked with him to frame his story—to find the right place to begin, and to develop a succinct and logical arc of events. On the back of his invention Richard had won a scholarship to one of Kenya’s best schools, and there he had the chance to practice the talk several times in front of a live audience. It was critical that he build his confidence to the point where his personality could shine through. When he finally gave his talk at TED, in Long Beach, you could tell he was nervous, but that only made him more engaging—people were hanging on his every word. The confidence was there, and every time Richard smiled, the audience melted. When he finished, the response was instantaneous: a sustained standing ovation.
+
+
+Since the first TED conference, 30 years ago, speakers have run the gamut from political figures, musicians, and TV personalities who are completely at ease before a crowd to lesser-known academics, scientists, and writers—some of whom feel deeply uncomfortable giving presentations. Over the years, we’ve sought to develop a process for helping inexperienced presenters to frame, practice, and deliver talks that people enjoy watching. It typically begins six to nine months before the event, and involves cycles of devising (and revising) a script, repeated rehearsals, and plenty of fine-tuning. We’re continually tweaking our approach—because the art of public speaking is evolving in real time—but judging by public response, our basic regimen works well: Since we began putting TED Talks online, in 2006, they’ve been viewed more than one billion times.
+
+On the basis of this experience, I’m convinced that giving a good talk is highly coachable. In a matter of hours, a speaker’s content and delivery can be transformed from muddled to mesmerizing. And while my team’s experience has focused on TED’s 18-minutes-or-shorter format, the lessons we’ve learned are surely useful to other presenters—whether it’s a CEO doing an IPO road show, a brand manager unveiling a new product, or a start-up pitching to VCs.
+
+Frame Your Story
+There’s no way you can give a good talk unless you have something worth talking about. Conceptualizing and framing what you want to say is the most vital part of preparation.
+
+
+READ MORE
+We all know that humans are wired to listen to stories, and metaphors abound for the narrative structures that work best to engage people. When I think about compelling presentations, I think about taking an audience on a journey. A successful talk is a little miracle—people see the world differently afterward.
+
+If you frame the talk as a journey, the biggest decisions are figuring out where to start and where to end. To find the right place to start, consider what people in the audience already know about your subject—and how much they care about it. If you assume they have more knowledge or interest than they do, or if you start using jargon or get too technical, you’ll lose them. The most engaging speakers do a superb job of very quickly introducing the topic, explaining why they care so deeply about it, and convincing the audience members that they should, too.
+
+The biggest problem I see in first drafts of presentations is that they try to cover too much ground. You can’t summarize an entire career in a single talk. If you try to cram in everything you know, you won’t have time to include key details, and your talk will disappear into abstract language that may make sense if your listeners are familiar with the subject matter but will be completely opaque if they’re new to it. You need specific examples to flesh out your ideas. So limit the scope of your talk to that which can be explained, and brought to life with examples, in the available time. Much of the early feedback we give aims to correct the impulse to sweep too broadly. Instead, go deeper. Give more detail. Don’t tell us about your entire field of study—tell us about your unique contribution.
+
+A successful talk is a little miracle—people see the world differently afterward.
+
+
+Of course, it can be just as damaging to overexplain or painstakingly draw out the implications of a talk. And there the remedy is different: Remember that the people in the audience are intelligent. Let them figure some things out for themselves. Let them draw their own conclusions.
+
+Many of the best talks have a narrative structure that loosely follows a detective story. The speaker starts out by presenting a problem and then describes the search for a solution. There’s an “aha” moment, and the audience’s perspective shifts in a meaningful way.
+
+If a talk fails, it’s almost always because the speaker didn’t frame it correctly, misjudged the audience’s level of interest, or neglected to tell a story. Even if the topic is important, random pontification without narrative is always deeply unsatisfying. There’s no progression, and you don’t feel that you’re learning.
+
+
+I was at an energy conference recently where two people—a city mayor and a former governor—gave back-to-back talks. The mayor’s talk was essentially a list of impressive projects his city had undertaken. It came off as boasting, like a report card or an advertisement for his reelection. It quickly got boring. When the governor spoke, she didn’t list achievements; instead, she shared an idea. Yes, she recounted anecdotes from her time in office, but the idea was central—and the stories explanatory or illustrative (and also funny). It was so much more interesting. The mayor’s underlying point seemed to be how great he was, while the governor’s message was “Here’s a compelling idea that would benefit us all.”
+
+As a general rule, people are not very interested in talks about organizations or institutions (unless they’re members of them). Ideas and stories fascinate us; organizations bore us—they’re much harder to relate to. (Businesspeople especially take note: Don’t boast about your company; rather, tell us about the problem you’re solving.)
+
+Plan Your Delivery
+Once you’ve got the framing down, it’s time to focus on your delivery. There are three main ways to deliver a talk. You can read it directly off a script or a teleprompter. You can develop a set of bullet points that map out what you’re going to say in each section rather than scripting the whole thing word for word. Or you can memorize your talk, which entails rehearsing it to the point where you internalize every word—verbatim.
+
+My advice: Don’t read it, and don’t use a teleprompter. It’s usually just too distancing—people will know you’re reading. And as soon as they sense it, the way they receive your talk will shift. Suddenly your intimate connection evaporates, and everything feels a lot more formal. We generally outlaw reading approaches of any kind at TED, though we made an exception a few years ago for a man who insisted on using a monitor. We set up a screen at the back of the auditorium, in the hope that the audience wouldn’t notice it. At first he spoke naturally. But soon he stiffened up, and you could see this horrible sinking feeling pass through the audience as people realized, “Oh, no, he’s reading to us!” The words were great, but the talk got poor ratings.
+Many of our best and most popular TED Talks have been memorized word for word. If you’re giving an important talk and you have the time to do this, it’s the best way to go. But don’t underestimate the work involved. One of our most memorable speakers was Jill Bolte Taylor, a brain researcher who had suffered a stroke. She talked about what she learned during the eight years it took her to recover. After crafting her story and undertaking many hours of solo practice, she rehearsed her talk dozens of times in front of an audience to be sure she had it down.
+
+
+Obviously, not every presentation is worth that kind of investment of time. But if you do decide to memorize your talk, be aware that there’s a predictable arc to the learning curve. Most people go through what I call the “valley of awkwardness,” where they haven’t quite memorized the talk. If they give the talk while stuck in that valley, the audience will sense it. Their words will sound recited, or there will be painful moments where they stare into the middle distance, or cast their eyes upward, as they struggle to remember their lines. This creates distance between the speaker and the audience.
+
+Getting past this point is simple, fortunately. It’s just a matter of rehearsing enough times that the flow of words becomes second nature. Then you can focus on delivering the talk with meaning and authenticity. Don’t worry—you’ll get there.
+
+But if you don’t have time to learn a speech thoroughly and get past that awkward valley, don’t try. Go with bullet points on note cards. As long as you know what you want to say for each one, you’ll be fine. Focus on remembering the transitions from one bullet point to the next.
+
+
+Also pay attention to your tone. Some speakers may want to come across as authoritative or wise or powerful or passionate, but it’s usually much better to just sound conversational. Don’t force it. Don’t orate. Just be you.
+
+If a successful talk is a journey, make sure you don’t start to annoy your travel companions along the way. Some speakers project too much ego. They sound condescending or full of themselves, and the audience shuts down. Don’t let that happen.
+
+Develop Stage Presence
+For inexperienced speakers, the physical act of being onstage can be the most difficult part of giving a presentation—but people tend to overestimate its importance. Getting the words, story, and substance right is a much bigger determinant of success or failure than how you stand or whether you’re visibly nervous. And when it comes to stage presence, a little coaching can go a long way.
+
+The biggest mistake we see in early rehearsals is that people move their bodies too much. They sway from side to side, or shift their weight from one leg to the other. People do this naturally when they’re nervous, but it’s distracting and makes the speaker seem weak. Simply getting a person to keep his or her lower body motionless can dramatically improve stage presence. There are some people who are able to walk around a stage during a presentation, and that’s fine if it comes naturally. But the vast majority are better off standing still and relying on hand gestures for emphasis.
+FURTHER READING
+
+How to Pitch a Brilliant Idea
+CREATIVITY FEATURE Kimberly D. Elsbach
+Coming up with creative ideas is easy; selling them to strangers is hard.
+ SAVE  SHARE 
+Perhaps the most important physical act onstage is making eye contact. Find five or six friendly-looking people in different parts of the audience and look them in the eye as you speak. Think of them as friends you haven’t seen in a year, whom you’re bringing up to date on your work. That eye contact is incredibly powerful, and it will do more than anything else to help your talk land. Even if you don’t have time to prepare fully and have to read from a script, looking up and making eye contact will make a huge difference.
+
+Another big hurdle for inexperienced speakers is nervousness—both in advance of the talk and while they’re onstage. People deal with this in different ways. Many speakers stay out in the audience until the moment they go on; this can work well, because keeping your mind engaged in the earlier speakers can distract you and limit nervousness. Amy Cuddy, a Harvard Business School professor who studies how certain body poses can affect power, utilized one of the more unusual preparation techniques I’ve seen. She recommends that people spend time before a talk striding around, standing tall, and extending their bodies; these poses make you feel more powerful. It’s what she did before going onstage, and she delivered a phenomenal talk. But I think the single best advice is simply to breathe deeply before you go onstage. It works.
+
+In general, people worry too much about nervousness. Nerves are not a disaster. The audience expects you to be nervous. It’s a natural body response that can actually improve your performance: It gives you energy to perform and keeps your mind sharp. Just keep breathing, and you’ll be fine.
+
+Nerves are not a disaster. The audience expects you to be nervous.
+
+Acknowledging nervousness can also create engagement. Showing your vulnerability, whether through nerves or tone of voice, is one of the most powerful ways to win over an audience, provided it is authentic. Susan Cain, who wrote a book about introverts and spoke at our 2012 conference, was terrified about giving her talk. You could feel her fragility onstage, and it created this dynamic where the audience was rooting for her—everybody wanted to hug her afterward. The fact that we knew she was fighting to keep herself up there made it beautiful, and it was the most popular talk that year.
+
+
+Plan the Multimedia
+With so much technology at our disposal, it may feel almost mandatory to use, at a minimum, presentation slides. By now most people have heard the advice about PowerPoint: Keep it simple; don’t use a slide deck as a substitute for notes (by, say, listing the bullet points you’ll discuss—those are best put on note cards); and don’t repeat out loud words that are on the slide. Not only is reciting slides a variation of the teleprompter problem—“Oh, no, she’s reading to us, too!”—but information is interesting only once, and hearing and seeing the same words feels repetitive. That advice may seem universal by now, but go into any company and you’ll see presenters violating it every day.
+
+Many of the best TED speakers don’t use slides at all, and many talks don’t require them. If you have photographs or illustrations that make the topic come alive, then yes, show them. If not, consider doing without, at least for some parts of the presentation. And if you’re going to use slides, it’s worth exploring alternatives to PowerPoint. For instance, TED has invested in the company Prezi, which makes presentation software that offers a camera’s-eye view of a two-dimensional landscape. Instead of a flat sequence of images, you can move around the landscape and zoom in to it if need be. Used properly, such techniques can dramatically boost the visual punch of a talk and enhance its meaning.
+
+
+Artists, architects, photographers, and designers have the best opportunity to use visuals. Slides can help frame and pace a talk and help speakers avoid getting lost in jargon or overly intellectual language. (Art can be hard to talk about—better to experience it visually.) I’ve seen great presentations in which the artist or designer put slides on an automatic timer so that the image changed every 15 seconds. I’ve also seen presenters give a talk accompanied by video, speaking along to it. That can help sustain momentum. The industrial designer Ross Lovegrove’s highly visual TED Talk, for instance, used this technique to bring the audience along on a remarkable creative journey.
+
+
+Another approach creative types might consider is to build silence into their talks, and just let the work speak for itself. The kinetic sculptor Reuben Margolin used that approach to powerful effect. The idea is not to think “I’m giving a talk.” Instead, think “I want to give this audience a powerful experience of my work.” The single worst thing artists and architects can do is to retreat into abstract or conceptual language.
+
+
+Video has obvious uses for many speakers. In a TED Talk about the intelligence of crows, for instance, the scientist showed a clip of a crow bending a hook to fish a piece of food out of a tube—essentially creating a tool. It illustrated his point far better than anything he could have said.
+
+Used well, video can be very effective, but there are common mistakes that should be avoided. A clip needs to be short—if it’s more than 60 seconds, you risk losing people. Don’t use videos—particularly corporate ones—that sound self-promotional or like infomercials; people are conditioned to tune those out. Anything with a soundtrack can be dangerously off-putting. And whatever you do, don’t show a clip of yourself being interviewed on, say, CNN. I’ve seen speakers do this, and it’s a really bad idea—no one wants to go along with you on your ego trip. The people in your audience are already listening to you live; why would they want to simultaneously watch your talking-head clip on a screen?
+
+Putting It Together
+We start helping speakers prepare their talks six months (or more) in advance so that they’ll have plenty of time to practice. We want people’s talks to be in final form at least a month before the event. The more practice they can do in the final weeks, the better off they’ll be. Ideally, they’ll practice the talk on their own and in front of an audience.
+
+The tricky part about rehearsing a presentation in front of other people is that they will feel obligated to offer feedback and constructive criticism. Often the feedback from different people will vary or directly conflict. This can be confusing or even paralyzing, which is why it’s important to be choosy about the people you use as a test audience, and whom you invite to offer feedback. In general, the more experience a person has as a presenter, the better the criticism he or she can offer.
+
+I learned many of these lessons myself in 2011. My colleague Bruno Giussani, who curates our TEDGlobal event, pointed out that although I’d worked at TED for nine years, served as the emcee at our conferences, and introduced many of the speakers, I’d never actually given a TED Talk myself. So he invited me to give one, and I accepted.
+
+It was more stressful than I’d expected. Even though I spend time helping others frame their stories, framing my own in a way that felt compelling was difficult. I decided to memorize my presentation, which was about how web video powers global innovation, and that was really hard: Even though I was putting in a lot of hours, and getting sound advice from my colleagues, I definitely hit a point where I didn’t quite have it down and began to doubt I ever would. I really thought I might bomb. I was nervous right up until the moment I took the stage. But it ended up going fine. It’s definitely not one of the all-time great TED Talks, but it got a positive reaction—and I survived the stress of going through it.
+
+
+
+
