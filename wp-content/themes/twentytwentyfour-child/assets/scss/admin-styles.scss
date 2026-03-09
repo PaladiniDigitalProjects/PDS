@@ -1,9 +1,3 @@
-#wpbody .block-editor .editor-styles-wrapper{
-
-    background: #fff;
-
-// VARIABLES
-
 @use './variables' as *;
 @use './generics';
 @use './header';
@@ -16,7 +10,11 @@
 @use './acordio';
 @use './noticias';
 @use './components';
-@use './partners';
+@use './partners.scss';
+
+#wpbody .block-editor .editor-styles-wrapper{
+
+    background: #fff;
 
 // GENERIC
 
