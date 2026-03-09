@@ -1,0 +1,15 @@
+{
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/wp-content/themes/twentytwentyfour-child/assets/css"
+    }
+  ],
+  "liveSassCompile.settings.includeItems": [
+    "/wp-content/themes/twentytwentyfour-child/assets/scss/estils.scss",
+    "/wp-content/themes/twentytwentyfour-child/assets/scss/admin-styles.scss",
+    "/wp-content/themes/twentytwentyfour-child/assets/scss/login-styles.scss",
+    "/wp-content/themes/twentytwentyfour-child/assets/scss/partners.scss"
+  ]
+}
