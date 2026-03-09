@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $primary:#ffffff;
 $secondary:#ffffff;
 $white:#ffffff;
@@ -78,6 +80,6 @@ $max-width: 1450px; // $max-width: 100%;
 /* REM FONT SIZE */
 
 @mixin font-size($sizeValue:1) {
-  font-size: calc($sizeValue * 1) + px;
-  font-size: calc($sizeValue / 10) + rem;
+  font-size: $sizeValue * 1px;
+  font-size: math.div($sizeValue, 10) * 1rem;
 }

@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .show .custom-cover .wp-block-cover__inner-container {
   z-index: 0 !important;
 }
