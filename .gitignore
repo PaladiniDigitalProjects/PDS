@@ -4,12 +4,16 @@
 # Excepto wp-content y lo que hay dentro
 !wp-content/
 !wp-content/themes/
+!wp-content/themes/twentytwentyfour/
 !wp-content/themes/twentytwentyfour-child/
 !wp-content/themes/twentytwentyfour-child/**
 wp-content/themes/twentytwentyfour-child/node_modules/
 
 !wp-content/uploads/
 !wp-content/uploads/**
+
+wp-content/plugins/
+wp-content/plugins/**/
 
 # Carpetas de sistema/caché (no son imágenes)
 wp-content/uploads/cache/
@@ -19,11 +23,11 @@ wp-content/uploads/wp-migrate-db/
 wp-content/uploads/wpallexport/
 wp-content/uploads/wpallimport/
 
+
 # Videos >100MB (límite GitHub)
 wp-content/uploads/2025/04/Editorial_Elisava_2024_720.mov
 wp-content/uploads/2024/10/abacus-roger-sunyer-720.mov
 
-!wp-content/plugins/
 # Añade aquí tus plugins custom con el mismo patrón
-# !wp-content/plugins/mi-plugin-custom/
+!wp-content/plugins/PDS-luge/
 # !wp-content/plugins/mi-plugin-custom/**
