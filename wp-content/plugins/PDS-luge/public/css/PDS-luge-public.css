@@ -1,0 +1,157 @@
+/* ---------- corrected CSS (drop-in) ---------- */
+
+[data-lg-reveal],
+.lg-reveal {
+  opacity: 1 !important;
+}
+
+figure.lg-reveal--my-reveal.is-in {
+  border: 2px solid red;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  bottom: 0;
+}
+
+figure.lg-reveal--my-reveal.is-out {
+  border: 2px solid lime;
+  position: relative;
+}
+
+/* Custom reveal */
+.lg-reveal--my-reveal-css {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0) rotate(5deg);
+  transform-origin: -25% 100%;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* GSAP cards */
+.spacer {
+  height: 60vh;
+  opacity: 0.2;
+}
+
+.cards {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background-color: grey;
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: plum;
+}
+
+.card:nth-child(odd) {
+  background: #a9a0dd;
+}
+
+.video-section {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.video-container {
+  display: flex;
+  width: 300vw;
+}
+
+.video-100 {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+  opacity: 0;
+}
+
+@media (max-width: 1080px) {
+  .video-100 img {
+    height: 80% !important;
+    width: 100% !important;
+    object-fit: cover;
+  }
+  .video-100 {
+    width: 100vw !important;
+    height: 100vh !important;
+    object-fit: cover;
+  }
+}
+
+.video-75 { width: 75vw; height: auto; object-fit: contain; }
+.video-50 { width: 50vw; height: auto; object-fit: contain; }
+.video-25 { width: 25vw; height: auto; object-fit: contain; }
+
+/* corrected whitespace usage (white-space: wrap is invalid) */
+.moveText { white-space: normal; transform: translateX(120%); }
+.moveTextFade { white-space: normal; transform: translateX(120%); opacity: 0; }
+.moveFade { white-space: normal; opacity: 0; }
+.moveTextLeft { white-space: normal; transform: translateX(-110%); }
+
+.gradient-fill {
+  background: linear-gradient(0deg, rgb(255,255,255) 0%, rgb(41,171,226) 55%, rgb(41,171,226) 100%);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.feathered-image img {
+  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+  mask-image: radial-gradient(circle, rgba(0,0,0,1) 65%, rgba(0,0,0,0) 100%);
+}
+
+[data-transition="out"],
+[data-transition="in"] {
+  transition: opacity 0.15s ease-in-out;
+  opacity: 1;
+  width: 100vw;
+  z-index: 99;
+  min-height: 100vh;
+}
+
+
+.pds-scroll-accordion-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.pds-scroll-accordion-item {
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.pds-scroll-accordion-title {
+  cursor: pointer;
+  padding: 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pds-scroll-accordion-content {
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.pds-scroll-arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.pds-scroll-accordion-item.open .pds-scroll-accordion-title {
+  background-color: #d0d0d0;
+}

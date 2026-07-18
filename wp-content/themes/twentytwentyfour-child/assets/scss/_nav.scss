@@ -1,153 +1,162 @@
-@use 'variables' as *;
+// @use 'variables' as *;
 
-// ICO MENU
+// // ICO MENU
 
-.wp-block-navigation__responsive-container-close,
-.wp-block-navigation__responsive-container-open{
-  background-color: transparent;
-  svg {
-    height: 2rem !important;
-    width: 2rem !important;  
+// .wp-block-navigation__responsive-container-close,
+// .wp-block-navigation__responsive-container-open {
+//   background-color: transparent;
 
-    @include laptop {
-      height: 3rem !important;
-      width: 3rem !important;  
-    }
-  }
-}
+//   svg {
+//     height: 2rem !important;
+//     width: 2rem !important;
 
-/* LENGUAGE NAV */
+//     @include laptop {
+//       height: 3rem !important;
+//       width: 3rem !important;
+//     }
+//   }
+// }
 
-.lenguaje {
-  font-size:1.6rem !important;
-}
+// /* LENGUAGE NAV */
 
-.wp-block-navigation__submenu-container {
-  background-color: transparent !important;
-  font-size:1.8rem !important;
-  .wp-block-navigation-item  {
-    width: 100%;
-    line-height: 80%;
-    text-align: right;
-    font-size:1.6rem !important;
-    justify-content: right;
-  }
-}
+// .lenguaje {
+//   font-size: 1.6rem !important;
+// }
 
-.wp-block-navigation__container {
-  display: flex;
-  flex-direction: row !important;
-}
+// .wp-block-navigation__submenu-container {
+//   background-color: transparent !important;
+//   font-size: 1.8rem !important;
 
-.custom-logo-link {
-  border:none !important;
-  padding: 0;
-  &:focus {
-    border: none !important;
-  }
-}
+//   .wp-block-navigation-item {
+//     width: 100%;
+//     line-height: 80%;
+//     text-align: right;
+//     font-size: 1.6rem !important;
+//     justify-content: right;
+//   }
+// }
 
+// .wp-block-navigation__container {
+//   display: flex;
+//   flex-direction: row !important;
+// }
 
-.current-language-item {
-  font-size: 20px !important;
-  color:white !important;
-}
+// -link {
+//   border: none !important;
+//   padding: 0;
+
+//   &:focus {
+//     border: none !important;
+//   }
+// }
 
 
-.PDS_ContactUs {
-  a {
-    color:black !important;
-    text-decoration: none;
-  }
-}
+// .current-language-item {
+//   font-size: 20px !important;
+//   color: white !important;
+// }
 
 
-.wp-block-navigation__submenu-container .wp-block-navigation-item .wp-block-navigation-item__label {
-  font-size: 20px !important;
-  padding: 0 1rem !important;
-  color:white !important;
-}
-
-.wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
-  padding: 0.5rem 0 !important;
-}
+// .PDS_ContactUs {
+//   a {
+//     color: black !important;
+//     text-decoration: none;
+//   }
+// }
 
 
-.wp-block-navigation .has-child .wp-block-navigation__submenu-container {
-  border:0px solid white !important;
-}
+// .wp-block-navigation__submenu-container .wp-block-navigation-item .wp-block-navigation-item__label {
+//   font-size: 20px !important;
+//   padding: 0 1rem !important;
+//   color: white !important;
+// }
 
-.page-template-default h1.wp-block-post-title{
-  display:none;
-}
-
-#ico-menu,
-#back {
-  margin-block-start: 0;
-  cursor: pointer;
-  @include laptop {
-    margin-block-start: -0.5rem;
-  }
-}
+// .wp-block-navigation .has-child .wp-block-navigation__submenu-container .wp-block-navigation-item__content {
+//   padding: 0.5rem 0 !important;
+// }
 
 
-.page-template-menu-pag {
-  .wp-block-heading > a {
-    text-decoration: none;
-    transition: 0.35s;
-    border-bottom: 1px solid white;
-    &:hover {
-      text-decoration: none;
-      border-bottom: 1px solid black;
-    }
-  }
-}
+// .wp-block-navigation .has-child .wp-block-navigation__submenu-container {
+//   border: 0px solid white !important;
+// }
 
- /* MNU HEADER */
+// .page-template-default h1.wp-block-post-title {
+//   display: none;
+// }
 
- ul.wp-block-navigation {
-  li {
+// #ico-menu,
+// #back {
+//   margin-block-start: 0;
+//   cursor: pointer;
 
-      display: block;
-      font-size: 1rem !important;
-      line-height: 100% !important;
-      font-weight: 200 !important;
-
-      &.current-menu-item{
-        a {
-          font-weight: bold !important;
-        }
-      }
-    
-
-    &.ContactUs {
-      display: block;
-      background-color: #0000FF;
-      color:#FFFFFF;
-      border-radius: 0.3rem;
-      padding: 0.65rem 1rem;
-      &:hover {
-        color: #FFFFFF;
-        background-color: #3131fa;
-      }
-    }
-  }
-}
+//   @include laptop {
+//     margin-block-start: -0.5rem;
+//   }
+// }
 
 
-.page-template-default, .single {
-  ul.FooterNav li.wp-block-navigation-link a.wp-block-navigation-item__content,
-  .wp-block-social-links .wp-social-link a.wp-block-social-link-anchor,
-  p.visitUs {
-    color:#000000 !important;
-  }
-}
+// .page-template-menu-pag {
+//   .wp-block-heading>a {
+//     text-decoration: none;
+//     transition: 0.35s;
+//     border-bottom: 1px solid white;
+
+//     &:hover {
+//       text-decoration: none;
+//       border-bottom: 1px solid black;
+//     }
+//   }
+// }
+
+// /* MNU HEADER */
+
+// ul.wp-block-navigation {
+//   li {
+
+//     display: block;
+//     font-size: 1rem !important;
+//     line-height: 100% !important;
+//     font-weight: 200 !important;
+
+//     &.current-menu-item {
+//       a {
+//         font-weight: bold !important;
+//       }
+//     }
+
+
+//     &.ContactUs {
+//       display: block;
+//       background-color: #0000FF;
+//       color: #FFFFFF;
+//       border-radius: 0.3rem;
+//       padding: 0.65rem 1rem;
+
+//       &:hover {
+//         color: #FFFFFF;
+//         background-color: #3131fa;
+//       }
+//     }
+//   }
+// }
+
+
+// .page-template-default,
+// .single {
+
+//   ul.FooterNav li.wp-block-navigation-link a.wp-block-navigation-item__content,
+//   .wp-block-social-links .wp-social-link a.wp-block-social-link-anchor,
+//   p.visitUs {
+//     color: #000000 !important;
+//   }
+// }
 
 
 
-.home {
-  ul.FooterNav li.wp-block-navigation-link a.wp-block-navigation-item__content,
-  .wp-block-social-links .wp-social-link a.wp-block-social-link-anchor {
-    color:$white !important;
-  }
-}
+// .home {
+
+//   ul.FooterNav li.wp-block-navigation-link a.wp-block-navigation-item__content,
+//   .wp-block-social-links .wp-social-link a.wp-block-social-link-anchor {
+//     color: $white !important;
+//   }
+// }

@@ -1,11 +1,12 @@
 @use 'variables' as *;
 
 body.home {
-    background-color:#000000;
+    // background-color:#000000;
 }
 
 .home .pds-scroll-accordion-item {
     gap: var(--ghub-accordion-item-gap, 0);
+
     .ghub-accordion-item {
 
         &.ghub-active-accordion {
@@ -18,13 +19,14 @@ body.home {
             .ghub-accordion-icon {
                 width: 3rem;
                 height: 3rem;
-            }    
+            }
         }
 
         .ghub-accordion-content {
             background: #ffffff;
+
             .wp-element-caption {
-                color:$gray !important;
+                color: $gray !important;
             }
         }
 
@@ -33,88 +35,106 @@ body.home {
 
 .carruselSolutions {
     .swiper {
-        overflow:visible;
+        overflow: visible;
     }
 }
 
 .ghub-query-slider {
-    &.destacats{
+    &.destacats {
         .swiper-slide {
-    
+
             @include laptop {
                 &:nth-child(2) {
                     max-width: 30rem !important;
                     min-height: 20rem !important;
                 }
-    
+
                 &:nth-child(4) {
                     max-width: 25rem !important;
                     min-height: 20rem !important;
                 }
-    
+
                 &:nth-child(3) {
-                    min-width:60rem !important;
+                    min-width: 60rem !important;
                     min-height: 36rem !important;
                 }
-                
+
                 &:nth-child(7) {
                     max-width: 30rem !important;
                     min-height: 20rem !important;
                 }
-    
+
                 &:nth-child(8) {
                     max-width: 25rem !important;
                     min-height: 20rem !important;
                 }
-    
+
                 &:nth-child(9) {
-                    min-width:60rem !important;
+                    min-width: 60rem !important;
                     min-height: 36rem !important;
                 }
             }
-        
+
         }
-       
+
     }
 }
 
 /* TYPEWRHITER */
 
 .typewriter {
-    width:min-content;
+    width: min-content;
+
     h1 {
         color: #fff;
-        overflow: hidden; /* Ensures the content is not revealed until the animation */
-        border-right: .025em solid rgb(159, 213, 255); /* The typwriter cursor */
-        white-space: nowrap; /* Keeps the content on a single line */
-        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-        width:min-content;
-       
-        animation: 
-        typing 3.5s steps(30, end),
-        blink-caret .9s step-end infinite;
+        overflow: hidden;
+        /* Ensures the content is not revealed until the animation */
+        border-right: .025em solid rgb(159, 213, 255);
+        /* The typwriter cursor */
+        white-space: nowrap;
+        /* Keeps the content on a single line */
+        margin: 0 auto;
+        /* Gives that scrolling effect as the typing happens */
+        width: min-content;
+
+        animation:
+            typing 3.5s steps(30, end),
+            blink-caret .9s step-end infinite;
     }
-} 
-  
-  /* The typing effect */
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-  
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color: rgb(159, 213, 255) }
-  }
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: rgb(159, 213, 255)
+    }
+}
 
 
 /* PDS_Services */
 
 .PDS_contactUs {
     padding: 0 1.5rem !important;
+
     @include large {
-        padding:0 !important;
+        padding: 0 !important;
     }
 }
 
@@ -123,9 +143,9 @@ body.home {
     padding: 0 2rem !important;
     background: #ffffff;
     background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
-    box-shadow: 1px 0px 10px 0px rgba(0,0,0,0.50);
-    -webkit-box-shadow: 1px 0px 10px 0px rgba(0,0,0,0.50);
-    -moz-box-shadow: 1px 0px 10px 0px rgba(0,0,0,0.50);
+    box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.50);
+    -webkit-box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.50);
+    -moz-box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.50);
 
     .pds-scroll-accordion-title {
         padding-left: 1.5rem;
@@ -139,20 +159,21 @@ body.home {
 .wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
     min-width: 7rem !important;
     transition: 0.25s;
+
     &:hover {
         transform: scale(105%);
-        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
     }
-  }
+}
 
 /* SOLUTIONS */
 
 
 .solution {
     transition: 0.5s;
-          
+
     .wp-block-heading {
         transition: 0.5s;
         opacity: 0;
@@ -160,7 +181,7 @@ body.home {
         line-height: 120%;
         padding: 0 1.5rem;
         height: 0;
-        color:$white !important;
+        color: $white !important;
     }
 
     figure {
@@ -179,60 +200,63 @@ body.home {
         opacity: 0 !important;
         transition: 0.5s;
     }
+
     &:hover {
         transform: scale(105%);
-                    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-                    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-                    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
 
         .wp-block-heading {
             opacity: 1;
             height: auto;
             padding: 0 3rem 1rem 1.25rem;
-            color:$white !important;
+            color: $white !important;
         }
+
         .wp-block-cover__background {
             opacity: 0.5 !important;
         }
     }
 }
+
 .pds-v-slider-frame {
     text-align: center;
     height: 4rem;
     line-height: 4rem;
+
     .pds-v-slide {
         font-size: 3rem;
         line-height: 100%;
         height: 4rem;
         margin: 0;
         padding: 0.5rem 0;
-     }
+    }
 }
 
 ul.wp-block-post-template-is-layout-grid {
-    li{
+    li {
+
         &.proyecto,
         &.hentry {
+
             .attachment-post-thumbnail,
             .wp-block-post-featured-image {
                 background-color: $white;
-                transition:0.25s;
+                transition: 0.25s;
                 border-radius: 1rem;
             }
+
             &:hover {
+
                 .attachment-post-thumbnail,
                 .wp-block-post-featured-image {
                     transform: scale(105%);
-                    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-                    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
-                    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.3);
+                    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+                    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+                    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
                 }
             }
         }
     }
 }
-
-
-
-
-

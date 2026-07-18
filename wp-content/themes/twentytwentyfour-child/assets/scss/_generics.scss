@@ -3,7 +3,9 @@
 :root {
   --wp--style--root--padding-left: 0;
   --wp--style--root--padding-right: 0;
-  --wp--preset--color--base: #000000;
+  // --wp--preset--color--base: #ede8dd;
+  --wp--preset--color--base: #f1f1f1;
+  --ghub-accordion-item-bg-color: var(--wp--preset--color--base) !important;
 }
 
 * {
@@ -12,22 +14,22 @@
   }
 }
 
-html {
-  &.SolutionsOn {
-    body {
-      transition: 0.5s;
-      background-color: rgb(237, 232, 221) !important;
+// html {
+//   &.SolutionsOn {
+//     body {
+//       transition: 0.5s;
+//       background-color: rgb(237, 232, 221) !important;
 
-      .wp-block-heading {
-        color: $black !important;
-      }
+//       .wp-block-heading {
+//         color: $black !important;
+//       }
 
-      p {
-        color: $black !important;
-      }
-    }
-  }
-}
+//       p {
+//         color: $black !important;
+//       }
+//     }
+//   }
+// }
 
 
 html {
@@ -125,7 +127,7 @@ a {
 
 
 
-// Variebles 
+// Variables 
 
 :root {
   --swiper-navigation-color: #ffffff;

@@ -1,0 +1,399 @@
+/* PDS Web Talk — conversación integrada (estilo inmersivo, franja en la página)
+ * Identidad PDS: azul #0000ff, crema #ede8dd, IBM Plex Sans, esquinas rectas.
+ * Se engancha a las variables del tema (theme.json) con fallback a los valores
+ * de marca, para que el widget siga siendo portable fuera de este site.
+ * La respuesta se presenta como texto editorial grande, sin caja ni burbujas;
+ * solo se muestra el turno actual.
+ */
+.pdswt-chat {
+	--pdswt-accent: var( --wp--preset--color--custom-primary, #0000ff );
+	--pdswt-bg:     #f1f1f1;
+	--pdswt-ink:    var( --wp--preset--color--bkg, #343434 );
+	--pdswt-font:   var( --wp--preset--font-family--ibm-plex-sans, "IBM Plex Sans", -apple-system, sans-serif );
+
+	/* Ocupa el 100% del ancho de su caja contenedora (sin romper el layout
+	 * de la página): así se integra en el flujo de la home sin provocar
+	 * scroll horizontal. `max-width: none` anula el content-size que el
+	 * layout constrained del tema impone a los bloques hijos. */
+	width: 100%;
+	box-sizing: border-box;
+	background: var(--pdswt-bg);
+	color: var(--pdswt-ink);
+	font-family: var(--pdswt-font);
+	padding: 0;
+}
+.pdswt-chat *,
+.pdswt-chat *::before,
+.pdswt-chat *::after { box-sizing: border-box; }
+
+/* El layout constrained del tema limita los bloques hijos a content-size con
+ * `.is-layout-constrained > *` (especificidad 0,1,0) y como su hoja carga
+ * después, empata y gana. La clase repetida (0,2,0) supera esa restricción
+ * para que la franja ocupe el 100% de su caja. */
+.pdswt-chat.pdswt-chat {
+	max-width: none;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.pdswt-chat__inner {
+	position: relative;
+	max-width: 968px;
+	display: flex;
+	flex-direction: column;
+	gap: clamp( 1.5rem, 4vw, 3rem );
+}
+
+.pdswt-chat__tools {
+	position: absolute;
+	top: -0.5rem;
+	right: 0;
+	display: flex;
+	gap: .5rem;
+	z-index: 2;
+}
+.pdswt-chat__clear,
+.pdswt-chat__close {
+	background: transparent;
+	border: 0;
+	color: var(--pdswt-ink);
+	cursor: pointer;
+	font-size: 20px;
+	line-height: 1;
+	opacity: .35;
+	transition: opacity .15s ease;
+}
+.pdswt-chat__clear:hover,
+.pdswt-chat__close:hover { opacity: .9; }
+.pdswt-chat__close[hidden] { display: none; }
+
+/* ── Modo pantalla completa ──────────────────────────────────────────────
+ * Al enfocar el input, el chat cubre el viewport (position:fixed) y la página
+ * clásica queda detrás. La conversación scrollea dentro del escenario y el
+ * input queda fijo abajo. */
+.pdswt-chat.is-fullscreen {
+	position: fixed;
+	inset: 0;
+	/* Por debajo de la cabecera fija del site (z-index 10) para que quede
+	 * visible por encima, pero cubriendo el resto del contenido. */
+	z-index: 9;
+	background: var(--pdswt-bg);
+	/* El contenido del chat arranca bajo la cabecera. */
+	padding: calc( var( --pdswt-header-h, 0px ) + clamp( 1.25rem, 4vw, 3rem ) ) clamp( 1.25rem, 4vw, 3rem ) clamp( 1.25rem, 4vw, 3rem );
+	overflow: hidden;
+	animation: pdswt-fullscreen-in .28s ease;
+}
+.pdswt-chat.is-fullscreen .pdswt-chat__inner {
+	height: 100%;
+	max-width: var( --wp--style--global--wide-size, 1420px );
+	margin: 0 auto;
+	gap: clamp( 1rem, 3vw, 2rem );
+}
+.pdswt-chat.is-fullscreen .pdswt-chat__tools {
+	top: 0;
+	right: 0;
+}
+.pdswt-chat.is-fullscreen .pdswt-chat__stage {
+	flex: 1 1 auto;
+	min-height: 0;
+	overflow-y: auto;
+	padding-right: .5rem;
+}
+.pdswt-chat.is-fullscreen .pdswt-chat__form {
+	flex: 0 0 auto;
+}
+@keyframes pdswt-fullscreen-in {
+	from { opacity: 0; transform: scale( .985 ); }
+	to   { opacity: 1; transform: scale( 1 ); }
+}
+
+/* Escenario: los turnos se apilan y la conversación crece hacia arriba. */
+.pdswt-chat__stage {
+	min-height: clamp( 8rem, 22vh, 15rem );
+	display: flex;
+	flex-direction: column;
+	gap: clamp( 2rem, 5vw, 3.5rem );
+}
+
+/* Cada turno: pregunta + respuesta + fuentes. */
+.pdswt-chat__turn {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	scroll-margin-top: clamp( 1.5rem, 5vw, 4rem );
+}
+
+/* La pregunta del usuario, en azul, al mismo tamaño que la respuesta. */
+.pdswt-chat__ask {
+	margin: 0;
+	font-size: clamp( 1.35rem, 3.2vw, 2.2rem );
+	line-height: 1.38;
+	font-weight: 500;
+	color: var(--pdswt-accent);
+	letter-spacing: -0.01em;
+}
+.pdswt-chat__ask::before { content: "› "; opacity: .6; }
+
+/* La respuesta como texto editorial grande. */
+.pdswt-chat__reply {
+	margin: 0;
+	font-size: clamp( 1.35rem, 3.2vw, 2.2rem );
+	line-height: 1.38;
+	font-weight: 350;
+	letter-spacing: -0.01em;
+	white-space: pre-wrap;
+	min-height: 1.6em;
+}
+.pdswt-chat__reply.is-error { color: #b32d2e; }
+
+/* Pregunta de seguimiento generada por el bot: mismo tamaño, más peso. */
+.pdswt-chat__followup {
+	margin: 1rem 0 0;
+	font-size: clamp( 1.35rem, 3.2vw, 2.2rem );
+	line-height: 1.38;
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	color: var(--pdswt-ink);
+	white-space: pre-wrap;
+}
+
+/* Cursor de máquina de escribir. */
+.pdswt-chat__caret {
+	display: inline-block;
+	width: .06em;
+	margin-left: .04em;
+	background: var(--pdswt-accent);
+	animation: pdswt-blink 1s steps(1) infinite;
+	vertical-align: -0.08em;
+	height: 1.05em;
+}
+@keyframes pdswt-blink { 50% { opacity: 0; } }
+
+/* Fuentes, discretas. */
+.pdswt-chat__sources {
+	margin: 0;
+	font-size: clamp( 0.8rem, 1.2vw, 0.92rem );
+	color: #7a756a;
+}
+.pdswt-chat__sources a {
+	color: var(--pdswt-accent);
+	text-decoration: underline;
+	text-underline-offset: 2px;
+}
+
+/* Piezas visuales (tarjetas de proyecto/partner) bajo la respuesta.
+ * Se muestran hasta 3, en fila, cuadradas de máximo 230px. */
+.pdswt-chat__pieces {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin-top: 1.25rem;
+}
+.pdswt-chat__pieces-label {
+	flex-basis: 100%;
+	width: 100%;
+	margin: 0;
+	font-size: clamp( 0.85rem, 1.2vw, 0.95rem );
+	color: #8e8e8e;
+	letter-spacing: .01em;
+}
+.pdswt-piece-card {
+	display: block;
+	text-decoration: none;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	width: 230px;
+	max-width: 100%;
+}
+.pdswt-piece-card__media {
+	position: relative;
+	aspect-ratio: 1 / 1;
+	background-size: cover;
+	background-position: center;
+	background-color: var(--pdswt-ink);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-start;
+	gap: 0.5rem;
+	padding: 1rem;
+}
+.pdswt-piece-card__media::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient( to bottom, rgba( 0, 0, 0, .12 ), rgba( 0, 0, 0, .55 ) );
+	transition: background .2s ease;
+}
+/* Pieza sin imagen (p. ej. página de PDS): fondo azul de marca, sin overlay. */
+.pdswt-piece-card--flat .pdswt-piece-card__media {
+	background-color: var( --pdswt-accent );
+}
+.pdswt-piece-card--flat .pdswt-piece-card__media::after {
+	display: none;
+}
+
+/* ── Oferta de envío por email ────────────────────────────────────────── */
+.pdswt-chat__email {
+	margin-top: 1.75rem;
+	padding: 1.25rem 1.5rem;
+	border-radius: 4px;
+	background: rgba( 0, 0, 255, 0 );
+	border: 1px solid var(--pdswt-border);
+}
+.pdswt-chat__email-prompt {
+	margin: 0 0 .85rem;
+	font-size: clamp( 1rem, 1.7vw, 1.25rem );
+	font-weight: 500;
+	color: var(--pdswt-ink);
+}
+.pdswt-chat__email-form {
+	display: flex;
+	gap: .5rem;
+	flex-wrap: wrap;
+}
+.pdswt-chat__email-input {
+	flex: 1 1 200px;
+	border: 1px solid var(--pdswt-border);
+	border-radius: 3px;
+	padding: 0 .8rem;
+	font: inherit;
+	color: var(--pdswt-accent);
+	background: #fff;
+}
+.pdswt-chat__email-input:focus { outline: none; border-color: var(--pdswt-accent); }
+/* Honeypot: fuera de pantalla, no display:none (los bots lo detectarían). */
+.pdswt-chat__email-hp {
+	position: absolute !important;
+	left: -9999px !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.pdswt-chat__email-send {
+	align-self: center;
+	background: var(--pdswt-accent);
+	color: #fff;
+	border: 0;
+	border-radius: 3px;
+	padding: .5rem .9rem;
+	font-family: inherit;
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 2;
+	cursor: pointer;
+	transition: filter .15s ease;
+}
+.pdswt-chat__email-send:hover { filter: brightness( 1.15 ); }
+.pdswt-chat__email-send:disabled { opacity: .5; cursor: default; }
+.pdswt-chat__email-skip {
+	margin-top: .7rem;
+	padding: 0;
+	background: none;
+	border: 0;
+	color: var(--pdswt-ink);
+	opacity: .6;
+	cursor: pointer;
+	font: inherit;
+	text-decoration: none;
+	text-underline-offset: 2px;
+	font-size: 1.5rem;
+	font-weight: 400;
+}
+.pdswt-chat__email-skip:hover { opacity: 1; }
+.pdswt-chat__email-privacy {
+	margin: .7rem 0 0;
+	font-size: .8rem;
+	color: #8e8e8e;
+}
+.pdswt-chat__email.is-error .pdswt-chat__email-prompt { color: #b32d2e; }
+/* Confirmación de envío. */
+.pdswt-chat__email.is-sent {
+	border-color: var(--pdswt-accent);
+	background: rgba( 0, 0, 255, .06 );
+}
+.pdswt-chat__email.is-sent .pdswt-chat__email-prompt {
+	margin: 0;
+	color: var(--pdswt-accent);
+	font-weight: 500;
+}
+.pdswt-chat__email.is-sent .pdswt-chat__email-prompt::before {
+	content: "✓ ";
+	font-weight: 700;
+}
+.pdswt-piece-card:hover .pdswt-piece-card__media::after {
+	background: linear-gradient( to bottom, rgba( 0, 0, 0, .22 ), rgba( 0, 0, 0, .65 ) );
+}
+.pdswt-piece-card__logo {
+	align-self: flex-start;
+	position: relative;
+	z-index: 1;
+	display: block;
+	width: auto;
+	height: 30px;
+	max-width: 75%;
+	object-fit: contain;
+	object-position: left center;
+}
+.pdswt-piece-card__title {
+	align-self: flex-start;
+	position: relative;
+	z-index: 1;
+	color: #fff;
+	font-size: clamp( 0.85rem, 1.2vw, 1.05rem );
+	font-weight: 400;
+	line-height: 1.25;
+}
+
+/* Barra de input integrada: línea, sin caja. */
+.pdswt-chat__form {
+	display: flex;
+	align-items: flex-end;
+	gap: .75rem;
+	border-bottom: 2px solid var(--pdswt-ink);
+	padding-bottom: .5rem;
+}
+.pdswt-chat__form:focus-within { border-color: var(--pdswt-accent); }
+.pdswt-chat__input {
+	flex: 1;
+	resize: none;
+	border: 0;
+	background: transparent;
+	padding: .35rem 0;
+	font-family: inherit;
+	font-size: clamp( 1.05rem, 2vw, 1.3rem );
+	line-height: 1.4;
+	color: var(--pdswt-accent);
+	max-height: 140px;
+}
+.pdswt-chat__input:focus { outline: none; }
+.pdswt-chat__input::placeholder { color: var(--pdswt-ink); opacity: .4; }
+
+.pdswt-chat__send {
+	flex: 0 0 auto;
+	width: 2.4rem;
+	height: 2.4rem;
+	background: var(--pdswt-accent);
+	color: #fff;
+	border: 0;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 1.25rem;
+	line-height: 1;
+	transition: filter .15s ease, opacity .15s ease;
+}
+.pdswt-chat__send:hover { filter: brightness( 1.15 ); }
+.pdswt-chat__send:disabled { opacity: .4; cursor: default; }
+
+@media (prefers-color-scheme: dark) {
+	.pdswt-chat {
+		--pdswt-crema: #23211c;
+		--pdswt-ink: #ece9e2;
+	}
+	.pdswt-chat__sources { color: #9a9488; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pdswt-chat__caret { animation: none; }
+	.pdswt-chat.is-fullscreen { animation: none; }
+}

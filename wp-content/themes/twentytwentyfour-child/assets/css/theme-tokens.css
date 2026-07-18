@@ -1,0 +1,52 @@
+:root {
+  /* Colors */
+  --color-brand-primary:   #0000ff;
+  --color-neutral-black:   #000000;
+  --color-neutral-white:   #ffffff;
+  --color-neutral-dark:    #343434;
+  --color-neutral-gray:    #8e8e8e;
+  --color-neutral-mid:     #6b7280;
+  --color-neutral-light:   #e5e7eb;
+
+  /* Typography — families */
+  --font-family-base:      'Ibarra Real Nova', serif;
+  --font-family-mono:      'Ibarra Real Nova', serif;
+
+  /* Typography — sizes */
+  --font-size-display:     150px;
+  --font-size-h1:          52px;
+  --font-size-h2:          22px;
+  --font-size-h3:          24px;
+  --font-size-h4:          20px;
+  --font-size-body:        18px;
+  --font-size-label:       12px;
+
+  /* Typography — weights */
+  --font-weight-light:     300;
+  --font-weight-regular:   400;
+  --font-weight-bold:      700;
+
+  /* Typography — leading */
+  --leading-h1:            0.96;
+  --leading-h2:            1.32;
+  --leading-body:          1.42;
+
+  /* Spacing */
+  --spacing-xs:    4px;
+  --spacing-sm:    8px;
+  --spacing-md:   16px;
+  --spacing-lg:   32px;
+  --spacing-xl:   64px;
+  --spacing-2xl:  96px;
+
+  /* Radius */
+  --radius-button:    3px;
+  --radius-card:      3px;
+  --radius-image-sm: 10px;
+  --radius-image-lg: 15px;
+
+  /* Shadows */
+  --shadow-card:    0px 0px 10px 0px rgba(0,0,0,0.30);
+  --shadow-overlay: 0px 0px 20px 0px rgba(0,0,0,0.30);
+  --shadow-subtle:  0px 0px 10px 0px rgba(0,0,0,0.25);
+}

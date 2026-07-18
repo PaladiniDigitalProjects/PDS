@@ -1,0 +1,81 @@
+/* PDS-Web-Talk — admin */
+.pdswt-settings .pdswt-version {
+	font-size: 12px;
+	color: #646970;
+	font-weight: 400;
+	vertical-align: middle;
+}
+.pdswt-test-output {
+	margin-top: 12px;
+	padding: 12px 14px;
+	min-height: 40px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	white-space: pre-wrap;
+	line-height: 1.6;
+}
+.pdswt-test-output:empty {
+	display: none;
+}
+.pdswt-progress {
+	height: 18px;
+	background: #e9e9ed;
+	border-radius: 9px;
+	overflow: hidden;
+	margin: 12px 0 6px;
+}
+.pdswt-progress-bar {
+	height: 100%;
+	width: 0;
+	background: #2271b1;
+	transition: width .25s ease;
+}
+#pdswt-index-log {
+	max-height: 260px;
+	overflow-y: auto;
+	font-size: 13px;
+}
+#pdswt-index-log div {
+	padding: 1px 0;
+}
+.pdswt-badge {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 10px;
+	font-size: 12px;
+	line-height: 1.6;
+}
+.pdswt-badge-shown { background: #e6f4ea; color: #1e6b34; }
+.pdswt-badge-hidden { background: #fcf0e3; color: #8a4b00; }
+.pdswt-hint {
+	background: #f6f7f7;
+	border-left: 4px solid #2271b1;
+	padding: 8px 14px;
+	margin: 14px 0;
+	max-width: 640px;
+}
+.pdswt-sources {
+	margin-top: 10px;
+	padding-top: 8px;
+	border-top: 1px solid #e0e0e0;
+	font-size: 12px;
+	color: #50575e;
+}
+.pdswt-sources a { margin-right: 2px; }
+.pdswt-usage-inline {
+	display: inline-block;
+	margin-top: 6px;
+	padding: 3px 10px;
+	background: #f0f6fc;
+	border: 1px solid #c5d9ed;
+	border-radius: 4px;
+	font-size: 12px;
+	color: #1e3a5f;
+}
+.pdswt-month-total {
+	color: #1e6b34;
+	font-weight: 700;
+}
+.pdswt-progress-bar.pdswt-over { background: #d63638; }
+.pdswt-month-total.pdswt-over-text { color: #d63638; }

@@ -5,8 +5,8 @@
 .wp-block-site-logo {
   width: 100%;
   max-width: 6rem;
-  
-  @include tablet{
+
+  @include tablet {
     max-width: 7rem;
   }
 
@@ -14,7 +14,7 @@
     max-width: 8rem;
   }
 
-  @include large{
+  @include large {
     max-width: 10rem;
   }
 }
@@ -28,14 +28,17 @@ header.wp-block-template-part {
   z-index: 10;
   width: calc(100% - 2rem);
 
-  @include tablet{
+  // background: #F1F1F1;
+  // background: linear-gradient(0deg, rgba(241, 241, 241, 0) 0%, rgba(241, 241, 241, 1) 40%, rgba(241, 241, 241, 1) 100%);
+
+  @include tablet {
     padding: 1rem;
   }
 
   @include laptop {
     padding: 1rem;
   }
-  
+
   &.headerup {
     transform: translateY(-10rem);
   }
@@ -51,7 +54,7 @@ header.wp-block-template-part {
   //   @include tablet{
   //     padding-top: 6rem;
   //   }
-  
+
   //   @include laptop {
   //     padding-top: 10rem;
   //   }
@@ -67,14 +70,15 @@ main {
   margin-top: 0 !important;
 }
 
-html.has-modal-open  {
+html.has-modal-open {
   header.wp-block-template-part.alignwide {
     border-radius: 0 0 1rem 1rem;
     background: #00000060 !important;
-  &.headerup,
-  &.fullheader {
-    height: 100%;
-    // background: #00000060 !important;
+
+    &.headerup,
+    &.fullheader {
+      height: 100%;
+      // background: #00000060 !important;
     }
   }
 }
@@ -111,11 +115,11 @@ html.has-modal-open  {
 
 .gutenberghub-query-taxonomy-menu {
   button.wp-element-button {
-  &.is-active-menu {
-      color:rgb(103, 103, 103) !important;
+    &.is-active-menu {
+      color: rgb(103, 103, 103) !important;
       font-weight: 400;
+    }
   }
-} 
 }
 
 
@@ -163,5 +167,5 @@ html.has-modal-open  {
   color: white;
   border: none;
   font-size: 1.4rem;
-  top:-3px;
+  top: -3px;
 }
