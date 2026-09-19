@@ -169,6 +169,38 @@
 }
 @keyframes pdswt-blink { 50% { opacity: 0; } }
 
+/* Indicador "pensando": puntos suspensivos animados junto al cursor. */
+.pdswt-chat__dots {
+	display: inline-block;
+	margin-left: .35em;
+	vertical-align: -0.05em;
+	white-space: nowrap;
+}
+.pdswt-chat__dots i {
+	display: inline-block;
+	width: .22em;
+	height: .22em;
+	margin: 0 .07em;
+	border-radius: 50%;
+	background: var(--pdswt-accent);
+	opacity: .3;
+	animation: pdswt-thinking 1.2s ease-in-out infinite;
+}
+.pdswt-chat__dots i:nth-child( 2 ) { animation-delay: .18s; }
+.pdswt-chat__dots i:nth-child( 3 ) { animation-delay: .36s; }
+@keyframes pdswt-thinking {
+	0%, 60%, 100% { opacity: .3; transform: translateY( 0 ); }
+	30%           { opacity: 1;  transform: translateY( -0.24em ); }
+}
+@media ( prefers-reduced-motion: reduce ) {
+	.pdswt-chat__dots i { animation: none; opacity: .6; }
+}
+
+/* Mensaje de bienvenida en azul de marca. */
+.pdswt-chat__turn.is-welcome .pdswt-chat__reply {
+	color: var(--pdswt-accent);
+}
+
 /* Fuentes, discretas. */
 .pdswt-chat__sources {
 	margin: 0;

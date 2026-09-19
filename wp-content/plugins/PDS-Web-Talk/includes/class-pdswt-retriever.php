@@ -105,7 +105,7 @@ class PDSWT_Retriever {
 		// entrada (su contenido supera el umbral), no en preguntas genéricas.
 		$pieces        = array();
 		$seen          = array();
-		$piece_min_sim = 0.4;
+		$piece_min_sim = 0.33;
 		foreach ( $results as $item ) {
 			if ( count( $pieces ) >= 3 ) {
 				break;

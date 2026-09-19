@@ -23,12 +23,21 @@ wp-content/uploads/siteground-optimizer-assets/
 wp-content/uploads/wp-migrate-db/
 wp-content/uploads/wpallexport/
 wp-content/uploads/wpallimport/
+wp-content/uploads/pds-web-talk/
 
 
 # Videos >100MB (límite GitHub)
 wp-content/uploads/2025/04/Editorial_Elisava_2024_720.mov
 wp-content/uploads/2024/10/abacus-roger-sunyer-720.mov
 
-# Añade aquí tus plugins custom con el mismo patrón
+# Plugins custom: re-incluir cada nivel (git no re-incluye si el padre está excluido)
+!wp-content/plugins/
 !wp-content/plugins/PDS-luge/
-# !wp-content/plugins/mi-plugin-custom/**
+!wp-content/plugins/PDS-luge/**
+
+!wp-content/plugins/PDS-Web-Talk/
+!wp-content/plugins/PDS-Web-Talk/**
+wp-content/plugins/PDS-Web-Talk/node_modules/
+
+# Datos generados del corpus (no versionar: pesado + conocimiento oculto)
+wp-content/pdswt-corpus/

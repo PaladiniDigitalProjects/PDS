@@ -96,7 +96,7 @@ class PDSWT_Frontend {
 			array(
 				'restUrl'       => esc_url_raw( rest_url( PDSWT_Rest::NAMESPACE . '/chat' ) ),
 				'transcriptUrl' => esc_url_raw( rest_url( PDSWT_Rest::NAMESPACE . '/transcript' ) ),
-				'emailAfter'    => 5, // Ofrecer el envío por email tras N preguntas.
+				'emailAfter'    => 3, // Ofrecer el envío por email tras N preguntas.
 				'maxLen'        => isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000,
 				'i18n'          => array(
 					'placeholder' => __( 'Type your message…', 'pds-web-talk' ),

@@ -169,3 +169,38 @@ html.has-modal-open {
   font-size: 1.4rem;
   top: -3px;
 }
+
+
+// HEADER PAG
+// Al abrir el menú modal sacamos el header del `position: fixed`: si no, la
+// altura fija que toma tras el scroll encapsula el overflow del menú y este se
+// corta. En relative/absolute el menú puede desplegarse completo por encima.
+
+html.has-modal-open {
+  header.wp-block-template-part {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &.fullheader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+    }
+  }
+}
+
+
+.wp-block-navigation__responsive-container-close svg,
+.wp-block-navigation__responsive-container-open svg {
+  fill: currentColor;
+  display: block;
+  height: 40px;
+  pointer-events: none;
+  width: 40px;
+}

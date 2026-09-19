@@ -3,7 +3,7 @@
  * Plugin Name:       PDS-Web-Talk
  * Plugin URI:        https://paladinidigital.com
  * Description:       Asistente conversacional con IA (RAG) sobre el contenido del site. Motor Claude (Anthropic), preparado para OpenAI. Sin dependencias de terceros.
- * Version:           0.5.7
+ * Version:           0.5.10
  * Author:            Daniel PDS
  * Author URI:        https://paladinidigital.com
  * License:           GPL-2.0+
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Plugin version y constantes base.
  */
-define( 'PDSWT_VERSION', '0.5.7' );
+define( 'PDSWT_VERSION', '0.5.10' );
 define( 'PDSWT_PLUGIN_FILE', __FILE__ );
 define( 'PDSWT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PDSWT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

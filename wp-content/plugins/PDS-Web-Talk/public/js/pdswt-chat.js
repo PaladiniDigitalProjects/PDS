@@ -341,10 +341,16 @@
 			var t = addTurn( text );
 			t.turn.scrollIntoView( { behavior: 'smooth', block: 'start' } );
 
-			// Estado "escribiendo" mientras llega la respuesta.
+			// Estado "pensando" mientras llega la respuesta: cursor + puntos animados.
 			var caret = document.createElement( 'span' );
 			caret.className = 'pdswt-chat__caret';
 			t.reply.appendChild( caret );
+			var dots = document.createElement( 'span' );
+			dots.className = 'pdswt-chat__dots';
+			dots.setAttribute( 'role', 'status' );
+			dots.setAttribute( 'aria-label', i18n.typing || 'Thinking…' );
+			dots.innerHTML = '<i></i><i></i><i></i>';
+			t.reply.appendChild( dots );
 
 			var payload = {
 				message: text,
@@ -389,6 +395,7 @@
 
 			if ( welcome ) {
 				var w = addTurn( null );
+				w.turn.classList.add( 'is-welcome' );
 				if ( fresh ) { typewrite( w.reply, welcome ); }
 				else { w.reply.textContent = welcome; }
 			}
@@ -445,6 +452,8 @@
 			clearBtn.addEventListener( 'click', function () {
 				history = [];
 				saveHistory( history );
+				// Al reiniciar la conversación, la oferta de email vuelve a estar disponible.
+				try { localStorage.removeItem( 'pdswtEmailDone' ); } catch ( e ) {}
 				renderConversation();
 				input.focus();
 			} );
