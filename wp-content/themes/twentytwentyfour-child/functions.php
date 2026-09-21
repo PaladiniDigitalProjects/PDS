@@ -265,3 +265,241 @@ function mycontent( $content ) {
 	}
 	return $content;
 }
+/* ─────────────────────────────────────────────────────────────
+   CASE STUDIES
+   CPT `case_study` + taxonomía `pds_service`.
+   Un case study es la versión ampliada y en profundidad de un
+   `proyecto`. El vínculo con el proyecto de origen se guarda en
+   el meta `_pds_extends_project` (metabox más abajo): permite
+   redirigir las citas del chatbot al caso nuevo y decidir si el
+   proyecto antiguo sigue pesando en el corpus del RAG.
+   ───────────────────────────────────────────────────────────── */
+
+function pds_register_case_study_cpt() {
+
+	register_post_type( 'case_study', [
+		'label'               => 'Case Studies',
+		'labels'              => [
+			'name'          => 'Case Studies',
+			'singular_name' => 'Case Study',
+			'menu_name'     => 'Case Studies',
+			'all_items'     => 'Todos los Case Studies',
+			'add_new_item'  => 'Añadir nuevo Case Study',
+			'edit_item'     => 'Editar Case Study',
+			'view_item'     => 'Ver Case Study',
+			'search_items'  => 'Buscar Case Studies',
+			'not_found'     => 'No se han encontrado Case Studies',
+		],
+		'public'              => true,
+		'publicly_queryable'  => true,
+		'show_in_rest'        => true,
+		'hierarchical'        => false,
+		'has_archive'         => 'case-studies',
+		'rewrite'             => [ 'slug' => 'case-studies', 'with_front' => false ],
+		'menu_icon'           => 'dashicons-portfolio',
+		'menu_position'       => 21,
+		'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ],
+		'taxonomies'          => [ 'pds_service' ],
+	] );
+
+	// Taxonomía de servicios. Se comparte con `proyecto` para que el material
+	// antiguo quede clasificado igual aunque no tenga case study todavía.
+	register_taxonomy( 'pds_service', [ 'case_study', 'proyecto' ], [
+		'labels'            => [
+			'name'          => 'Servicios',
+			'singular_name' => 'Servicio',
+			'menu_name'     => 'Servicios',
+		],
+		'public'            => true,
+		'hierarchical'      => true,
+		'show_admin_column' => true,
+		'show_in_rest'      => true,
+		'rewrite'           => [ 'slug' => 'service', 'with_front' => false ],
+	] );
+}
+add_action( 'init', 'pds_register_case_study_cpt' );
+
+/**
+ * Crea los 4 servicios de la home como términos, una sola vez.
+ * Si se renombran o se añaden desde el admin, esto no los vuelve a tocar.
+ */
+function pds_seed_service_terms() {
+
+	if ( get_option( 'pds_service_terms_seeded' ) ) {
+		return;
+	}
+
+	$servicios = [
+		'Change Management',
+		'Product Design & Development',
+		'AI Implementation',
+		'Globalization Solutions',
+	];
+
+	foreach ( $servicios as $nombre ) {
+		if ( ! term_exists( $nombre, 'pds_service' ) ) {
+			wp_insert_term( $nombre, 'pds_service' );
+		}
+	}
+
+	update_option( 'pds_service_terms_seeded', 1 );
+}
+add_action( 'init', 'pds_seed_service_terms', 20 );
+
+/**
+ * Metabox: qué proyecto amplía este case study.
+ */
+function pds_case_study_add_metabox() {
+	add_meta_box(
+		'pds_extends_project',
+		'Amplía el proyecto',
+		'pds_case_study_metabox_html',
+		'case_study',
+		'side'
+	);
+}
+add_action( 'add_meta_boxes', 'pds_case_study_add_metabox' );
+
+function pds_case_study_metabox_html( $post ) {
+
+	wp_nonce_field( 'pds_extends_project_save', 'pds_extends_project_nonce' );
+
+	$actual   = (int) get_post_meta( $post->ID, '_pds_extends_project', true );
+	$proyectos = get_posts( [
+		'post_type'      => 'proyecto',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'orderby'        => 'title',
+		'order'          => 'ASC',
+	] );
+
+	echo '<select name="pds_extends_project" style="width:100%">';
+	echo '<option value="0">— ninguno —</option>';
+	foreach ( $proyectos as $p ) {
+		printf(
+			'<option value="%d" %s>%s</option>',
+			$p->ID,
+			selected( $actual, $p->ID, false ),
+			esc_html( wp_trim_words( $p->post_title, 10 ) )
+		);
+	}
+	echo '</select>';
+	echo '<p class="description">El proyecto original que este case study desarrolla. Se usa para que el chatbot cite el caso nuevo en lugar del antiguo.</p>';
+}
+
+function pds_case_study_save_metabox( $post_id ) {
+
+	if ( ! isset( $_POST['pds_extends_project_nonce'] )
+		|| ! wp_verify_nonce( $_POST['pds_extends_project_nonce'], 'pds_extends_project_save' ) ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		return;
+	}
+
+	$valor = isset( $_POST['pds_extends_project'] ) ? (int) $_POST['pds_extends_project'] : 0;
+
+	if ( $valor > 0 ) {
+		update_post_meta( $post_id, '_pds_extends_project', $valor );
+	} else {
+		delete_post_meta( $post_id, '_pds_extends_project' );
+	}
+}
+add_action( 'save_post_case_study', 'pds_case_study_save_metabox' );
+
+/* ─────────────────────────────────────────────────────────────
+   PARTNERS Y SOPORTE
+   Migrados desde el plugin Custom Post Type UI (2026-09-19) para
+   poder desactivarlo. Código generado por el propio plugin
+   (cptui_get_post_type_code), con la función renombrada: el nombre
+   original, cptui_register_my_cpts(), ya lo usa el registro de
+   `proyecto` más arriba en este mismo fichero.
+   ───────────────────────────────────────────────────────────── */
+
+function pds_register_cpts_partners_soporte() {
+
+	/**
+	 * Post Type: Partners.
+	 */
+
+	$labels = [
+		"name" => esc_html__( "Partners", "PDS" ),
+		"singular_name" => esc_html__( "Partner", "PDS" ),
+		"menu_name" => esc_html__( "Partners", "PDS" ),
+	];
+
+	$args = [
+		"label" => esc_html__( "Partners", "PDS" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"rest_namespace" => "wp/v2",
+		"has_archive" => false,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"delete_with_user" => false,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"can_export" => false,
+		"rewrite" => [ "slug" => "partners", "with_front" => true ],
+		"query_var" => true,
+		"supports" => [ "title", "editor", "thumbnail" ],
+		"taxonomies" => [ "category", "post_tag" ],
+		"show_in_graphql" => false,
+	];
+
+	register_post_type( "partners", $args );
+
+	/**
+	 * Post Type: Soportes.
+	 */
+
+	$labels = [
+		"name" => esc_html__( "Soportes", "PDS" ),
+		"singular_name" => esc_html__( "Soporte", "PDS" ),
+	];
+
+	$args = [
+		"label" => esc_html__( "Soportes", "PDS" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"rest_namespace" => "wp/v2",
+		"has_archive" => false,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"delete_with_user" => false,
+		"exclude_from_search" => true,
+		"capability_type" => "page",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"can_export" => false,
+		"rewrite" => [ "slug" => "soporte", "with_front" => true ],
+		"query_var" => true,
+		"menu_position" => 20,
+		"menu_icon" => "dashicons-hammer",
+		"supports" => [ "title", "editor", "thumbnail" ],
+		"show_in_graphql" => false,
+	];
+
+	register_post_type( "soporte", $args );
+}
+
+add_action( 'init', 'pds_register_cpts_partners_soporte' );
