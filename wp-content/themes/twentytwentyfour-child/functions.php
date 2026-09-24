@@ -17,8 +17,14 @@ function my_theme_enqueue_styles() {
 		$theme->get( 'Version' ) // This only works if you have Version defined in the style header.
 	);
 
-	wp_enqueue_style( 'child-estils', get_template_directory_uri() . '-child/assets/css/estils.css',);
-	wp_enqueue_script('main',  get_template_directory_uri() . '-child/assets/js/main.js', array(), '1.0.0', true);
+	// Versión = fecha del fichero: al recompilar el SCSS o tocar el JS, los navegadores
+	// dejan de servir la copia en caché sin tener que subir el número a mano.
+	$css = get_stylesheet_directory() . '/assets/css/estils.css';
+	$js  = get_stylesheet_directory() . '/assets/js/main.js';
+	wp_enqueue_style( 'child-estils', get_template_directory_uri() . '-child/assets/css/estils.css',
+		array(), file_exists( $css ) ? filemtime( $css ) : '1.0.0' );
+	wp_enqueue_script('main',  get_template_directory_uri() . '-child/assets/js/main.js', array(),
+		file_exists( $js ) ? filemtime( $js ) : '1.0.0', true);
 	wp_enqueue_script('ajax',  'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js');	
 }
 
@@ -48,7 +54,6 @@ function register_button_block_style() {
   }
   add_action( 'init', 'register_button_block_style' );
 
-
 /* TEMPLATE NAME */
 
 /**
@@ -62,9 +67,7 @@ function twentytwentyfour_theme_setup() {
 }
 add_action( 'after_setup_theme', 'twentytwentyfour_theme_setup' );
 
-
 /* ADMIN FEATURED PAGE */
-
 
 // show featured images in dashboard
 add_image_size( 'haizdesign-admin-post-featured-image', 120, 120, false );
@@ -98,80 +101,11 @@ function haizdesign_show_post_thumbnail_column($haizdesign_columns, $haizdesign_
 
 /* POST TYPE */
 
-function cptui_register_my_cpts() {
-
-	/**
-	 * Post Type: Proyectos.
-	 */
-
-	$labels = [
-		"name" => esc_html__( "Proyectos", "PDS" ),
-		"singular_name" => esc_html__( "Proyecto", "PDS" ),
-		"menu_name" => esc_html__( "Proyectos", "PDS" ),
-		"all_items" => esc_html__( "Todos los Proyectos", "PDS" ),
-		"add_new" => esc_html__( "Añadir nuevo", "PDS" ),
-		"add_new_item" => esc_html__( "Añadir nuevo Proyecto", "PDS" ),
-		"edit_item" => esc_html__( "Editar Proyecto", "PDS" ),
-		"new_item" => esc_html__( "Nuevo Proyecto", "PDS" ),
-		"view_item" => esc_html__( "Ver Proyecto", "PDS" ),
-		"view_items" => esc_html__( "Ver Proyectos", "PDS" ),
-		"search_items" => esc_html__( "Buscar Proyectos", "PDS" ),
-		"not_found" => esc_html__( "No se ha encontrado Proyectos", "PDS" ),
-		"not_found_in_trash" => esc_html__( "No se han encontrado Proyectos en la papelera", "PDS" ),
-		"parent" => esc_html__( "Proyecto superior", "PDS" ),
-		"featured_image" => esc_html__( "Imagen destacada para Proyecto", "PDS" ),
-		"set_featured_image" => esc_html__( "Establece una imagen destacada para Proyecto", "PDS" ),
-		"remove_featured_image" => esc_html__( "Eliminar la imagen destacada de Proyecto", "PDS" ),
-		"use_featured_image" => esc_html__( "Usar como imagen destacada de Proyecto", "PDS" ),
-		"archives" => esc_html__( "Archivos de Proyecto", "PDS" ),
-		"insert_into_item" => esc_html__( "Insertar en Proyecto", "PDS" ),
-		"uploaded_to_this_item" => esc_html__( "Subir a Proyecto", "PDS" ),
-		"filter_items_list" => esc_html__( "Filtrar la lista de Proyectos", "PDS" ),
-		"items_list_navigation" => esc_html__( "Navegación de la lista de Proyectos", "PDS" ),
-		"items_list" => esc_html__( "Lista de Proyectos", "PDS" ),
-		"attributes" => esc_html__( "Atributos de Proyectos", "PDS" ),
-		"name_admin_bar" => esc_html__( "Proyecto", "PDS" ),
-		"item_published" => esc_html__( "Proyecto publicado", "PDS" ),
-		"item_published_privately" => esc_html__( "Proyecto publicado como privado.", "PDS" ),
-		"item_reverted_to_draft" => esc_html__( "Proyecto devuelto a borrador.", "PDS" ),
-		"item_trashed" => esc_html__( "Proyecto enviado a la papelera.", "PDS" ),
-		"item_scheduled" => esc_html__( "Proyecto programado", "PDS" ),
-		"item_updated" => esc_html__( "Proyecto actualizado.", "PDS" ),
-		"parent_item_colon" => esc_html__( "Proyecto superior", "PDS" ),
-	];
-
-	$args = [
-		"label" => esc_html__( "Proyectos", "PDS" ),
-		"labels" => $labels,
-		"description" => "",
-		"public" => true,
-		"publicly_queryable" => true,
-		"show_ui" => true,
-		"show_in_rest" => true,
-		"rest_base" => "",
-		"rest_controller_class" => "WP_REST_Posts_Controller",
-		"rest_namespace" => "wp/v2",
-		"has_archive" => true,
-		"show_in_menu" => true,
-		"show_in_nav_menus" => true,
-		"delete_with_user" => false,
-		"exclude_from_search" => false,
-		"capability_type" => "post",
-		"map_meta_cap" => true,
-		"hierarchical" => true,
-		"can_export" => true,
-		"rewrite" => [ "slug" => "proyecto", "with_front" => true ],
-		"query_var" => true,
-		"supports" => [ "title", "editor", "thumbnail", "excerpt", "custom-fields", "page-attributes", "post-formats" ],
-		"taxonomies" => [ "category", "post_tag" ],
-		"show_in_graphql" => false,
-	];
-
-	register_post_type( "proyecto", $args );
-}
-
-add_action( 'init', 'cptui_register_my_cpts' );
-
+/* POST TYPE — `proyecto`
+   Aquí había DOS funciones idénticas registrando el mismo CPT (`cptui_register_my_cpts`
+   y `cptui_register_my_cpts_proyecto`), más una tercera definición en ACF (post 10813,
+   importada de CPT UI en 2024). El 2026-09-23 se deja solo esta y se desactiva la de ACF:
+   el registro vive en código. */
 
 function cptui_register_my_cpts_proyecto() {
 
@@ -267,7 +201,7 @@ function mycontent( $content ) {
 }
 /* ─────────────────────────────────────────────────────────────
    CASE STUDIES
-   CPT `case_study` + taxonomía `pds_service`.
+   CPT `case_study`.
    Un case study es la versión ampliada y en profundidad de un
    `proyecto`. El vínculo con el proyecto de origen se guarda en
    el meta `_pds_extends_project` (metabox más abajo): permite
@@ -299,52 +233,45 @@ function pds_register_case_study_cpt() {
 		'menu_icon'           => 'dashicons-portfolio',
 		'menu_position'       => 21,
 		'supports'            => [ 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ],
-		'taxonomies'          => [ 'pds_service' ],
 	] );
 
-	// Taxonomía de servicios. Se comparte con `proyecto` para que el material
-	// antiguo quede clasificado igual aunque no tenga case study todavía.
-	register_taxonomy( 'pds_service', [ 'case_study', 'proyecto' ], [
-		'labels'            => [
-			'name'          => 'Servicios',
-			'singular_name' => 'Servicio',
-			'menu_name'     => 'Servicios',
-		],
-		'public'            => true,
-		'hierarchical'      => true,
-		'show_admin_column' => true,
-		'show_in_rest'      => true,
-		'rewrite'           => [ 'slug' => 'service', 'with_front' => false ],
-	] );
 }
 add_action( 'init', 'pds_register_case_study_cpt' );
 
 /**
- * Crea los 4 servicios de la home como términos, una sola vez.
- * Si se renombran o se añaden desde el admin, esto no los vuelve a tocar.
+ * CPT `service` — las páginas de servicio.
+ *
+ * Se comporta como una página: mismos `supports` que `page` (incluido
+ * `page-attributes`, para ordenarlos a mano) y `hierarchical`, por si algún
+ * servicio cuelga de otro.
+ *
+ * El slug de URL es `services`, en plural. Lo era para no chocar con la
+ * taxonomía `pds_service`, eliminada el 2026-09-23 al quedar este CPT como
+ * única fuente de los servicios; se mantiene el plural por no cambiar URLs.
  */
-function pds_seed_service_terms() {
+function pds_register_service_cpt() {
 
-	if ( get_option( 'pds_service_terms_seeded' ) ) {
-		return;
-	}
-
-	$servicios = [
-		'Change Management',
-		'Product Design & Development',
-		'AI Implementation',
-		'Globalization Solutions',
-	];
-
-	foreach ( $servicios as $nombre ) {
-		if ( ! term_exists( $nombre, 'pds_service' ) ) {
-			wp_insert_term( $nombre, 'pds_service' );
-		}
-	}
-
-	update_option( 'pds_service_terms_seeded', 1 );
+	register_post_type( 'service', [
+		'labels' => [
+			'name'          => 'Servicios',
+			'singular_name' => 'Servicio',
+			'menu_name'     => 'Servicios',
+			'add_new_item'  => 'Añadir nuevo servicio',
+			'edit_item'     => 'Editar servicio',
+			'all_items'     => 'Todos los servicios',
+		],
+		'public'        => true,
+		'hierarchical'  => true,
+		'has_archive'   => 'services',
+		'rewrite'       => [ 'slug' => 'services', 'with_front' => false ],
+		'menu_position' => 20,
+		'menu_icon'     => 'dashicons-screenoptions',
+		'show_in_rest'  => true,
+		// Los mismos que `page`, verificados con get_all_post_type_supports('page').
+		'supports'      => [ 'title', 'editor', 'author', 'thumbnail', 'page-attributes', 'custom-fields', 'revisions' ],
+	] );
 }
-add_action( 'init', 'pds_seed_service_terms', 20 );
+add_action( 'init', 'pds_register_service_cpt' );
 
 /**
  * Metabox: qué proyecto amplía este case study.
@@ -503,3 +430,75 @@ function pds_register_cpts_partners_soporte() {
 }
 
 add_action( 'init', 'pds_register_cpts_partners_soporte' );
+
+/**
+ * Traducción de los literales de los formularios de WPForms.
+ *
+ * WPML no puede traducirlos: los formularios son "paquetes" y su flujo pasa por
+ * ATE (servicio de pago). Comprobado el 2026-09-24 que las cadenas quedan
+ * registradas y visibles en String Translation, pero no llegan al front.
+ *
+ * Aquí se sustituyen antes de renderizar, según el idioma activo de WPML. Es
+ * texto del formulario, no del plugin, así que no hay .mo que valga.
+ *
+ * Para añadir un formulario nuevo, añade su ID al array con sus literales.
+ */
+function pds_wpforms_literales() {
+	return [
+		14352 => [ // Contact Us (el del footer, en todas las páginas)
+			'es' => [
+				'submit'      => 'Enviar',
+				'processing'  => 'Enviando...',
+				'labels'      => [ 0 => 'Nombre de la empresa', 1 => 'Correo electrónico', 5 => 'Teléfono', 6 => 'Política de privacidad' ],
+				'placeholders'=> [ 0 => '*Nombre de la empresa', 1 => '*Correo electrónico', 5 => '*Teléfono' ],
+				'choices'     => [ 6 => [ 1 => '*Acepto la <a href="%PRIVACY%" target="_blank" rel="nofollow">política de privacidad</a> de Paladini Digital Solutions' ] ],
+			],
+			'ca' => [
+				'submit'      => 'Envia',
+				'processing'  => 'Enviant...',
+				'labels'      => [ 0 => 'Nom de l’empresa', 1 => 'Correu electrònic', 5 => 'Telèfon', 6 => 'Política de privadesa' ],
+				'placeholders'=> [ 0 => '*Nom de l’empresa', 1 => '*Correu electrònic', 5 => '*Telèfon' ],
+				'choices'     => [ 6 => [ 1 => '*Accepto la <a href="%PRIVACY%" target="_blank" rel="nofollow">política de privadesa</a> de Paladini Digital Solutions' ] ],
+			],
+		],
+	];
+}
+
+function pds_wpforms_traducir( $form_data ) {
+	if ( ! function_exists( 'icl_object_id' ) && ! defined( 'ICL_LANGUAGE_CODE' ) ) return $form_data;
+
+	$lang = apply_filters( 'wpml_current_language', null );
+	$mapa = pds_wpforms_literales();
+	$id   = (int) ( $form_data['id'] ?? 0 );
+
+	if ( ! $lang || ! isset( $mapa[ $id ][ $lang ] ) ) return $form_data;
+	$t = $mapa[ $id ][ $lang ];
+
+	// URL de la política de privacidad en el idioma actual
+	$privacidad = get_permalink( apply_filters( 'wpml_object_id', 16599, 'page', true, $lang ) );
+
+	if ( ! empty( $t['submit'] ) )     $form_data['settings']['submit_text'] = $t['submit'];
+	if ( ! empty( $t['processing'] ) ) $form_data['settings']['submit_text_processing'] = $t['processing'];
+
+	foreach ( (array) ( $t['labels'] ?? [] ) as $campo => $texto ) {
+		if ( isset( $form_data['fields'][ $campo ] ) ) $form_data['fields'][ $campo ]['label'] = $texto;
+	}
+	foreach ( (array) ( $t['placeholders'] ?? [] ) as $campo => $texto ) {
+		if ( ! isset( $form_data['fields'][ $campo ] ) ) continue;
+		$form_data['fields'][ $campo ]['placeholder'] = $texto;
+		// los campos "name" simples usan su propia clave
+		if ( isset( $form_data['fields'][ $campo ]['simple_placeholder'] ) ) {
+			$form_data['fields'][ $campo ]['simple_placeholder'] = $texto;
+		}
+	}
+	foreach ( (array) ( $t['choices'] ?? [] ) as $campo => $opciones ) {
+		foreach ( $opciones as $i => $texto ) {
+			if ( isset( $form_data['fields'][ $campo ]['choices'][ $i ] ) ) {
+				$form_data['fields'][ $campo ]['choices'][ $i ]['label'] = str_replace( '%PRIVACY%', esc_url( $privacidad ), $texto );
+			}
+		}
+	}
+	return $form_data;
+}
+add_filter( 'wpforms_frontend_form_data', 'pds_wpforms_traducir' );
+

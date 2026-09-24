@@ -12,6 +12,10 @@
   &:focus {
     outline: 0;
   }
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 // html {

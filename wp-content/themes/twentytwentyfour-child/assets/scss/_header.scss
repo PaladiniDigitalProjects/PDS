@@ -64,6 +64,59 @@ header.wp-block-template-part {
     padding-right: 0;
     padding-left: 0;
   }
+
+  // Contraste sobre la imagen de apertura (partners, proyectos, artículos).
+  // La clase la pone main.js mientras el header está por encima de esa imagen.
+  img,
+  .wp-block-navigation__responsive-container-open {
+    transition: filter 0.35s ease, color 0.35s ease, opacity 0.35s ease;
+  }
+
+  &.header-sobre-media {
+
+    // Velo superior: garantiza legibilidad sea la imagen clara u oscura.
+    // Desborda el padding lateral del header para llegar de lado a lado.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -1rem -1rem auto;
+      height: calc(100% + 2rem);
+      background: linear-gradient(180deg,
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.25) 55%,
+          rgba(0, 0, 0, 0) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    // El logo no se puede invertir sin más: las letras PDS son huecos transparentes
+    // dentro del círculo, así que al volverlo blanco se pierden sobre la imagen.
+    // Se cambia por una variante con el círculo blanco y las letras en azul.
+    .custom-logo-link {
+      display: inline-block;
+      background: url('../images/Paladini_Logo_sobre_imagen.svg') no-repeat center / contain;
+    }
+
+    .custom-logo {
+      opacity: 0;
+    }
+
+    // Los demás iconos son trazos planos: basta con pasarlos a blanco.
+    img:not(.custom-logo) {
+      filter: brightness(0) invert(1);
+    }
+
+    .wp-block-navigation__responsive-container-open,
+    .wp-block-navigation__responsive-container-open svg {
+      color: #fff;
+      fill: currentColor;
+    }
+  }
+}
+
+// Con el menú abierto manda el fondo del propio menú, no el velo.
+html.has-modal-open header.wp-block-template-part.header-sobre-media::after {
+  display: none;
 }
 
 main {
@@ -203,4 +256,81 @@ html.has-modal-open {
   height: 40px;
   pointer-events: none;
   width: 40px;
+}
+
+
+
+.lenguage_nav {
+  padding: 0;
+  position: relative;
+
+  figure {
+    width: 2.2rem;
+    height: 2.2rem;
+    line-height: 100%;
+    margin: 2rem 0 0 0;
+    padding: 0.5rem 0 0.5rem 0;
+
+    img {
+      transition: 0.3s;
+    }
+  }
+
+  .wpml-language-switcher-block {
+    display: none;
+  }
+
+  &:hover {
+
+    figure img {
+      cursor: pointer;
+      filter: brightness(0) saturate(100%) invert(55%) sepia(1%) saturate(11%) hue-rotate(335deg) brightness(92%) contrast(86%);
+    }
+
+
+    .wpml-language-switcher-block {
+      display: block;
+      position: absolute;
+      top: 1.25rem;
+      right: 0;
+      left: -5.15rem;
+
+      ul.vertical-list {
+        margin-top: 2rem;
+        display: block;
+        width: 20rem;
+        background-color: $white;
+        border-radius: 0.5rem;
+        padding: 0.4rem 1.2rem 0.7rem !important;
+        text-align: left;
+        -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        position: relative;
+
+        &::before {
+          background-color: $white;
+          position: absolute;
+          top: -0.35rem;
+          right: 0.5rem;
+          content: ' ';
+          display: block;
+          width: 1rem;
+          height: 1rem;
+          transform: rotate(-45deg);
+          border-radius: 0.2rem;
+        }
+
+        li {
+          .wp-block-navigation-item__label {
+            @include font-size(10);
+            line-height: 150%;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+
 }

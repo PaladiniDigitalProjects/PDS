@@ -1,10 +1,70 @@
-<!-- wp:group {"layout":{"type":"constrained"}} -->
-<div class="wp-block-group">
-	<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","justifyContent":"space-between"}} -->
-	<div class="wp-block-group alignwide">
-		<!-- wp:site-title {"level":0} /-->
-		<!-- wp:navigation {"layout":{"type":"flex","setCascadingProperties":true,"justifyContent":"right"}} /-->
-	</div>
-	<!-- /wp:group -->
-</div>
+<!-- wp:group {"style":{"spacing":{"padding":{"top":"var:preset|spacing|10","bottom":"var:preset|spacing|10"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group" style="padding-top:var(--wp--preset--spacing--10);padding-bottom:var(--wp--preset--spacing--10)"><!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"right":"var:preset|spacing|10","left":"var:preset|spacing|10"}}},"fontSize":"small","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+<div class="wp-block-group alignwide has-small-font-size" style="margin-top:0;margin-bottom:0;padding-right:var(--wp--preset--spacing--10);padding-left:var(--wp--preset--spacing--10)"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:site-logo {"width":160} /-->
+
+<!-- wp:site-title {"level":0,"className":"hide"} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+<div class="wp-block-group"><!-- wp:wpml/language-switcher {"layoutOpenOnClick":true,"languageNameType":"code","showFlag":false} -->
+<div role="navigation" aria-label="Selector de idioma" id="" class="wpml-language-switcher-block is-layout-flex is-responsive has-child-selected wp-block-navigation"><div class="wp-block wp-block-navigation-item has-link has-child wp-block-navigation-submenu"><div class="wpml-ls-dropdown open-on-click "><script>
+            (function() {
+              if (typeof window.wpmlLSBlockKeyboard === 'undefined') {
+                window.wpmlLSBlockKeyboard = true;
+                document.addEventListener('DOMContentLoaded', function() {
+                  var toggles = document.querySelectorAll('.wp-block-navigation-submenu__toggle[tabindex="0"]');
+                  toggles.forEach(function(toggle) {
+                    var isClickMode = toggle.closest('.open-on-click');
+                    if (isClickMode) {
+                      toggle.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          toggle.click();
+                        }
+                      });
+                    } else {
+                      toggle.addEventListener('keydown', function(e) {
+                        if (e.key === 'ArrowDown') {
+                          e.preventDefault();
+                          toggle.classList.add('wpml-ls-keyboard-focus');
+                          var submenu = toggle.nextElementSibling;
+                          if (submenu) {
+                            var firstLink = submenu.querySelector('a');
+                            if (firstLink) firstLink.focus();
+                          }
+                        } else if (e.key === 'Escape') {
+                          e.preventDefault();
+                          toggle.classList.remove('wpml-ls-keyboard-focus');
+                        }
+                      });
+                      toggle.addEventListener('focus', function() {
+                        toggle.classList.add('wpml-ls-keyboard-focus');
+                      });
+                      toggle.addEventListener('blur', function() {
+                        var parent = toggle.closest('li');
+                        setTimeout(function() {
+                          if (parent && !parent.contains(document.activeElement)) {
+                            toggle.classList.remove('wpml-ls-keyboard-focus');
+                          }
+                        }, 100);
+                      });
+                      document.addEventListener('click', function(e) {
+                        var dropdown = toggle.closest('.wpml-ls-dropdown');
+                        if (dropdown && !dropdown.contains(e.target)) {
+                          toggle.classList.remove('wpml-ls-keyboard-focus');
+                        }
+                      });
+                    }
+                  });
+                });
+              }
+            })();
+          </script><ul class="wp-block-navigation__container"><li class="wp-block-navigation-item has-child wp-block-navigation-submenu open-on-click"><div class="wp-block-navigation-item__content wp-block-navigation-submenu__toggle" aria-expanded="false" aria-controls="wpml-ls-submenu-default" aria-haspopup="true" tabindex="0" role="button"><span class="current-language-item" style="display:flex;cursor:pointer" data-wpml="current-language-item" aria-current="page"><div style="display:inline-block" class="wp-block-navigation-item__content"><div aria-current="page"><span data-wpml="label" data-wpml-label-type="code" class="wp-block-navigation-item__label ">code</span></div></div><span class="wp-block-navigation__submenu-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false"><path d="M1.50002 4L6.00002 8L10.5 4" stroke-width="1.5"></path></svg></span></span></div><ul class="wp-block-navigation__submenu-container isHorizontal" style="id:wpml-ls-submenu-default;flex-wrap:nowrap" aria-label="Idiomas disponibles" data-is-drop-zone="true"><li class="wp-block-navigation-item " data-wpml="language-item"><div><a class="wp-block-navigation-item__content" data-wpml="link" href="#" aria-label="Cambiar a secondary-code"><span data-wpml="label" data-wpml-label-type="code" class="wp-block-navigation-item__label ">secondary-code</span></a></div></li></ul></li></ul></div></div></div>
+<!-- /wp:wpml/language-switcher -->
+
+<!-- wp:navigation {"textColor":"custom-primary","overlayMenu":"always","overlay":"superposici-n-de-navegaci-n","style":{"spacing":{"blockGap":"var:preset|spacing|30"},"layout":{"selfStretch":"fit","flexSize":null}},"fontSize":"medium","layout":{"type":"flex","justifyContent":"right"}} /--></div>
+<!-- /wp:group --></div>
+<!-- /wp:group --></div>
+<!-- /wp:group -->
 <!-- INICI BARBA JS -->

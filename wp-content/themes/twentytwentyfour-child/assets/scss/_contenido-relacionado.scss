@@ -2,11 +2,11 @@
 
 .wp-block-relacionado {
   padding-bottom: 2rem;
-  margin-top: 6rem !important;
-  border-top:0.1rem solid $gray;
-  .wp-block-heading {  
-      margin: 2rem 0 4rem !important;
-      text-align: left;
+  margin-top: 2rem !important;
+
+  .wp-block-heading {
+    margin: 2rem 0 4rem !important;
+    text-align: left;
   }
 
   ul {
@@ -17,15 +17,18 @@
     padding: 0 !important;
     margin: 0 !important;
     width: 100% !important;
+
     li {
       list-style-type: none;
       width: 100%;
-      cursor:pointer;
+      cursor: pointer;
+
       a {
         display: block;
         line-height: 110%;
-        cursor:pointer;
+        cursor: pointer;
       }
+
       h3 {
         margin-top: 0;
         line-height: 110%;
@@ -40,6 +43,7 @@
         object-fit: cover;
         transition: transform .2s;
         border-radius: 0.2rem;
+
         &:hover {
           transform: scale(1.05);
         }
@@ -50,15 +54,17 @@
       }
     }
 
-    @include tablet { 
+    @include tablet {
       gap: 1rem;
+
       li {
         width: calc(50% - 1rem);
       }
     }
-  
-    @include laptop { 
+
+    @include laptop {
       gap: 2rem;
+
       li {
         width: calc(33.33% - 2rem);
       }
