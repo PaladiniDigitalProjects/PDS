@@ -502,3 +502,44 @@ function pds_wpforms_traducir( $form_data ) {
 }
 add_filter( 'wpforms_frontend_form_data', 'pds_wpforms_traducir' );
 
+
+/**
+ * dataLayer para Google Tag Manager
+ * ---------------------------------
+ * GTM no puede deducir por sí solo el idioma de la página ni qué se está viendo,
+ * así que se lo damos aquí. Con esto, cualquier etiqueta o evento que se cree
+ * en GTM puede segmentar por idioma sin tocar el tema otra vez.
+ *
+ * Se imprime en el <head>, antes que el contenedor, porque GTM lee el dataLayer
+ * al arrancar: si se imprimiera después, la primera página vista iría sin datos.
+ */
+function pds_datalayer() {
+	$datos = [
+		'pagina_idioma' => apply_filters( 'wpml_current_language', null ) ?: substr( get_bloginfo( 'language' ), 0, 2 ),
+		'pagina_tipo'   => 'otro',
+	];
+
+	if ( is_front_page() ) {
+		$datos['pagina_tipo'] = 'home';
+	} elseif ( is_singular() ) {
+		$tipo = get_post_type();
+		// nombres en claro, para no tener que traducir slugs dentro de GTM
+		$mapa = [
+			'page'      => 'pagina',
+			'post'      => 'articulo',
+			'service'   => 'servicio',
+			'proyecto'  => 'proyecto',
+			'partners'  => 'partner',
+		];
+		$datos['pagina_tipo']   = $mapa[ $tipo ] ?? $tipo;
+		$datos['contenido_id']  = get_the_ID();
+		// el título del original en inglés: así un mismo proyecto se agrupa en los tres idiomas
+		$original = apply_filters( 'wpml_object_id', get_the_ID(), $tipo, true, 'en' );
+		$datos['contenido']     = get_the_title( $original );
+	} elseif ( is_post_type_archive() || is_home() ) {
+		$datos['pagina_tipo'] = 'listado';
+	}
+
+	echo "<script>window.dataLayer = window.dataLayer || []; window.dataLayer.push(" . wp_json_encode( $datos ) . ");</script>\n";
+}
+add_action( 'wp_head', 'pds_datalayer', 1 );
