@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Plugin version y constantes base.
  */
-define( 'PDSWT_VERSION', '0.5.10' );
+define( 'PDSWT_VERSION', '0.6.0' );
 define( 'PDSWT_PLUGIN_FILE', __FILE__ );
 define( 'PDSWT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'PDSWT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
