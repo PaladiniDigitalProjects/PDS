@@ -96,3 +96,28 @@
     bottom: -1rem !important;
     text-align: right;
 }
+
+/* Listado de entradas en rejilla (la sección de noticias del final de la home).
+   Usa la rejilla de WordPress, no la del tema, y WordPress la colapsa a una sola
+   columna por debajo de 600px:
+
+     @media (max-width: 600px) {
+       .wp-block-post-template-is-layout-grid[class*="columns-"] { grid-template-columns: 1fr }
+     }
+
+   Con miniaturas cuadradas, eso deja cada tarjeta ocupando el ancho completo de la
+   pantalla y la imagen enorme. Dos columnas se leen mejor y dejan ver más de una
+   noticia sin desplazarse. */
+@media (max-width: 600px) {
+
+  .wp-block-post-template.is-layout-grid[class*="columns-"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  /* A dos columnas el titular necesita respirar un poco menos de tamaño. */
+  .wp-block-post-template.is-layout-grid[class*="columns-"] .wp-block-post-title {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+}
