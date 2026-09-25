@@ -74,3 +74,47 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', actualiza);
     window.addEventListener('load', actualiza); // la imagen puede cambiar de alto al cargar
 })();
+
+
+// Envíos de formulario al dataLayer, para que GTM pueda medirlos.
+// WPForms avisa por su cuenta con un evento de jQuery al enviar correctamente,
+// pero no lo empuja al dataLayer: eso es lo que hacemos aquí.
+// Los nombres van en claro para no tener que descifrar IDs dentro de GTM.
+(function () {
+    var formularios = {
+        14352: 'contacto_enviado',       // Contact Us, el del pie en todas las páginas
+        14360: 'newsletter_suscrito',
+        18676: 'onepager_descargado',
+        18172: 'manifiesto_firmado',
+        21293: 'chat_email_dejado'       // el bot recoge el correo tras la 3.ª pregunta
+    };
+
+    function avisar(idFormulario) {
+        var nombre = formularios[idFormulario];
+        if (!nombre) return;
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: nombre,
+            formulario_id: idFormulario
+        });
+    }
+
+    if (window.jQuery) {
+        jQuery(document).on('wpformsAjaxSubmitSuccess', function (e, form) {
+            var el = form || e.target;
+            var id = el && (el.dataset ? el.dataset.formid : null);
+            if (!id && el && el.getAttribute) id = el.getAttribute('data-formid');
+            // si el envío no es por AJAX, WPForms deja el id en el contenedor
+            if (!id && el && el.id) id = (el.id.match(/\d+/) || [])[0];
+            if (id) avisar(parseInt(id, 10));
+        });
+    }
+
+    // Envío sin AJAX: la página recarga con la confirmación en el DOM
+    document.addEventListener('DOMContentLoaded', function () {
+        var conf = document.querySelector('.wpforms-confirmation-container-full[data-formid], div[id^="wpforms-confirmation-"]');
+        if (!conf) return;
+        var id = conf.getAttribute('data-formid') || (conf.id.match(/\d+/) || [])[0];
+        if (id) avisar(parseInt(id, 10));
+    });
+})();
