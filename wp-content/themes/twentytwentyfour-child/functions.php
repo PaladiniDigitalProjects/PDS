@@ -58,6 +58,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  
 <?php 
 }
+// Prioridad 2 a conciencia: deja el contenedor por detrás del consent default
+// de CookieYes (prioridad 1). Google avisa de que la etiqueta va "demasiado baja",
+// pero es un aviso de rendimiento; declarar el consentimiento antes de cargar GTM
+// es lo que evita que una etiqueta mida sin permiso. Con prioridad 1 el contenedor
+// sube a ~1.000 bytes pero el consentimiento queda detrás: no compensa.
 add_action( 'wp_head', 'add_gtm_head', 2 ); // tras el consent default de CookieYes y el dataLayer, ambos en prioridad 1
  
 /* Add Google Tag Manager noscript codeimmediately after 
