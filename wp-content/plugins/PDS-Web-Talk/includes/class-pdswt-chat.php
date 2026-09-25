@@ -23,7 +23,8 @@ class PDSWT_Chat {
 	 */
 	public function answer( $message, $history = array() ) {
 		$retriever = new PDSWT_Retriever( $this->settings );
-		$ret       = $retriever->retrieve( $message );
+		// el mismo idioma que luego ordena en qué lengua responder
+		$ret       = $retriever->retrieve( $message, null, $this->detect_language( (string) $message ) );
 		if ( empty( $ret['ok'] ) ) {
 			return array( 'ok' => false, 'error' => $ret['error'] );
 		}

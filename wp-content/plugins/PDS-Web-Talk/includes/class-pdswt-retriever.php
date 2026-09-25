@@ -24,7 +24,16 @@ class PDSWT_Retriever {
 	/**
 	 * @return array { ok, results:[ {score,post_id,post_type,title,link,visibility,text} ], error }
 	 */
-	public function retrieve( $query, $top_n = null ) {
+	/**
+	 * @param string      $query Pregunta del usuario.
+	 * @param int|null    $top_n Número de fragmentos a devolver.
+	 * @param string|null $lang  Idioma de la pregunta (en|es|ca). Si se pasa, solo se
+	 *                           consideran fragmentos de ese idioma, más los del CPT de
+	 *                           conocimiento, que solo existe en inglés y da al bot su
+	 *                           criterio: sin esa excepción, preguntar en catalán dejaría
+	 *                           fuera todo el posicionamiento de PDS.
+	 */
+	public function retrieve( $query, $top_n = null, $lang = null ) {
 		$top_n = $top_n ? (int) $top_n : ( ! empty( $this->settings['top_n'] ) ? (int) $this->settings['top_n'] : 4 );
 
 		if ( ! $this->embedder->is_configured() ) {
@@ -43,7 +52,24 @@ class PDSWT_Retriever {
 
 		global $wpdb;
 		$table = PDSWT_Activator::corpus_table();
-		$rows  = $wpdb->get_results( "SELECT post_id, post_type, chunk_index, chunk_text, embedding, weight, is_component, render_data FROM {$table} WHERE embedding IS NOT NULL" );
+		$campos = 'post_id, post_type, chunk_index, chunk_text, embedding, weight, is_component, render_data';
+
+		/*
+		 * Sin filtro de idioma, cada contenido compite consigo mismo en tres versiones
+		 * y el contexto acaba mezclando lenguas. Se filtra solo si hay fragmentos de ese
+		 * idioma: si el detector devuelve algo inesperado, mejor buscar en todo que
+		 * quedarse sin contexto.
+		 */
+		$idiomas_validos = $wpdb->get_col( "SELECT DISTINCT lang FROM {$table}" );
+		if ( $lang && in_array( $lang, $idiomas_validos, true ) ) {
+			$rows = $wpdb->get_results( $wpdb->prepare(
+				"SELECT {$campos} FROM {$table} WHERE embedding IS NOT NULL AND ( lang = %s OR post_type = %s )",
+				$lang,
+				'pdswt_knowledge'
+			) );
+		} else {
+			$rows = $wpdb->get_results( "SELECT {$campos} FROM {$table} WHERE embedding IS NOT NULL" );
+		}
 
 		$scored = array();
 		foreach ( (array) $rows as $row ) {

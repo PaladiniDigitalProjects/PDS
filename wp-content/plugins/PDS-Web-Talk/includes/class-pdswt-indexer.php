@@ -25,15 +25,35 @@ class PDSWT_Indexer {
 	 */
 	public function get_indexable_ids() {
 		$types = ! empty( $this->settings['index_post_types'] ) ? (array) $this->settings['index_post_types'] : array( 'page', 'post' );
-		$ids   = get_posts( array(
-			'post_type'      => $types,
-			'post_status'    => 'publish',
-			'posts_per_page' => -1,
-			'fields'         => 'ids',
-			'no_found_rows'  => true,
-			'suppress_filters' => true,
+
+		/*
+		 * Consulta directa a la tabla y no get_posts(): con WPML activo, get_posts()
+		 * devuelve solo el idioma actual aunque se le pase suppress_filters, porque
+		 * WPML filtra por otra vía. Eso dejaba fuera del índice todas las
+		 * traducciones: 76 candidatos de los 180 contenidos publicados.
+		 */
+		global $wpdb;
+		$marcas = implode( ',', array_fill( 0, count( $types ), '%s' ) );
+		$sql    = $wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts} WHERE post_status = 'publish' AND post_type IN ($marcas)",
+			$types
+		);
+		return array_map( 'intval', $wpdb->get_col( $sql ) );
+	}
+
+	/**
+	 * Idioma de un contenido concreto.
+	 *
+	 * No vale get_locale(): devuelve el idioma de la instalación (aquí es_ES), no el
+	 * del post, así que etiquetaba como español hasta el contenido en inglés.
+	 */
+	private function lang_de( $post_id ) {
+		$tipo = get_post_type( $post_id );
+		$lang = apply_filters( 'wpml_element_language_code', null, array(
+			'element_id'   => $post_id,
+			'element_type' => 'post_' . $tipo,
 		) );
-		return array_map( 'intval', $ids );
+		return $lang ? $lang : substr( get_locale(), 0, 2 );
 	}
 
 	/**
@@ -98,7 +118,7 @@ class PDSWT_Indexer {
 		global $wpdb;
 		$table   = PDSWT_Activator::corpus_table();
 		$now     = current_time( 'mysql' );
-		$lang    = substr( get_locale(), 0, 2 );
+		$lang    = $this->lang_de( $post_id );
 		$saved   = 0;
 		$reused  = 0;
 
@@ -177,7 +197,7 @@ class PDSWT_Indexer {
 				'text_hash'      => $hash,
 				'embedding'      => $embedding_json,
 				'token_estimate' => (int) ceil( strlen( $body ) / 4 ),
-				'lang'           => substr( get_locale(), 0, 2 ),
+				'lang'           => $this->lang_de( $post->ID ),
 				'weight'         => (float) $piece['weight'],
 				'is_component'   => 1,
 				'render_data'    => wp_json_encode( $piece ),
