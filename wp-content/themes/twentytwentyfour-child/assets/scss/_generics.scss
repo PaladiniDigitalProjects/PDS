@@ -69,6 +69,17 @@ body {
   margin: 0;
 }
 
+// El grupo que envuelve el contenido de la home es un flex vertical con
+// align-items:flex-start, así que .entry-content se dimensiona por su propio
+// contenido en lugar de por el contenedor. Con los carruseles dentro (min-content
+// de hasta 12.780px) se quedaba clavado en 1.468px a cualquier ancho de ventana:
+// desbordaba 1.078px en un iPhone de 390 y 188px en un portátil de 1.280, y a
+// 1.512 dejaba las secciones descuadradas 48px hacia la derecha.
+// Solo afecta a la home; en /partners/ y en los listados no cambia nada.
+.entry-content.wp-block-post-content {
+  max-width: 100%;
+}
+
 .wp-block-post-date a {
   font-size: 1.14rem !important;
 }
