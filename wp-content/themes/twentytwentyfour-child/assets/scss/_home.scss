@@ -34,6 +34,14 @@ body.home {
 }
 
 .carruselSolutions {
+    // El swiper lleva overflow:hidden de serie; aquí se quita a propósito para que
+    // los slides asomen más allá del contenedor. El efecto se queda, pero el recorte
+    // tiene que hacerlo alguien: sin esto los slides se salían de la pantalla y el
+    // documento pasaba a medir 3.906px en una ventana de 1.512, con scroll horizontal
+    // en toda la web — en móvil es donde más se nota.
+    // clip en vez de hidden: recorta igual sin crear un contenedor de scroll.
+    overflow-x: clip;
+
     .swiper {
         overflow: visible;
     }
