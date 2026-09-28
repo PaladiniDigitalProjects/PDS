@@ -145,7 +145,7 @@
 
 		// Tras la respuesta: si ya hay suficientes preguntas y no se ofreció, propone.
 		function maybeOfferEmail() {
-			if ( emailDone() || stage.querySelector( '.pdswt-chat__email' ) ) { return; }
+			if ( emailDone() || root.querySelector( '.pdswt-chat__email' ) ) { return; }
 			var asks = 0;
 			for ( var k = 0; k < history.length; k++ ) {
 				if ( 'user' === history[ k ].role ) { asks++; }
@@ -202,10 +202,28 @@
 			priv.textContent = i18n.emailPrivacy || '';
 			box.appendChild( priv );
 
-			function feedback( msg, isError ) {
+			// Línea de estado para los errores: el formulario sigue ahí para reintentar.
+			var status = document.createElement( 'p' );
+			status.className = 'pdswt-chat__email-status';
+			status.setAttribute( 'role', 'alert' );
+			status.hidden = true;
+			form.parentNode.insertBefore( status, form.nextSibling );
+
+			function showError( msg ) {
+				status.textContent = msg;
+				status.hidden = false;
+				box.classList.add( 'is-error' );
+				sendBtnEl.disabled = false;
+			}
+			function clearError() {
+				status.hidden = true;
+				box.classList.remove( 'is-error' );
+			}
+			mail.addEventListener( 'input', clearError );
+
+			function feedback( msg ) {
 				prompt.textContent = msg;
-				form.remove(); skip.remove();
-				if ( isError ) { box.classList.add( 'is-error' ); return; }
+				form.remove(); skip.remove(); status.remove();
 				// Confirmación breve y luego la opción desaparece.
 				box.classList.add( 'is-sent' );
 				priv.remove();
@@ -220,9 +238,11 @@
 				e.preventDefault();
 				var addr = mail.value.trim();
 				if ( ! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( addr ) ) {
+					showError( i18n.emailInvalid || 'Please enter a valid email.' );
 					mail.focus();
 					return;
 				}
+				clearError();
 				sendBtnEl.disabled = true;
 				fetch( pdswtChat.transcriptUrl, {
 					method: 'POST',
@@ -230,15 +250,22 @@
 					credentials: 'same-origin',
 					body: JSON.stringify( { email: addr, website: hp.value, history: history } )
 				} ).then( function ( r ) {
-					return r.json().then( function ( d ) { return { ok: r.ok, data: d }; } );
+					return r.json().then( function ( d ) { return { ok: r.ok, status: r.status, data: d }; },
+						function () { return { ok: false, status: r.status, data: {} }; } );
 				} ).then( function ( res ) {
 					if ( res.ok && res.data && res.data.ok ) {
 						setEmailDone();
-						feedback( i18n.emailSent || 'Sent!', false );
+						feedback( i18n.emailSent || 'Sent!' );
+					} else if ( 429 === res.status ) {
+						showError( i18n.emailRate || 'You’ve sent a few already. Please try again later.' );
+					} else if ( 400 === res.status && /email/i.test( ( res.data && res.data.error ) || '' ) ) {
+						showError( i18n.emailInvalid || 'Please enter a valid email.' );
 					} else {
-						sendBtnEl.disabled = false;
+						showError( i18n.emailError || 'Couldn’t send it. Please try again.' );
 					}
-				} ).catch( function () { sendBtnEl.disabled = false; } );
+				} ).catch( function () {
+					showError( i18n.emailError || 'Couldn’t send it. Please try again.' );
+				} );
 			} );
 
 			skip.addEventListener( 'click', function () {
@@ -246,9 +273,74 @@
 				box.remove();
 			} );
 
-			stage.appendChild( box );
-			box.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
+			// Debajo del campo de escribir: en móvil no se interpone entre la
+			// respuesta y el input; en escritorio el JS la acopla a la derecha.
+			var chatForm = root.querySelector( '.pdswt-chat__form' );
+			chatForm.parentNode.insertBefore( box, chatForm.nextSibling );
+			if ( ! dockEmail( box ) ) {
+				box.scrollIntoView( { behavior: 'smooth', block: 'nearest' } );
+			}
 		}
+
+		// ── Oferta de email acoplada a la derecha (escritorio) ─────────────
+		// Si a la derecha del chat hay hueco, la oferta sale de la columna y se
+		// queda fija bajo la cabecera mientras se recorre el bloque del chat;
+		// al acabar ese bloque (en la home, donde empieza Partners) sube con la
+		// página, como un sticky. Sin hueco (móvil, tablet) queda en línea.
+		var DOCK_W   = 380; // ancho de la caja acoplada
+		var DOCK_GAP = 32;  // separación mínima con el texto del chat
+		var dockRaf  = null;
+
+		// Bloque de la página que contiene el chat: su borde derecho alinea la
+		// caja y su final es donde deja de estar fija.
+		function dockSection() {
+			var el = root;
+			while ( el.parentElement && ! el.parentElement.matches( '.entry-content, main, body' ) ) {
+				el = el.parentElement;
+			}
+			return el;
+		}
+
+		function dockEmail( box ) {
+			var inner   = root.querySelector( '.pdswt-chat__inner' );
+			var section = dockSection();
+			var cols    = root.closest( '.wp-block-columns' ) || section;
+			var right   = cols.getBoundingClientRect().right;
+			var free    = right - inner.getBoundingClientRect().right;
+			var fits    = free >= DOCK_W + DOCK_GAP;
+
+			box.classList.toggle( 'is-docked', fits );
+			if ( ! fits ) {
+				box.style.top = box.style.right = box.style.width = '';
+				return false;
+			}
+
+			var header = document.querySelector( 'header.wp-block-template-part' ) || document.querySelector( 'header' );
+			// Altura, no posición: la cabecera se oculta al bajar y reaparece al subir.
+			var hh     = ( header && getComputedStyle( header ).position === 'fixed' ) ? header.offsetHeight : 0;
+			var minTop = hh + 24;
+			var start  = root.getBoundingClientRect().top;         // no sube por encima del chat
+			var end    = section.getBoundingClientRect().bottom;   // ni baja del final del bloque
+			var top    = Math.min( Math.max( minTop, start ), end - box.offsetHeight );
+
+			box.style.width = DOCK_W + 'px';
+			box.style.right = Math.max( 0, window.innerWidth - right ) + 'px';
+			box.style.top   = Math.round( top ) + 'px';
+			return true;
+		}
+
+		function redockEmail() {
+			if ( dockRaf ) { return; }
+			dockRaf = requestAnimationFrame( function () {
+				dockRaf = null;
+				var box = root.querySelector( '.pdswt-chat__email' );
+				if ( box ) { dockEmail( box ); }
+			} );
+		}
+		window.addEventListener( 'scroll', redockEmail, { passive: true } );
+		window.addEventListener( 'resize', redockEmail );
+		// La conversación crece mientras la caja está fuera: recolocar.
+		if ( window.ResizeObserver ) { new ResizeObserver( redockEmail ).observe( root ); }
 
 		function renderSources( el, sources ) {
 			el.innerHTML = '';
@@ -454,6 +546,9 @@
 				saveHistory( history );
 				// Al reiniciar la conversación, la oferta de email vuelve a estar disponible.
 				try { localStorage.removeItem( 'pdswtEmailDone' ); } catch ( e ) {}
+				// La oferta vive fuera del stage: quitarla a mano.
+				var box = root.querySelector( '.pdswt-chat__email' );
+				if ( box ) { box.remove(); }
 				renderConversation();
 				input.focus();
 			} );

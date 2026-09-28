@@ -96,7 +96,7 @@ class PDSWT_Frontend {
 			array(
 				'restUrl'       => esc_url_raw( rest_url( PDSWT_Rest::NAMESPACE . '/chat' ) ),
 				'transcriptUrl' => esc_url_raw( rest_url( PDSWT_Rest::NAMESPACE . '/transcript' ) ),
-				'emailAfter'    => 3, // Ofrecer el envío por email tras N preguntas.
+				'emailAfter'    => 2, // Ofrecer el envío por email tras N preguntas.
 				'maxLen'        => isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000,
 				'i18n'          => array(
 					'placeholder' => __( 'Type your message…', 'pds-web-talk' ),
@@ -119,6 +119,7 @@ class PDSWT_Frontend {
 					'emailSent'        => __( 'Done! We’ve emailed you the conversation — check your inbox.', 'pds-web-talk' ),
 					'emailInvalid'     => __( 'Please enter a valid email.', 'pds-web-talk' ),
 					'emailError'       => __( 'Couldn’t send it. Please try again.', 'pds-web-talk' ),
+					'emailRate'        => __( 'You’ve sent a few already. Please try again later.', 'pds-web-talk' ),
 				),
 			)
 		);
