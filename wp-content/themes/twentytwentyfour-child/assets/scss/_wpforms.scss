@@ -46,6 +46,39 @@ div.wpforms-container-full .wpforms-page-button,
     max-width: 100%;
     background-color: #0000FF !important;
   }
+
+  // Fecha / hora: WPForms pone .wpforms-field-medium en la fila que agrupa
+  // los dos campos, no en los inputs. Sin esto, los inputs salen con su caja
+  // blanca por defecto y la línea inferior le cae a la fila, bajo los
+  // sublabels. Mismo aspecto que el email, vacío y relleno.
+  .wpforms-field-row.wpforms-field-medium {
+    border-bottom: none;
+  }
+
+  .wpforms-field input.wpforms-field-date-time-date,
+  .wpforms-field input.wpforms-field-date-time-time {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0;
+    border: none;
+    border-bottom: 0.1rem solid $white;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: #0000FF !important;
+    color: $white;
+    @include font-size(14);
+
+    &::placeholder {
+      color: $white;
+      font-weight: 300;
+      @include font-size(14);
+    }
+
+    &:focus {
+      border-bottom-color: $white;
+      box-shadow: none;
+    }
+  }
 }
 
 .menu-contact {
