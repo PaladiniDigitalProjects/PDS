@@ -50,6 +50,16 @@
 		var history = loadHistory();
 		var busy    = false;
 		var typer   = null; // timeout del efecto máquina de escribir en curso
+		// Idioma de la conversación: el de la página hasta que el servidor
+		// diga en cuál ha respondido. La caja de email lo sigue.
+		var chatLang = ( window.pdswtChat && pdswtChat.lang ) || 'en';
+
+		// Textos de la caja de email en el idioma de la conversación.
+		function emailTexts() {
+			var all = ( window.pdswtChat && pdswtChat.emailI18n ) || {};
+			var t   = all[ chatLang ] || all.en || {};
+			return function ( key, fallback ) { return t[ key ] || i18n[ key ] || fallback || ''; };
+		}
 
 		// Crea un turno (pregunta opcional + respuesta + fuentes) y lo añade al stage.
 		function addTurn( ask ) {
@@ -160,7 +170,9 @@
 
 			var prompt = document.createElement( 'p' );
 			prompt.className = 'pdswt-chat__email-prompt';
-			prompt.textContent = i18n.emailPrompt || 'Want a copy of this conversation by email?';
+			var T = emailTexts();
+			box.setAttribute( 'lang', chatLang );
+			prompt.textContent = T( 'emailPrompt', 'Want a copy of this conversation by email?' );
 			box.appendChild( prompt );
 
 			var form = document.createElement( 'form' );
@@ -169,7 +181,7 @@
 			var mail = document.createElement( 'input' );
 			mail.type = 'email';
 			mail.className = 'pdswt-chat__email-input';
-			mail.placeholder = i18n.emailPlaceholder || 'your@email.com';
+			mail.placeholder = T( 'emailPlaceholder', 'your@email.com' );
 			mail.required = true;
 			form.appendChild( mail );
 
@@ -186,7 +198,7 @@
 			var sendBtnEl = document.createElement( 'button' );
 			sendBtnEl.type = 'submit';
 			sendBtnEl.className = 'pdswt-chat__email-send';
-			sendBtnEl.textContent = i18n.emailSend || 'Send it to me';
+			sendBtnEl.textContent = T( 'emailSend', 'Send it to me' );
 			form.appendChild( sendBtnEl );
 
 			box.appendChild( form );
@@ -194,13 +206,25 @@
 			var skip = document.createElement( 'button' );
 			skip.type = 'button';
 			skip.className = 'pdswt-chat__email-skip';
-			skip.textContent = i18n.emailSkip || 'No, thanks';
+			skip.textContent = T( 'emailSkip', 'No, thanks' );
 			box.appendChild( skip );
 
 			var priv = document.createElement( 'p' );
 			priv.className = 'pdswt-chat__email-privacy';
-			priv.textContent = i18n.emailPrivacy || '';
+			priv.textContent = T( 'emailPrivacy' );
 			box.appendChild( priv );
+
+			// Si la conversación cambia de idioma con la caja abierta, la caja cambia con ella.
+			box.pdswtRelabel = function () {
+				T = emailTexts();
+				box.setAttribute( 'lang', chatLang );
+				if ( box.classList.contains( 'is-sent' ) ) { return; }
+				prompt.textContent    = T( 'emailPrompt', 'Want a copy of this conversation by email?' );
+				mail.placeholder      = T( 'emailPlaceholder', 'your@email.com' );
+				sendBtnEl.textContent = T( 'emailSend', 'Send it to me' );
+				skip.textContent      = T( 'emailSkip', 'No, thanks' );
+				priv.textContent      = T( 'emailPrivacy' );
+			};
 
 			// Línea de estado para los errores: el formulario sigue ahí para reintentar.
 			var status = document.createElement( 'p' );
@@ -238,7 +262,7 @@
 				e.preventDefault();
 				var addr = mail.value.trim();
 				if ( ! /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( addr ) ) {
-					showError( i18n.emailInvalid || 'Please enter a valid email.' );
+					showError( T( 'emailInvalid', 'Please enter a valid email.' ) );
 					mail.focus();
 					return;
 				}
@@ -255,16 +279,16 @@
 				} ).then( function ( res ) {
 					if ( res.ok && res.data && res.data.ok ) {
 						setEmailDone();
-						feedback( i18n.emailSent || 'Sent!' );
+						feedback( T( 'emailSent', 'Sent!' ) );
 					} else if ( 429 === res.status ) {
-						showError( i18n.emailRate || 'You’ve sent a few already. Please try again later.' );
+						showError( T( 'emailRate', 'You’ve sent a few already. Please try again later.' ) );
 					} else if ( 400 === res.status && /email/i.test( ( res.data && res.data.error ) || '' ) ) {
-						showError( i18n.emailInvalid || 'Please enter a valid email.' );
+						showError( T( 'emailInvalid', 'Please enter a valid email.' ) );
 					} else {
-						showError( i18n.emailError || 'Couldn’t send it. Please try again.' );
+						showError( T( 'emailError', 'Couldn’t send it. Please try again.' ) );
 					}
 				} ).catch( function () {
-					showError( i18n.emailError || 'Couldn’t send it. Please try again.' );
+					showError( T( 'emailError', 'Couldn’t send it. Please try again.' ) );
 				} );
 			} );
 
@@ -446,6 +470,7 @@
 
 			var payload = {
 				message: text,
+				lang: ( window.pdswtChat && pdswtChat.lang ) || '',
 				history: history.filter( function ( m ) { return m.role === 'user' || m.role === 'assistant'; } )
 					.slice( -6 ).map( function ( m ) { return { role: m.role, content: m.content }; } )
 			};
@@ -459,6 +484,11 @@
 				return r.json().then( function ( data ) { return { ok: r.ok, data: data }; } );
 			} ).then( function ( res ) {
 				if ( res.ok && res.data && res.data.reply ) {
+					if ( res.data.lang && res.data.lang !== chatLang ) {
+						chatLang = res.data.lang;
+						var openBox = root.querySelector( '.pdswt-chat__email' );
+						if ( openBox && openBox.pdswtRelabel ) { openBox.pdswtRelabel(); }
+					}
 					var sources = res.data.sources || [];
 					var pieces  = res.data.pieces || [];
 					var split   = splitFollowup( res.data.reply );

@@ -96,6 +96,9 @@ class PDSWT_Frontend {
 			array(
 				'restUrl'       => esc_url_raw( rest_url( PDSWT_Rest::NAMESPACE . '/chat' ) ),
 				'transcriptUrl' => esc_url_raw( rest_url( PDSWT_Rest::NAMESPACE . '/transcript' ) ),
+				// Idioma de la página según WPML: el bot responde en él salvo que
+				// la pregunta llegue claramente en otro.
+				'lang'          => (string) apply_filters( 'wpml_current_language', '' ),
 				'emailAfter'    => 2, // Ofrecer el envío por email tras N preguntas.
 				'maxLen'        => isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000,
 				'i18n'          => array(
@@ -120,6 +123,43 @@ class PDSWT_Frontend {
 					'emailInvalid'     => __( 'Please enter a valid email.', 'pds-web-talk' ),
 					'emailError'       => __( 'Couldn’t send it. Please try again.', 'pds-web-talk' ),
 					'emailRate'        => __( 'You’ve sent a few already. Please try again later.', 'pds-web-talk' ),
+				),
+				// Textos de la caja de email por idioma: la caja sigue el idioma en
+				// el que responde el bot, no el de la instalación.
+				'emailI18n'     => array(
+					'en' => array(
+						'emailPrompt'      => 'Want a copy of this conversation by email?',
+						'emailPlaceholder' => 'your@email.com',
+						'emailSend'        => 'Send it to me',
+						'emailSkip'        => 'No, thanks',
+						'emailPrivacy'     => 'We’ll email you the conversation and keep a copy. No spam.',
+						'emailSent'        => 'Done! We’ve emailed you the conversation — check your inbox.',
+						'emailInvalid'     => 'Please enter a valid email.',
+						'emailError'       => 'Couldn’t send it. Please try again.',
+						'emailRate'        => 'You’ve sent a few already. Please try again later.',
+					),
+					'es' => array(
+						'emailPrompt'      => '¿Quieres una copia de esta conversación por email?',
+						'emailPlaceholder' => 'tu@email.com',
+						'emailSend'        => 'Envíamela',
+						'emailSkip'        => 'No, gracias',
+						'emailPrivacy'     => 'Te enviaremos la conversación por email y guardaremos una copia. Sin spam.',
+						'emailSent'        => '¡Hecho! Te hemos enviado la conversación: revisa tu bandeja de entrada.',
+						'emailInvalid'     => 'Introduce un email válido.',
+						'emailError'       => 'No se ha podido enviar. Inténtalo de nuevo.',
+						'emailRate'        => 'Ya has enviado varias. Inténtalo más tarde.',
+					),
+					'ca' => array(
+						'emailPrompt'      => 'Vols una còpia d’aquesta conversa per correu?',
+						'emailPlaceholder' => 'el-teu@correu.com',
+						'emailSend'        => 'Envia-me-la',
+						'emailSkip'        => 'No, gràcies',
+						'emailPrivacy'     => 'T’enviarem la conversa per correu i en guardarem una còpia. Sense correu brossa.',
+						'emailSent'        => 'Fet! T’hem enviat la conversa: revisa la safata d’entrada.',
+						'emailInvalid'     => 'Introdueix un correu vàlid.',
+						'emailError'       => 'No s’ha pogut enviar. Torna-ho a provar.',
+						'emailRate'        => 'Ja n’has enviat unes quantes. Torna-ho a provar més tard.',
+					),
 				),
 			)
 		);

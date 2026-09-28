@@ -23,6 +23,7 @@ class PDSWT_Rest {
 				'args'                => array(
 					'message' => array( 'required' => true, 'type' => 'string' ),
 					'history' => array( 'required' => false, 'type' => 'array' ),
+					'lang'    => array( 'required' => false, 'type' => 'string' ),
 				),
 			)
 		);
@@ -107,8 +108,12 @@ class PDSWT_Rest {
 		$history = $this->sanitize_history( $request->get_param( 'history' ), $maxlen );
 
 		// 6) Respuesta con RAG.
+		// Idioma de la página (WPML), base del idioma de la respuesta.
+		$page_lang = strtolower( (string) $request->get_param( 'lang' ) );
+		$page_lang = in_array( $page_lang, array( 'en', 'es', 'ca' ), true ) ? $page_lang : null;
+
 		$chat   = new PDSWT_Chat( $settings );
-		$result = $chat->answer( $message, $history );
+		$result = $chat->answer( $message, $history, $page_lang );
 		if ( empty( $result['ok'] ) ) {
 			return new WP_REST_Response( array( 'error' => __( 'No se pudo generar la respuesta.', 'pds-web-talk' ) ), 502 );
 		}
@@ -118,6 +123,7 @@ class PDSWT_Rest {
 				'reply'   => $result['reply'],
 				'sources' => $result['sources'],
 				'pieces'  => isset( $result['pieces'] ) ? $result['pieces'] : array(),
+				'lang'    => isset( $result['lang'] ) ? $result['lang'] : null,
 			),
 			200
 		);

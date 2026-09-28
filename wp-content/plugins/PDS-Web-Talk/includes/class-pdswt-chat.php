@@ -19,12 +19,14 @@ class PDSWT_Chat {
 	/**
 	 * @param string $message  Pregunta del usuario.
 	 * @param array  $history  Turnos previos [ ['role'=>'user'|'assistant','content'=>..], ... ].
+	 * @param string|null $page_lang Idioma de la página (WPML): en|es|ca.
 	 * @return array { ok, reply, sources:[{title,link}], error }
 	 */
-	public function answer( $message, $history = array() ) {
+	public function answer( $message, $history = array(), $page_lang = null ) {
+		// Un solo idioma para buscar en el corpus y para ordenar la respuesta.
+		$lang      = $this->resolve_language( (string) $message, $page_lang );
 		$retriever = new PDSWT_Retriever( $this->settings );
-		// el mismo idioma que luego ordena en qué lengua responder
-		$ret       = $retriever->retrieve( $message, null, $this->detect_language( (string) $message ) );
+		$ret       = $retriever->retrieve( $message, null, $lang );
 		if ( empty( $ret['ok'] ) ) {
 			return array( 'ok' => false, 'error' => $ret['error'] );
 		}
@@ -38,7 +40,7 @@ class PDSWT_Chat {
 		}
 
 		$context = $this->build_context( $text_results );
-		$system  = $this->build_system_prompt( $context, $message );
+		$system  = $this->build_system_prompt( $context, $lang );
 
 		$messages   = is_array( $history ) ? $history : array();
 		$messages[] = array( 'role' => 'user', 'content' => (string) $message );
@@ -54,6 +56,7 @@ class PDSWT_Chat {
 			'reply'   => $result['content'],
 			'sources' => $this->public_sources( $text_results ),
 			'pieces'  => isset( $ret['pieces'] ) ? $ret['pieces'] : array(),
+			'lang'    => $lang ? $lang : $page_lang,
 		);
 	}
 
@@ -78,7 +81,7 @@ class PDSWT_Chat {
 		return implode( "\n\n─────\n\n", $parts );
 	}
 
-	private function build_system_prompt( $context, $message = '' ) {
+	private function build_system_prompt( $context, $lang = null ) {
 		$base = ! empty( $this->settings['system_prompt'] ) ? $this->settings['system_prompt'] : '';
 
 		$rules = "\n\n" .
@@ -92,27 +95,47 @@ class PDSWT_Chat {
 
 		$ctx = "\n\n===== CONTEXT =====\n" . ( '' !== $context ? $context : '(no relevant results)' ) . "\n===== END CONTEXT =====";
 
-		$lang = $this->language_directive( $message );
-
-		return $base . $rules . $ctx . $lang;
+		return $base . $rules . $ctx . $this->language_directive( $lang );
 	}
 
 	/**
-	 * Orden de idioma determinista: detecta el idioma del mensaje en el servidor
-	 * y da la instrucción en ese mismo idioma (ancla al modelo mucho mejor que
-	 * pedirle que lo detecte, dado que el resto del prompt está en castellano).
+	 * Idioma de la respuesta. Manda el de la página (el que WPML tiene activo,
+	 * que ya refleja la redirección por idioma del navegador); solo se cambia
+	 * si la pregunta está CLARAMENTE en otro idioma. Así un «Hola», un «ok» o
+	 * una pregunta de dos palabras no hacen saltar de idioma.
+	 * Sin idioma de página (widget fuera de WPML), se usa el detectado.
 	 */
-	private function language_directive( $message ) {
-		$lang = $this->detect_language( (string) $message );
+	private function resolve_language( $message, $page_lang = null ) {
+		$scores = $this->language_scores( $message );
+		arsort( $scores );
+		$top  = array_key_first( $scores );
+		$vals = array_values( $scores );
 
+		if ( ! $page_lang || ! isset( $scores[ $page_lang ] ) ) {
+			return ( 0 === $vals[0] || $vals[0] === $vals[1] ) ? null : $top;
+		}
+
+		// Umbral para cambiar: 2 señales del otro idioma y 2 más que del de la página.
+		if ( $top !== $page_lang && $scores[ $top ] >= 2 && $scores[ $top ] - $scores[ $page_lang ] >= 2 ) {
+			return $top;
+		}
+		return $page_lang;
+	}
+
+	/**
+	 * Orden de idioma determinista, dada en ese mismo idioma (ancla al modelo
+	 * mucho mejor que pedirle que lo detecte, dado que el resto del prompt
+	 * está en castellano).
+	 */
+	private function language_directive( $lang ) {
 		$map = array(
 			'en' => "\n\n═══ LANGUAGE — CRITICAL ═══\n" .
-				"The user's message is in ENGLISH. Write your ENTIRE reply in English, including the follow-up question. " .
-				"The context is in English but the instructions above are in Spanish — ignore that: your output MUST be English. Never switch languages.",
+				"Write your ENTIRE reply in ENGLISH, including the follow-up question. " .
+				"The instructions above are in Spanish — ignore that: your output MUST be English. Never switch languages.",
 			'ca' => "\n\n═══ IDIOMA — CRÍTIC ═══\n" .
-				"El missatge de l'usuari és en CATALÀ. Escriu TOTA la teva resposta en català, inclosa la pregunta de seguiment. No canviïs mai d'idioma.",
+				"Escriu TOTA la teva resposta en CATALÀ, inclosa la pregunta de seguiment. No canviïs mai d'idioma.",
 			'es' => "\n\n═══ IDIOMA — CRÍTICO ═══\n" .
-				"El mensaje del usuario está en CASTELLANO. Escribe TODA tu respuesta en castellano, incluida la pregunta de seguimiento. No cambies nunca de idioma.",
+				"Escribe TODA tu respuesta en CASTELLANO, incluida la pregunta de seguimiento. No cambies nunca de idioma.",
 		);
 
 		if ( isset( $map[ $lang ] ) ) {
@@ -124,14 +147,19 @@ class PDSWT_Chat {
 	}
 
 	/**
-	 * Detección de idioma por palabras funcionales. Distingue en / es / ca;
-	 * devuelve null si no hay señal suficiente.
+	 * Puntuación por idioma (en / es / ca) según palabras funcionales.
 	 */
-	private function detect_language( $text ) {
-		$t = ' ' . mb_strtolower( trim( $text ) ) . ' ';
-		if ( ' ' === $t ) {
-			return null;
+	private function language_scores( $text ) {
+		$score = array( 'en' => 0, 'es' => 0, 'ca' => 0 );
+		$raw   = mb_strtolower( trim( (string) $text ) );
+		if ( '' === $raw ) {
+			return $score;
 		}
+		// Señales de puntuación antes de limpiarla.
+		if ( preg_match( '/[¿¡]/u', $raw ) ) { $score['es'] += 1; }
+		if ( preg_match( '/l·l|ç/u', $raw ) ) { $score['ca'] += 1; }
+		// Sin puntuación: «feu?» o «hacéis,» deben contar como palabra.
+		$t = ' ' . preg_replace( '/[^\p{L}\p{M}·\'’]+/u', ' ', $raw ) . ' ';
 
 		$sw = array(
 			'en' => array( ' the ', ' you ', ' do ', ' does ', ' with ', ' for ', ' are ', ' is ', ' what ', ' how ', ' can ', ' we ', ' your ', ' our ', ' and ', ' of ', ' this ', ' help ', ' offer ', ' work ', ' who ', ' where ' ),
@@ -139,21 +167,12 @@ class PDSWT_Chat {
 			'ca' => array( ' els ', ' les ', ' amb ', ' què ', ' com ', ' una ', ' més ', ' està ', ' segons ', ' treballeu ', ' empreses ', ' vostre ', ' feu ', ' volem ', ' nostra ', ' aquesta ', ' sou ', ' on ' ),
 		);
 
-		$score = array( 'en' => 0, 'es' => 0, 'ca' => 0 );
 		foreach ( $sw as $lg => $words ) {
 			foreach ( $words as $w ) {
 				$score[ $lg ] += substr_count( $t, $w );
 			}
 		}
-		if ( preg_match( '/[¿¡]/u', $t ) ) { $score['es'] += 1; }
-		if ( preg_match( '/·|l·l|ç/u', $t ) ) { $score['ca'] += 1; }
-
-		arsort( $score );
-		$vals = array_values( $score );
-		if ( 0 === $vals[0] || $vals[0] === $vals[1] ) {
-			return null; // sin señal o empate
-		}
-		return array_key_first( $score );
+		return $score;
 	}
 
 	/**
