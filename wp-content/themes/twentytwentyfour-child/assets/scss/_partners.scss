@@ -1,6 +1,9 @@
 @use 'variables' as *;
 
-.partners-template {
+// Apertura fija a pantalla completa y contenido que sube por encima.
+// Los case studies usan la misma estructura (patrón `case-study`).
+.partners-template,
+.single-case_study {
 
   .apertura {
     height: 100vh;
