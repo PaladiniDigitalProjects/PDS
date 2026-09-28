@@ -541,6 +541,24 @@ function pds_wpforms_literales() {
 				'choices'     => [ 6 => [ 1 => '*Accepto la <a href="%PRIVACY%" target="_blank" rel="nofollow">política de privadesa</a> de Paladini Digital Solutions' ] ],
 			],
 		],
+		22927 => [ // PDS Schedule a meeting (home, «How do we work?»). Crea el evento en Google Calendar.
+			'es' => [
+				'submit'       => 'Enviar',
+				'processing'   => 'Enviando...',
+				'labels'       => [ 3 => 'Nombre', 2 => 'Email', 1 => 'Fecha / Hora' ],
+				'placeholders' => [ 3 => 'Nombre o empresa', 2 => 'Tu email' ],
+				'date_time'    => [ 1 => [ 'date' => 'Día', 'time' => 'Hora' ] ],
+				'confirmation' => '¡Gracias! Hemos recibido tu petición de reunión y te escribiremos en breve.',
+			],
+			'ca' => [
+				'submit'       => 'Envia',
+				'processing'   => 'Enviant...',
+				'labels'       => [ 3 => 'Nom', 2 => 'Correu', 1 => 'Data / Hora' ],
+				'placeholders' => [ 3 => 'Nom o empresa', 2 => 'El teu correu' ],
+				'date_time'    => [ 1 => [ 'date' => 'Dia', 'time' => 'Hora' ] ],
+				'confirmation' => 'Gràcies! Hem rebut la teva petició de reunió i t’escriurem aviat.',
+			],
+		],
 	];
 }
 
@@ -569,6 +587,18 @@ function pds_wpforms_traducir( $form_data ) {
 		// los campos "name" simples usan su propia clave
 		if ( isset( $form_data['fields'][ $campo ]['simple_placeholder'] ) ) {
 			$form_data['fields'][ $campo ]['simple_placeholder'] = $texto;
+		}
+	}
+	// Campo fecha/hora: sus dos placeholders tienen claves propias.
+	foreach ( (array) ( $t['date_time'] ?? [] ) as $campo => $dt ) {
+		if ( ! isset( $form_data['fields'][ $campo ] ) ) continue;
+		if ( isset( $dt['date'] ) ) $form_data['fields'][ $campo ]['date_placeholder'] = $dt['date'];
+		if ( isset( $dt['time'] ) ) $form_data['fields'][ $campo ]['time_placeholder'] = $dt['time'];
+	}
+	// Mensaje de confirmación tras enviar (todas las confirmaciones del form).
+	if ( ! empty( $t['confirmation'] ) ) {
+		foreach ( (array) ( $form_data['settings']['confirmations'] ?? [] ) as $k => $c ) {
+			$form_data['settings']['confirmations'][ $k ]['message'] = '<p>' . esc_html( $t['confirmation'] ) . '</p>';
 		}
 	}
 	foreach ( (array) ( $t['choices'] ?? [] ) as $campo => $opciones ) {
