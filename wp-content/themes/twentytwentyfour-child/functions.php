@@ -613,3 +613,97 @@ function pds_wpforms_traducir( $form_data ) {
 add_filter( 'wpforms_frontend_form_data', 'pds_wpforms_traducir' );
 
 
+
+/**
+ * Datos estructurados (Yoast).
+ *
+ * 1) Organización: Yoast gratuito no tiene campos para nombre corto,
+ *    dirección, correo ni temas, así que se añaden aquí. Datos confirmados
+ *    por Daniel el 2026-09-28.
+ * 2) FAQPage: cualquier página con bloques de acordeón (core/accordion) los
+ *    publica como preguntas y respuestas. Hoy, las FAQS de About en los tres
+ *    idiomas. Sale del propio contenido: si se edita el acordeón, el marcado
+ *    se actualiza solo. Google ya no pinta FAQ enriquecidas para webs
+ *    comerciales (solo gobierno y salud), pero los buscadores con IA sí lo leen.
+ */
+function pds_schema_organizacion( $data ) {
+	$data['alternateName'] = 'PDS';
+	$data['email']         = 'contact@paladinidigital.com';
+	$data['address']       = [
+		'@type'           => 'PostalAddress',
+		'streetAddress'   => 'Via Laietana 46, 1.º 1.ª',
+		'postalCode'      => '08003',
+		'addressLocality' => 'Barcelona',
+		'addressCountry'  => 'ES',
+	];
+	$data['knowsAbout']    = [ 'Digital product design', 'Globalization and localization', 'AI implementation', 'Change management' ];
+	return $data;
+}
+add_filter( 'wpseo_schema_organization', 'pds_schema_organizacion' );
+
+// Recorre los bloques y devuelve [ pregunta, respuesta ] de cada acordeón.
+function pds_faq_de_bloques( $blocks, &$faq = [] ) {
+	foreach ( $blocks as $b ) {
+		if ( 'core/accordion-item' === $b['blockName'] ) {
+			$q = '';
+			$a = '';
+			foreach ( $b['innerBlocks'] as $hijo ) {
+				if ( 'core/accordion-heading' === $hijo['blockName'] ) {
+					$q = render_block( $hijo );
+				} elseif ( 'core/accordion-panel' === $hijo['blockName'] ) {
+					$a = render_block( $hijo );
+				}
+			}
+			$limpia = function ( $html ) {
+				// Fuera el icono del acordeón (decorativo) y un espacio entre bloques,
+				// para que los párrafos de la respuesta no queden pegados.
+				$html = preg_replace( '/<([a-z]+)[^>]*aria-hidden="true"[^>]*>.*?<\/\1>/s', '', $html );
+				$html = preg_replace( '/<\/(p|li|h[1-6]|div)>|<br\s*\/?>/i', '$0 ', $html );
+				$txt  = trim( preg_replace( '/\s+/u', ' ', html_entity_decode( wp_strip_all_tags( $html ), ENT_QUOTES, 'UTF-8' ) ) );
+				return trim( rtrim( $txt, '+' ) );
+			};
+			$q = $limpia( $q );
+			$a = $limpia( $a );
+			if ( '' !== $q && '' !== $a ) {
+				$faq[] = [ $q, $a ];
+			}
+			continue;
+		}
+		if ( ! empty( $b['innerBlocks'] ) ) {
+			pds_faq_de_bloques( $b['innerBlocks'], $faq );
+		}
+	}
+	return $faq;
+}
+
+function pds_schema_faq( $graph, $context ) {
+	if ( ! is_singular() ) {
+		return $graph;
+	}
+	$contenido = get_post_field( 'post_content', get_queried_object_id() );
+	if ( false === strpos( $contenido, '<!-- wp:accordion' ) ) {
+		return $graph;
+	}
+	$faq = pds_faq_de_bloques( parse_blocks( $contenido ) );
+	if ( ! $faq ) {
+		return $graph;
+	}
+	$graph[] = [
+		'@type'            => 'FAQPage',
+		'@id'              => $context->canonical . '#faq',
+		'isPartOf'         => [ '@id' => $context->canonical ],
+		'inLanguage'       => str_replace( '_', '-', get_locale() ),
+		'mainEntity'       => array_map(
+			function ( $qa ) {
+				return [
+					'@type'          => 'Question',
+					'name'           => $qa[0],
+					'acceptedAnswer' => [ '@type' => 'Answer', 'text' => $qa[1] ],
+				];
+			},
+			$faq
+		),
+	];
+	return $graph;
+}
+add_filter( 'wpseo_schema_graph', 'pds_schema_faq', 10, 2 );
