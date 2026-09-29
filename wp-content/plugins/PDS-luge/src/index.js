@@ -19,10 +19,16 @@ document.addEventListener("DOMContentLoaded", function () {
     menuTemplate.setAttribute("data-lg-page", "menu");
   }
 
+  // Color por el que pasa el fundido: blanco, o negro con el modo oscuro del tema
+  // (html.pds-dark). Se evalúa en cada transición, por si se cambia de modo.
+  // OJO: public/js/bundle.js se editó a mano con el mismo cambio (2026-09-29),
+  // porque las herramientas de compilación no están en el proyecto.
+  const fundido = () => document.documentElement.classList.contains('pds-dark') ? '#000' : '#fff';
+
   luge.transition.add("in", "default", (page, done) => {
     gsap.from(page, {
       opacity: 0.8,
-      backgroundColor: '#fff',
+      backgroundColor: fundido(),
       ease: "power1.in",
       duration: 0.3,
       onComplete: done
@@ -32,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.to(page, {
       opacity: 0,
       ease: "power1.out",
-      backgroundColor: '#fff',
+      backgroundColor: fundido(),
       duration: 0.5,
       onComplete: done
     });
@@ -41,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 🔹 HOME + MENU TRANSITIONS
   luge.transition.add("out", "home", (page, done) => {
     gsap.to(page, {
-      backgroundColor: '#fff',
+      backgroundColor: fundido(),
       opacity: 0,
       ease: "power1.out",
       duration: 0.5,
@@ -50,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   luge.transition.add("in", "home", (page, done) => {
     gsap.from(page, {
-      backgroundColor: '#fff',
+      backgroundColor: fundido(),
       opacity: 0,
       ease: "power1.in",
       duration: 0.5,
@@ -59,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   luge.transition.add("in", "menu", (page, done) => {
     gsap.from(page, {
-      backgroundColor: '#fff',
+      backgroundColor: fundido(),
       opacity: 0,
       duration: 0.5,
       ease: "power1.in",
@@ -70,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     gsap.to(page, {
       ease: "power1.out",
       opacity: 0,
-      backgroundColor: '#fff',
+      backgroundColor: fundido(),
       duration: 0.5,
       onComplete: done
     });

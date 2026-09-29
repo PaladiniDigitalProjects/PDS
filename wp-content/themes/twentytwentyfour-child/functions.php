@@ -42,6 +42,14 @@ function pds_datalayer() {
 }
 add_action( 'wp_head', 'pds_datalayer', 1 );
 
+/* MODO OSCURO (prueba, 2026-09-29)
+ * Aplica la preferencia guardada antes de pintar la página, para que no se vea
+ * un destello en claro al cargar. El botón que la cambia lo pone main.js. */
+function pds_modo_oscuro_head() {
+	echo "<script>try{if(localStorage.getItem('pds-tema')==='oscuro')document.documentElement.classList.add('pds-dark')}catch(e){}</script>\n";
+}
+add_action( 'wp_head', 'pds_modo_oscuro_head', 0 );
+
 /* Add Google Tag Manager javascript code as close to 
 the opening <head> tag as possible
 =====================================================*/

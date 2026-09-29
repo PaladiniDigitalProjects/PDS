@@ -118,3 +118,44 @@ document.addEventListener('DOMContentLoaded', function() {
         if (id) avisar(parseInt(id, 10));
     });
 })();
+
+
+// MODO OSCURO (prueba, 2026-09-29)
+// Botón con una luna/sol al lado del selector de idioma. El header vive en la base de
+// datos (un template part por idioma), así que se inserta desde aquí para no tocar los tres.
+// La preferencia se guarda en localStorage; el <head> la aplica antes de pintar (functions.php).
+document.addEventListener('DOMContentLoaded', function () {
+    var idioma = document.querySelector('header .lenguage_nav');
+    if (!idioma || document.querySelector('.pds-tema')) return;
+
+    var html = document.documentElement;
+    var textos = {
+        ca: ['Mode fosc', 'Mode clar'],
+        es: ['Modo oscuro', 'Modo claro'],
+        en: ['Dark mode', 'Light mode']
+    }[(html.lang || 'en').slice(0, 2)] || ['Dark mode', 'Light mode'];
+
+    var luna = '<svg class="pds-tema__luna" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>';
+    var sol = '<svg class="pds-tema__sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.4M12 19.6V22M2 12h2.4M19.6 12H22M4.9 4.9l1.7 1.7M17.4 17.4l1.7 1.7M4.9 19.1l1.7-1.7M17.4 6.6l1.7-1.7"/></svg>';
+
+    var boton = document.createElement('button');
+    boton.type = 'button';
+    boton.className = 'pds-tema';
+    boton.innerHTML = luna + sol;
+
+    function pintar() {
+        var oscuro = html.classList.contains('pds-dark');
+        boton.setAttribute('aria-pressed', oscuro ? 'true' : 'false');
+        boton.setAttribute('aria-label', oscuro ? textos[1] : textos[0]);
+        boton.title = oscuro ? textos[1] : textos[0];
+    }
+
+    boton.addEventListener('click', function () {
+        var oscuro = html.classList.toggle('pds-dark');
+        try { localStorage.setItem('pds-tema', oscuro ? 'oscuro' : 'claro'); } catch (e) {}
+        pintar();
+    });
+
+    idioma.parentNode.insertBefore(boton, idioma);
+    pintar();
+});

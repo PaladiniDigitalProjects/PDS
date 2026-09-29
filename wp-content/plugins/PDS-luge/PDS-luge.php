@@ -3,7 +3,7 @@
  * Plugin Name:       PDS-luge
  * Plugin URI:        https://paladinidigital.com
  * Description:       Animations & transitions using Luge, with a Gutenberg block that uses block attributes.
- * Version:           1.1.1
+ * Version:           1.1.2
  * Author:            Ricard PDS
  * Author URI:        https://paladinidigital.com
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Define the plugin version.
  */
-define( 'PDS_luge_VERSION', '1.1.1' );
+define( 'PDS_luge_VERSION', '1.1.2' );
 
 /**
  * Include activation, deactivation, and core files.

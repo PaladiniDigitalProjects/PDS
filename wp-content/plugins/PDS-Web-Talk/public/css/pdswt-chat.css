@@ -342,6 +342,10 @@
  * Mismo lenguaje que la tarjeta «Contact Us» del pie: fondo azul PDS, texto
  * blanco, campos con solo línea inferior y botón blanco con texto azul. */
 .pdswt-chat__email {
+	/* Siempre azul PDS, como la tarjeta de Contact, también en modo oscuro (donde el
+	 * acento del chat pasa a blanco). Se fija aquí para que lo hereden el fondo y el
+	 * texto del botón de enviar. */
+	--pdswt-accent: var(--wp--preset--color--custom-primary, #0000ff);
 	margin-top: 1.75rem;
 	padding: 2rem 1.5rem;
 	border-radius: 8px;
@@ -584,15 +588,12 @@
 	cursor: default;
 }
 
-@media (prefers-color-scheme: dark) {
-	.pdswt-chat {
-		--pdswt-crema: #23211c;
-		--pdswt-ink: #ece9e2;
-	}
-
-	.pdswt-chat__sources {
-		color: #9a9488;
-	}
+/* Sin @media (prefers-color-scheme: dark): hasta el 2026-09-29 aquí se aclaraba la
+ * tinta cuando el sistema del visitante estaba en oscuro, pero el fondo seguía
+ * en #f1f1f1 y el texto escrito quedaba casi invisible. El chat vive dentro de una
+ * web clara; el modo oscuro lo da el tema (html.pds-dark, _darkmode.scss). */
+html.pds-dark .pdswt-chat__sources {
+	color: #9a9488;
 }
 
 @media (prefers-reduced-motion: reduce) {

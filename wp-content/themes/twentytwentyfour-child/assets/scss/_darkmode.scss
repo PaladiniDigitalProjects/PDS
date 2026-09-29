@@ -1,0 +1,234 @@
+// MODO OSCURO (prueba, 2026-09-29)
+// Se activa con la clase html.pds-dark, que pone el botón .pds-tema (main.js) y que el
+// <head> recupera de localStorage antes de pintar (functions.php).
+// Los colores de la web no son variables: salen de las clases de color de los bloques
+// (has-*-color, has-*-background-color) y de unos pocos valores del SCSS. Aquí se
+// reasignan esos casos. El azul de marca, como texto, enlace o icono, pasa a blanco
+// (#0000FF sobre casi negro no se lee: contraste 2,4:1). Los bloques con FONDO azul
+// se mantienen, porque llevan el texto en blanco encima.
+
+$dm-fondo: #121214;
+$dm-superficie: #1d1d22;
+$dm-texto: #e8e8ec;
+$dm-texto-suave: #a9a9b2;
+$dm-azul-texto: #ffffff; // el azul de marca pasa a blanco en oscuro (Daniel, 29/09)
+$dm-linea: #3a3a42;
+
+// ── Botón ──────────────────────────────────────────────────────────────────
+.pds-tema {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  cursor: pointer;
+  color: #0000ff;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s;
+
+  svg {
+    width: 1.9rem;
+    height: 1.9rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pds-tema__sol {
+    display: none;
+  }
+
+  &:hover {
+    transform: rotate(-15deg);
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 50%;
+  }
+}
+
+// Sobre la imagen de apertura, el header pasa sus iconos a blanco: el botón también.
+header.header-sobre-media .pds-tema {
+  color: #fff;
+}
+
+// ── Modo oscuro ────────────────────────────────────────────────────────────
+html.pds-dark {
+  color-scheme: dark;
+  // Solo la base: white/black también pintan velos de imagen y texto sobre azul.
+  --wp--preset--color--base: #{$dm-fondo};
+
+  // Negro debajo del body: es lo que se ve cuando luge funde la página (opacity 0)
+  // al cambiar de enlace. En claro, ese fundido pasa por blanco.
+  background-color: #000;
+
+  body {
+    background-color: $dm-fondo;
+    color: $dm-texto;
+  }
+
+  // Texto oscuro por defecto (#343434 del tema) y clases de color negro/gris
+  :where(h1, h2, h3, h4, h5, h6, p, li, dt, dd, blockquote, figcaption, label, td, th) {
+    color: $dm-texto;
+  }
+
+  // Las clases de color de WordPress llevan !important: hay que igualarlo
+  .has-black-color:not(.wp-block-button__link),
+  .has-bkg-color {
+    color: $dm-texto !important;
+  }
+
+  // Azul de marca como TEXTO → blanco. Los fondos azules no se tocan.
+  .has-custom-primary-color:not(.has-background) {
+    color: $dm-azul-texto !important;
+  }
+
+  a:not(.wp-block-button__link):not(.has-text-color) {
+    color: $dm-azul-texto;
+  }
+
+  // Secciones y tarjetas blancas → superficie oscura
+  .has-white-background-color:not(.wp-block-button__link),
+  .has-base-background-color {
+    background-color: $dm-superficie !important;
+  }
+
+  // Los botones blancos se quedan blancos, con texto oscuro de verdad
+  .wp-block-button__link.has-white-background-color {
+    background-color: #fff !important;
+    color: $dm-fondo !important;
+  }
+
+  // Texto que ya era blanco sobre fondo azul o sobre imagen: se queda blanco
+  .has-white-color :where(h1, h2, h3, h4, h5, h6, p, li, a) {
+    color: #fff;
+  }
+
+  hr,
+  .wp-block-separator {
+    border-color: $dm-linea;
+    color: $dm-linea;
+  }
+
+  // ── Header ──
+  // Logo: la variante de círculo blanco con letras azules (la misma de header-sobre-media)
+  header .custom-logo-link {
+    display: inline-block;
+    background: url('../images/Paladini_Logo_sobre_imagen.svg') no-repeat center / contain;
+  }
+
+  header .custom-logo {
+    opacity: 0;
+  }
+
+  // Iconos de trazo azul del header (globo, menú) → blanco
+  header .lenguage_nav img,
+  header .wp-block-navigation__responsive-container-open img {
+    filter: brightness(0) invert(1);
+  }
+
+  // Desplegable de idiomas (_header.scss): fondo blanco fijo → superficie oscura,
+  // también el pico que hace de flecha. Mismo peso que la regla original
+  // (.lenguage_nav:hover .wpml-language-switcher-block ul.vertical-list), que si no gana.
+  .lenguage_nav:hover .wpml-language-switcher-block ul.vertical-list {
+    background-color: $dm-superficie;
+    box-shadow: 0 0 0 1px $dm-linea, 0 6px 18px rgba(0, 0, 0, 0.5);
+
+    &::before {
+      background-color: $dm-superficie;
+    }
+
+    .wp-block-navigation-item__label {
+      color: $dm-texto;
+    }
+
+    a:hover .wp-block-navigation-item__label {
+      color: #fff;
+    }
+  }
+
+  .pds-tema {
+    color: $dm-azul-texto;
+
+    .pds-tema__luna {
+      display: none;
+    }
+
+    .pds-tema__sol {
+      display: block;
+    }
+  }
+
+  header.header-sobre-media .pds-tema {
+    color: #fff;
+  }
+
+  // ── Formularios ──
+  input:not([type='submit']):not([type='button']),
+  textarea,
+  select {
+    color: $dm-texto;
+    background-color: transparent;
+    border-color: $dm-texto-suave;
+  }
+
+  ::placeholder {
+    color: $dm-texto-suave;
+    opacity: 1;
+  }
+
+  // Fondos puestos a mano en el bloque (style="background-color:#f1f1f1"), sin clase
+  [style*='background-color:#f1f1f1' i] {
+    background-color: $dm-fondo !important;
+  }
+
+  // Enlaces dentro de bloques azules: blanco, el azul claro no se lee sobre azul.
+  // El azul llega por clase o escrito a mano en el bloque (Contact del pie).
+  :is(.has-custom-primary-background-color, [style*='background-color:#0000ff' i]) a:not(.wp-block-button__link) {
+    color: #fff;
+  }
+
+  // Logos de partners y clientes: casi todos son negros sobre transparente.
+  // Se pasan a un gris claro plano (mismo criterio que los iconos del header).
+  a[href*='/partners/'] img,
+  .wp-block-image img[src*='_logo' i],
+  .wp-block-image img[src*='logo_' i] {
+    filter: brightness(0) invert(0.88);
+  }
+
+  // ── Chat PDS-Web-Talk ──
+  // Trabaja con variables propias: basta con reasignarlas. El azul pasa a blanco
+  // también en el botón de enviar, con la flecha en oscuro.
+  .pdswt-chat {
+    --pdswt-bg: #{$dm-fondo};
+    --pdswt-ink: #{$dm-texto};
+    --pdswt-accent: #{$dm-azul-texto};
+    --pdswt-crema: #{$dm-superficie};
+  }
+
+  // La caja de enviar la transcripción es azul PDS en los dos modos (el azul lo fija
+  // el propio plugin): su campo se queda en blanco, no en el gris de los formularios.
+  .pdswt-chat__email .pdswt-chat__email-input {
+    color: #fff;
+    border-color: #fff;
+
+    &::placeholder {
+      color: #fff;
+      opacity: 0.5; // como en claro (pdswt-chat.css)
+    }
+  }
+
+  .pdswt-chat__send {
+    background-color: #fff;
+    color: $dm-fondo;
+  }
+}

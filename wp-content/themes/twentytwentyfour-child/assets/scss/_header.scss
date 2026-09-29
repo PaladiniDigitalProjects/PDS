@@ -273,6 +273,12 @@ html.has-modal-open {
 
     img {
       transition: 0.3s;
+      // Mismo tamaño visible que el sol/luna del modo oscuro (~28 px). Antes llenaba
+      // los 2.2rem de la caja y se veía más grande que el icono de al lado (2026-09-29).
+      display: block;
+      width: 1.75rem !important;
+      height: 1.75rem !important;
+      margin: 0 auto;
     }
   }
 
