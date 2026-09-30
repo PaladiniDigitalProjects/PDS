@@ -67,9 +67,11 @@ html.pds-dark {
   // Solo la base: white/black también pintan velos de imagen y texto sobre azul.
   --wp--preset--color--base: #{$dm-fondo};
 
-  // Negro debajo del body: es lo que se ve cuando luge funde la página (opacity 0)
-  // al cambiar de enlace. En claro, ese fundido pasa por blanco.
-  background-color: #000;
+  // SIN fondo en html, a propósito (30/09): si html tiene fondo, el del body deja de
+  // propagarse al lienzo y se pinta por encima de las aperturas con z-index: -1
+  // (.featured-fixed de noticias, .fixed de partners), que desaparecían. El fundido
+  // de luge sigue pasando por negro: anima el fondo del body a #000 y, al propagarse
+  // al lienzo, no se desvanece con la opacidad del body.
 
   body {
     background-color: $dm-fondo;
