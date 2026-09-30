@@ -355,8 +355,9 @@ function pds_register_service_cpt() {
 		'menu_position' => 20,
 		'menu_icon'     => 'dashicons-screenoptions',
 		'show_in_rest'  => true,
-		// Los mismos que `page`, verificados con get_all_post_type_supports('page').
-		'supports'      => [ 'title', 'editor', 'author', 'thumbnail', 'page-attributes', 'custom-fields', 'revisions' ],
+		// Los mismos que `page`, verificados con get_all_post_type_supports('page'),
+		// más `excerpt` (30/09): el extracto de cada servicio se edita desde el editor.
+		'supports'      => [ 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'page-attributes', 'custom-fields', 'revisions' ],
 	] );
 }
 add_action( 'init', 'pds_register_service_cpt' );
