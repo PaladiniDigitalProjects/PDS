@@ -162,6 +162,18 @@ body.home {
     }
 }
 
+// Tarjetas del query de servicios (bloque sincronizado #23354, en la home y como
+// relacionados en el detalle): todas a la misma altura, en escritorio y en móvil.
+// `1fr` en las filas iguala todas a la más alta, también cuando la rejilla pasa a
+// 2×2 o a una columna; la tarjeta (cover) llena su celda (01/10/2026).
+.wp-block-post-template-is-layout-grid:has(> li.type-service) {
+    grid-auto-rows: 1fr;
+}
+
+.wp-block-post-template-is-layout-grid > li.type-service > .wp-block-cover {
+    height: 100%;
+}
+
 /* BUTTONS */
 
 .wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
