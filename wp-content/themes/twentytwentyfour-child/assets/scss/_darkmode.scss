@@ -13,6 +13,7 @@ $dm-texto: #e8e8ec;
 $dm-texto-suave: #a9a9b2;
 $dm-azul-texto: #ffffff; // el azul de marca pasa a blanco en oscuro (Daniel, 29/09)
 $dm-linea: #3a3a42;
+$dm-tarjeta: #444444; // tarjetas de servicios: la superficie no se distinguía del fondo (Daniel, 01/10)
 
 // ── Botón ──────────────────────────────────────────────────────────────────
 .pds-tema {
@@ -102,6 +103,12 @@ html.pds-dark {
   .has-white-background-color:not(.wp-block-button__link),
   .has-base-background-color {
     background-color: $dm-superficie !important;
+  }
+
+  // Tarjetas del query de servicios (home y relacionados): más claras que la
+  // superficie para que destaquen. Contraste con la página 1,9:1; texto 8:1.
+  li.type-service > .wp-block-cover > .wp-block-cover__background {
+    background-color: $dm-tarjeta !important;
   }
 
   // Los botones blancos se quedan blancos, con texto oscuro de verdad
