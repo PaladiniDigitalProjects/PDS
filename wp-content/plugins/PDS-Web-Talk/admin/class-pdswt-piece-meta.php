@@ -167,7 +167,9 @@ class PDSWT_Piece_Meta {
 		$logo  = (int) get_post_meta( $post_id, self::M_LOGO, true );
 		$title = (string) get_post_meta( $post_id, self::M_TITLE, true );
 		if ( '' === $title ) {
-			$title = get_the_title( $post_id );
+			// get_the_title() devuelve entidades (& → &#038;) y el chat pinta el
+			// título con textContent: se verían literales. Se decodifica aquí.
+			$title = html_entity_decode( get_the_title( $post_id ), ENT_QUOTES, 'UTF-8' );
 		}
 		$weight = get_post_meta( $post_id, self::M_WEIGHT, true );
 		$weight = ( '' === $weight ) ? 5 : (int) $weight;
