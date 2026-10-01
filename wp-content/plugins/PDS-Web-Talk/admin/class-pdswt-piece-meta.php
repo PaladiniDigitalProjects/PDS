@@ -12,7 +12,7 @@ if ( ! defined( 'WPINC' ) ) {
 class PDSWT_Piece_Meta {
 
 	/** Post types que pueden catalogarse como pieza. */
-	const POST_TYPES = array( 'proyecto', 'partners', 'page' );
+	const POST_TYPES = array( 'proyecto', 'partners', 'page', 'service' );
 
 	const NONCE = 'pdswt_piece_meta_nonce';
 
@@ -172,7 +172,7 @@ class PDSWT_Piece_Meta {
 		$weight = get_post_meta( $post_id, self::M_WEIGHT, true );
 		$weight = ( '' === $weight ) ? 5 : (int) $weight;
 
-		$cat_map  = array( 'partners' => 'partner', 'proyecto' => 'project', 'page' => 'page' );
+		$cat_map  = array( 'partners' => 'partner', 'proyecto' => 'project', 'page' => 'page', 'service' => 'service' );
 		$post_type = get_post_type( $post_id );
 
 		return array(

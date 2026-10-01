@@ -113,6 +113,7 @@ class PDSWT_Frontend {
 						'partner' => __( 'partners:', 'pds-web-talk' ),
 						'project' => __( 'projects:', 'pds-web-talk' ),
 						'page'    => __( 'pages:', 'pds-web-talk' ),
+						'service' => __( 'services:', 'pds-web-talk' ),
 					),
 					'emailPrompt'      => __( 'Want a copy of this conversation by email?', 'pds-web-talk' ),
 					'emailPlaceholder' => __( 'your@email.com', 'pds-web-talk' ),
