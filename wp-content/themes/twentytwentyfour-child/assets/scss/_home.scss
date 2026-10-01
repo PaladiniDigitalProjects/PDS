@@ -178,9 +178,17 @@ body.home {
 // un ::after que cubre toda la tarjeta. Sigue habiendo un único enlace en el HTML,
 // para el teclado y los lectores de pantalla. Los contenedores intermedios pasan a
 // `static` para que el ::after se mida contra la tarjeta y no contra ellos.
+// Ojo: con los contenedores en `static`, el velo del cover (__background, z-index 1)
+// tapaba el texto. Por eso la tarjeta se aísla y el velo baja a -1: queda encima del
+// fondo de la tarjeta pero debajo del texto (corregido el 01/10/2026).
 li.type-service {
     > .wp-block-cover {
         position: relative;
+        isolation: isolate;
+    }
+
+    > .wp-block-cover > .wp-block-cover__background {
+        z-index: -1;
     }
 
     .wp-block-cover__inner-container,
