@@ -3,10 +3,10 @@
  * Title: Case Study
  * Slug: twentytwentyfour-child/case-study
  * Categories: featured
- * Post Types: case_study
+ * Post Types: proyecto
  * Block Types: core/post-content
  * Viewport width: 1400
- * Description: Estructura de arranque de un case study, a partir de la ficha de partner de Stimulo. La apertura usa la imagen destacada.
+ * Description: Estructura de arranque de un case study (proyecto ampliado), a partir de la ficha de partner de Stimulo. La apertura usa la imagen destacada.
  */
 ?>
 <!-- wp:group {"metadata":{"name":"APERTURA"},"align":"full","className":"apertura opacity fixed","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"blockGap":"0","padding":{"top":"0","bottom":"0","right":"0","left":"0"}}},"layout":{"type":"constrained"}} -->
