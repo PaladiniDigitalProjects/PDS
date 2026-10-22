@@ -72,6 +72,11 @@
 
    /* COOKIES */
 
+   // Botón flotante de CookieYes para volver a las preferencias: azul PDS.
+   // El plugin pone su azul (#0056A7) en un style inline, de ahí el !important.
+   .cky-btn-revisit-wrapper {
+      background-color: #0000ff !important;
+   }
 
    #eu-cookie-bar {
       display: none;
