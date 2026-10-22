@@ -689,13 +689,16 @@ html.pds-dark .pdswt-chat__sources {
 	gap: 0;
 }
 
+/* Cabecera en azul PDS con texto e iconos blancos, también en modo oscuro
+ * (allí --pdswt-accent pasa a blanco: por eso el azul va directo). */
 .pdswt-chat--floating .pdswt-chat__tools {
 	position: static;
 	display: flex;
 	align-items: center;
 	gap: .25rem;
 	padding: .75rem .75rem .75rem 1.25rem;
-	border-bottom: 1px solid rgba(0, 0, 0, .1);
+	background: var(--wp--preset--color--custom-primary, #0000ff);
+	color: #fff;
 }
 
 .pdswt-chat__title {
@@ -703,20 +706,25 @@ html.pds-dark .pdswt-chat__sources {
 	margin: 0;
 	font-size: 1rem;
 	font-weight: 600;
-	color: var(--pdswt-ink);
+	color: inherit;
 }
 
 .pdswt-chat--floating .pdswt-chat__clear {
+	color: #fff;
 	font-size: 18px;
-	opacity: .55;
+	opacity: .8;
 	padding: .35rem .5rem;
+}
+
+.pdswt-chat--floating .pdswt-chat__clear:hover {
+	opacity: 1;
 }
 
 .pdswt-float__close {
 	background: none;
 	border: 0;
-	color: var(--pdswt-ink);
-	opacity: .55;
+	color: #fff;
+	opacity: .8;
 	cursor: pointer;
 	font-size: 1.05rem;
 	line-height: 1;
@@ -787,10 +795,6 @@ html.pds-dark .pdswt-chat__sources {
 	margin: 0 1.25rem 1rem;
 	max-height: 45%;
 	overflow-y: auto;
-}
-
-html.pds-dark .pdswt-chat--floating .pdswt-chat__tools {
-	border-bottom-color: rgba(255, 255, 255, .1);
 }
 
 /* Móvil: el panel ocupa toda la pantalla y el botón se oculta mientras está abierto. */
