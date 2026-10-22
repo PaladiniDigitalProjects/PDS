@@ -232,6 +232,17 @@ li.type-service > .wp-block-media-text {
         z-index: 2;
     }
 
+    // El «More» no se ve (lo pidió Daniel, 22/10): sobra si toda la tarjeta enlaza.
+    // Ni display:none ni visibility, que se llevarían el ::after y con él el enlace.
+    .wp-block-post-excerpt__more-text {
+        margin: 0 !important;
+        line-height: 0;
+    }
+
+    .wp-block-post-excerpt__more-link {
+        font-size: 0 !important;
+    }
+
     @media (max-width: 600px) {
         > .wp-block-media-text__media {
             padding: 0;
