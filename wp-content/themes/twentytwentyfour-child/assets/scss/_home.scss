@@ -247,6 +247,34 @@ li.type-service > .wp-block-media-text {
     }
 }
 
+// Detalle de servicio en móvil: el texto del contenido quedaba a 1rem de los
+// bordes (o a 0 si el bloque iba suelto, sin sección). Pasa a 1.5rem a cada lado:
+// secciones, títulos y párrafos sueltos y el pie de las imágenes a todo el ancho,
+// que siguen de borde a borde. Las secciones `alignfull` sacaban además un margen
+// negativo (el padding raíz, que aquí el contenido no tiene) y se salían 31px por
+// cada lado, con el texto cortado (Globalization). Los servicios relacionados del
+// pie de la plantilla no se tocan (Daniel, 22/10/2026).
+@media (max-width: 600px) {
+    .single-service .wp-block-post-content {
+        > .has-global-padding,
+        > :is(h1, h2, h3, h4, p, ul, ol) {
+            box-sizing: border-box;
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+        }
+
+        > .alignfull {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        > .alignfull figcaption {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+    }
+}
+
 /* BUTTONS */
 
 .wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
