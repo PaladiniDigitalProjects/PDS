@@ -68,7 +68,7 @@ class PDSWT_Corpus_IO {
 					'type'       => $r->post_type,
 					'slug'       => get_post_field( 'post_name', $pid ),
 					'title'      => get_the_title( $pid ),
-					'link'       => get_permalink( $pid ),
+					'link'       => PDSWT::permalink( $pid ),
 					'modified'   => get_post_field( 'post_modified_gmt', $pid ),
 					'status'     => get_post_status( $pid ),
 					'visibility' => PDSWT::get_visibility( $r->post_type ),

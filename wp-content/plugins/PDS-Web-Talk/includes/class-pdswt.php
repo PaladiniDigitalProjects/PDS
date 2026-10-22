@@ -135,4 +135,19 @@ class PDSWT {
 		$obj = get_post_type_object( $post_type );
 		return ( $obj && ! empty( $obj->public ) ) ? 'shown' : 'hidden';
 	}
+
+	/**
+	 * Enlace de un post en SU idioma. get_permalink() depende del idioma de
+	 * quien llama (al indexar desde el admin, el inglés) y deja las entradas
+	 * es/ca sin el prefijo /es/ o /ca/. Con WPML se pide la URL del idioma
+	 * del propio post; sin WPML, get_permalink() a secas.
+	 */
+	public static function permalink( $post_id ) {
+		$url  = get_permalink( $post_id );
+		$lang = apply_filters( 'wpml_element_language_code', null, array(
+			'element_id'   => $post_id,
+			'element_type' => 'post_' . get_post_type( $post_id ),
+		) );
+		return $lang ? apply_filters( 'wpml_permalink', $url, $lang, true ) : $url;
+	}
 }

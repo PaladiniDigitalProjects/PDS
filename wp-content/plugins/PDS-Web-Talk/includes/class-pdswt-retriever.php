@@ -105,7 +105,7 @@ class PDSWT_Retriever {
 		// Enriquecer con metadatos y visibilidad.
 		foreach ( $results as &$r ) {
 			$r['title']      = get_the_title( $r['post_id'] );
-			$r['link']       = get_permalink( $r['post_id'] );
+			$r['link']       = PDSWT::permalink( $r['post_id'] );
 			$r['visibility'] = PDSWT::get_visibility( $r['post_type'] );
 		}
 		unset( $r );

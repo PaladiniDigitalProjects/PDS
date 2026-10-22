@@ -182,7 +182,7 @@ class PDSWT_Piece_Meta {
 			'title'     => $title,
 			'image'     => $image ? wp_get_attachment_image_url( $image, 'large' ) : '',
 			'logo'      => $logo ? wp_get_attachment_image_url( $logo, 'medium' ) : '',
-			'link'      => get_permalink( $post_id ),
+			'link'      => PDSWT::permalink( $post_id ),
 			'weight'    => $weight,
 		);
 	}
