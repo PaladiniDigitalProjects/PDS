@@ -299,7 +299,7 @@ html.has-modal-open {
       position: absolute;
       top: 1.25rem;
       right: 0;
-      left: -5.15rem;
+      left: calc(-5.15rem + 3px);
       // El hueco hasta la lista es padding del bloque, no margen de la lista: así el
       // ratón no sale del selector al bajar y la lista no se cierra (2026-10-22).
       padding-top: 1.25rem;
