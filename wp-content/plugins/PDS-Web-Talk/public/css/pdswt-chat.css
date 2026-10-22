@@ -666,8 +666,11 @@ html.pds-dark .pdswt-chat__sources {
 	display: none;
 }
 
-/* El panel. Las variables de color las pone .pdswt-chat (y el modo oscuro del tema). */
+/* El panel. Las variables de color las pone .pdswt-chat (y el modo oscuro del tema).
+ * Fondo blanco, no el gris de la home: el modo oscuro (html.pds-dark .pdswt-chat)
+ * gana por especificidad y sigue con su fondo. */
 .pdswt-chat.pdswt-chat--floating {
+	--pdswt-bg: #fff;
 	position: fixed;
 	right: var(--pdswt-float-gap);
 	/* Ocupa el sitio del botón, que se oculta mientras el panel está abierto. */
@@ -772,6 +775,7 @@ html.pds-dark .pdswt-chat__sources {
 }
 
 .pdswt-chat--floating .pdswt-chat__reply {
+	font-size: 1.2rem;
 	font-weight: 400;
 }
 
