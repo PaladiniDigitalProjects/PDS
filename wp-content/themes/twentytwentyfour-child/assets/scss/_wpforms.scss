@@ -163,3 +163,13 @@ footer.wp-block-template-part div[submit-success] > .wpforms-confirmation-contai
   box-sizing: border-box;
   padding: 1rem 0 !important;
 }
+// Casilla de privacidad sobre los formularios azules (bloque «Contact», #PDS_contactUs):
+// el cuadro lo dibuja el ::before de WPForms con borde negro; en blanco, como los campos.
+// Solo sobre fondo azul: en los formularios blancos (One Pager) dejaría de verse.
+:is(.has-custom-primary-background-color, [style*='background-color:#0000ff' i]) .wpforms-field-checkbox input[type=checkbox] {
+  color: #fff !important;
+
+  &::before {
+    border-color: #fff !important;
+  }
+}
