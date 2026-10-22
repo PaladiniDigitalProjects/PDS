@@ -742,7 +742,7 @@
 		// Página con el chat en el contenido (la home): el botón solo sale cuando
 		// ese chat ya no se ve, y si se vuelve a él con el panel abierto, el panel
 		// se recoge (sin contar como cierre a mano) y el chat de la página se
-		// pone al día. Ni se reabre solo ni se abre al bajar.
+		// pone al día. No se reabre solo al cargar; al bajar, sí, como en el resto.
 		var inline = document.querySelector( '.pdswt-chat:not(.pdswt-chat--floating)' );
 		if ( inline ) {
 			wrap.classList.add( 'is-tucked' );
@@ -761,13 +761,12 @@
 					if ( seen ) { sync( inline ); }
 				} ).observe( inline );
 			}
-			return;
 		}
 
 		var was = '0';
 		try { was = sessionStorage.getItem( OPEN_KEY ); } catch ( e ) {}
 		// En móvil no se reabre solo: taparía la página nada más entrar.
-		if ( '1' === was && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
+		if ( '1' === was && ! inline && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
 
 		// Apertura automática al recorrer un % de la página: una vez por sesión,
 		// nunca si ya se cerró, solo en escritorio y sin robar el foco.
@@ -788,7 +787,7 @@
 					try { closed = '1' === sessionStorage.getItem( AUTO_KEY ); } catch ( e ) {}
 					if ( closed ) { return; }
 					try { sessionStorage.setItem( AUTO_KEY, '1' ); } catch ( e ) {}
-					if ( panel.hidden && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
+					if ( panel.hidden && ! wrap.classList.contains( 'is-tucked' ) && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
 				} );
 			};
 			window.addEventListener( 'scroll', onScroll, { passive: true } );
