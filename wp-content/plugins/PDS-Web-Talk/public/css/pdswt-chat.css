@@ -649,23 +649,20 @@ html.pds-dark .pdswt-chat__sources {
 	box-shadow: 0 0 0 6px var(--wp--preset--color--custom-primary, #0000ff);
 }
 
-.pdswt-float__icon--close,
-.pdswt-float.is-open .pdswt-float__icon--chat {
+/* Con el panel abierto el botón desaparece: se cierra con la X de la cabecera. */
+.pdswt-float.is-open .pdswt-float__fab {
 	display: none;
-}
-
-.pdswt-float.is-open .pdswt-float__icon--close {
-	display: block;
 }
 
 /* El panel. Las variables de color las pone .pdswt-chat (y el modo oscuro del tema). */
 .pdswt-chat.pdswt-chat--floating {
 	position: fixed;
 	right: var(--pdswt-float-gap);
-	bottom: calc(var(--pdswt-float-gap) + var(--pdswt-fab) + 12px);
+	/* Ocupa el sitio del botón, que se oculta mientras el panel está abierto. */
+	bottom: var(--pdswt-float-gap);
 	width: min(390px, calc(100vw - 2 * var(--pdswt-float-gap)));
-	height: min(620px, calc(100vh - var(--pdswt-fab) - 3 * var(--pdswt-float-gap) - 12px));
-	height: min(620px, calc(100dvh - var(--pdswt-fab) - 3 * var(--pdswt-float-gap) - 12px));
+	height: min(680px, calc(100vh - 2 * var(--pdswt-float-gap)));
+	height: min(680px, calc(100dvh - 2 * var(--pdswt-float-gap)));
 	max-width: none;
 	margin: 0;
 	border-radius: 0.75rem;
@@ -809,10 +806,6 @@ html.pds-dark .pdswt-chat__sources {
 		height: 100%;
 		height: 100dvh;
 		border-radius: 0;
-	}
-
-	.pdswt-float.is-open .pdswt-float__fab {
-		display: none;
 	}
 }
 
