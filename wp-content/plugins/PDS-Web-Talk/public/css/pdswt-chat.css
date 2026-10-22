@@ -634,7 +634,7 @@ html.pds-dark .pdswt-chat__sources {
 	background: var(--wp--preset--color--custom-primary, #0000ff);
 	color: #fff;
 	cursor: pointer;
-	box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+	/* La sombra la pone la clase .shadow10 del tema. */
 	transition: transform .15s ease, filter .15s ease;
 }
 
