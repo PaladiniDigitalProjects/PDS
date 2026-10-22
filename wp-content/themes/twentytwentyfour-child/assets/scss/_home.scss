@@ -204,6 +204,49 @@ li.type-service {
     }
 }
 
+// Tarjetas de la página de servicios (media-text con imagen destacada, dentro de
+// un query; /paladini-services/ en/es/ca). Como en la home, la tarjeta entera
+// enlaza: el «More» del extracto se estira con un ::after sobre toda la tarjeta.
+// Al pasar por encima, el zoom de .zoom10. En móvil (apilada, <600px, el corte de
+// `is-stacked-on-mobile`) la imagen va a todo el ancho, sin el padding de
+// _components, y hay 2rem hasta el título (22/10/2026).
+li.type-service > .wp-block-media-text {
+    position: relative;
+    transition: transform 0.15s;
+
+    &:hover {
+        transform: scale(1.10);
+    }
+
+    .wp-block-media-text__content,
+    .wp-block-media-text__content > .wp-block-group,
+    .wp-block-post-excerpt,
+    .wp-block-post-excerpt__more-text {
+        position: static;
+    }
+
+    .wp-block-post-excerpt__more-link::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+        > .wp-block-media-text__media {
+            padding: 0;
+        }
+
+        > .wp-block-media-text__content {
+            padding-top: 0;
+        }
+
+        > .wp-block-media-text__content > .wp-block-group {
+            padding-top: 2rem !important;
+        }
+    }
+}
+
 /* BUTTONS */
 
 .wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
