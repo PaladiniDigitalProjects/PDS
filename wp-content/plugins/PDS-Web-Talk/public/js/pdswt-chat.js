@@ -662,8 +662,25 @@
 			} );
 		}
 
+		// Otro chat de la página (la home y el flotante) ha cambiado el historial:
+		// se vuelve a pintar al mostrarse. Solo si ha cambiado, para no repetir
+		// la bienvenida a máquina.
+		root.addEventListener( 'pdswt:sync', function () {
+			var h = loadHistory();
+			if ( busy || JSON.stringify( h ) === JSON.stringify( history ) ) { return; }
+			history = h;
+			var box = root.querySelector( '.pdswt-chat__email' );
+			if ( box ) { box.remove(); }
+			renderConversation();
+			syncMail();
+		} );
+
 		renderConversation();
 		syncMail();
+	}
+
+	function sync( el ) {
+		if ( el ) { el.dispatchEvent( new CustomEvent( 'pdswt:sync' ) ); }
 	}
 
 	// Botón del chat flotante: abre y cierra el panel. El estado abierto se
@@ -687,6 +704,7 @@
 		}
 
 		function open( focus ) {
+			sync( panel );
 			panel.hidden = false;
 			wrap.classList.add( 'is-open' );
 			fab.setAttribute( 'aria-expanded', 'true' );
@@ -720,6 +738,31 @@
 		document.addEventListener( 'keydown', function ( e ) {
 			if ( e.key === 'Escape' && ! panel.hidden ) { shut(); fab.focus(); }
 		} );
+
+		// Página con el chat en el contenido (la home): el botón solo sale cuando
+		// ese chat ya no se ve, y si se vuelve a él con el panel abierto, el panel
+		// se recoge (sin contar como cierre a mano) y el chat de la página se
+		// pone al día. Ni se reabre solo ni se abre al bajar.
+		var inline = document.querySelector( '.pdswt-chat:not(.pdswt-chat--floating)' );
+		if ( inline ) {
+			wrap.classList.add( 'is-tucked' );
+			if ( 'IntersectionObserver' in window ) {
+				new IntersectionObserver( function ( entries ) {
+					var seen = entries[ entries.length - 1 ].isIntersecting;
+					wrap.classList.toggle( 'is-tucked', seen );
+					if ( seen && ! panel.hidden ) {
+						panel.hidden = true;
+						wrap.classList.remove( 'is-open' );
+						fab.setAttribute( 'aria-expanded', 'false' );
+						fab.setAttribute( 'aria-label', fab.getAttribute( 'data-label-open' ) );
+						lockPage( false );
+						remember( false );
+					}
+					if ( seen ) { sync( inline ); }
+				} ).observe( inline );
+			}
+			return;
+		}
 
 		var was = '0';
 		try { was = sessionStorage.getItem( OPEN_KEY ); } catch ( e ) {}

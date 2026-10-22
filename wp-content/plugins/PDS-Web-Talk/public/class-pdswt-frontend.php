@@ -97,20 +97,16 @@ class PDSWT_Frontend {
 	}
 
 	/**
-	 * ¿Lleva esta página el chat flotante? Activado en ajustes, página individual
-	 * de un tipo marcado, que no sea la portada y que no tenga ya el chat en el
-	 * contenido (bloque o shortcode): dos chats a la vez no tienen sentido.
+	 * ¿Lleva esta página el chat flotante? Activado en ajustes y página individual
+	 * de un tipo marcado. Si la página ya tiene el chat en el contenido (la home),
+	 * también: el JS solo enseña el botón cuando ese chat ya no se ve.
 	 */
 	private function should_float() {
 		$s = PDSWT::get_settings();
-		if ( empty( $s['floating_enabled'] ) || empty( $s['floating_post_types'] ) || is_admin() || is_front_page() ) {
+		if ( empty( $s['floating_enabled'] ) || empty( $s['floating_post_types'] ) || is_admin() ) {
 			return false;
 		}
 		if ( ! is_singular( (array) $s['floating_post_types'] ) ) {
-			return false;
-		}
-		$post = get_queried_object();
-		if ( $post instanceof WP_Post && ( has_block( 'pdswt/chat', $post ) || has_shortcode( $post->post_content, 'pds_web_talk' ) ) ) {
 			return false;
 		}
 		return true;
@@ -125,7 +121,7 @@ class PDSWT_Frontend {
 
 	/** Botón y panel del chat flotante, al pie de la página. */
 	public function render_floating() {
-		if ( ! $this->floating || $this->inline ) {
+		if ( ! $this->floating ) {
 			return;
 		}
 		$settings = PDSWT::get_settings();

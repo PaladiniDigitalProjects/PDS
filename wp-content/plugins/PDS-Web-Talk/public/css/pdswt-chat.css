@@ -635,7 +635,14 @@ html.pds-dark .pdswt-chat__sources {
 	color: #fff;
 	cursor: pointer;
 	/* La sombra la pone la clase .shadow10 del tema. */
-	transition: transform .15s ease, filter .15s ease;
+	transition: transform .15s ease, filter .15s ease, opacity .2s ease, visibility .2s;
+}
+
+/* Home: mientras se ve el chat de la página, el botón no está. */
+.pdswt-float.is-tucked .pdswt-float__fab {
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(.85);
 }
 
 .pdswt-float__fab:hover {
