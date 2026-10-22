@@ -675,6 +675,11 @@ html.pds-dark .pdswt-chat__sources {
 	display: none;
 }
 
+@keyframes pdswt-float-slide {
+	from { transform: translateX(100%); }
+	to   { transform: none; }
+}
+
 @keyframes pdswt-float-in {
 	from { opacity: 0; transform: translateY(8px); }
 	to   { opacity: 1; transform: none; }
@@ -794,18 +799,40 @@ html.pds-dark .pdswt-chat__sources {
 	overflow-y: auto;
 }
 
-/* Móvil: el panel ocupa toda la pantalla y el botón se oculta mientras está abierto. */
+/* Móvil: botón pequeño y el panel entra desde la derecha, alto completo y
+ * dejando 40px de página a la izquierda. Sin barras de scroll visibles
+ * (se desliza con el dedo). */
 @media (max-width: 600px) {
 	.pdswt-float {
 		--pdswt-float-gap: 16px;
+		--pdswt-fab: 30px;
+	}
+
+	.pdswt-float__icon {
+		width: 18px;
+		height: 18px;
 	}
 
 	.pdswt-chat.pdswt-chat--floating {
-		inset: 0;
-		width: 100%;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 40px;
+		width: auto;
 		height: 100%;
 		height: 100dvh;
-		border-radius: 0;
+		border-radius: 0.75rem 0 0 0.75rem;
+		overflow-x: hidden;
+		animation: pdswt-float-slide .25s ease-out;
+	}
+
+	.pdswt-chat--floating .pdswt-chat__stage {
+		overflow-x: hidden;
+		scrollbar-width: none;
+	}
+
+	.pdswt-chat--floating .pdswt-chat__stage::-webkit-scrollbar {
+		display: none;
 	}
 }
 
