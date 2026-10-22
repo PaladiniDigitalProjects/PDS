@@ -16,7 +16,7 @@ class PDSWT_Strings {
 	private static $t = array(
 		'en' => array(
 			// Interfaz.
-			'title'            => 'Assistant',
+			'title'            => 'PDS Assistant',
 			'welcome'          => 'Hi! How can I help you?',
 			'placeholder'      => 'Type your message…',
 			'send'             => 'Send',
@@ -55,7 +55,7 @@ class PDSWT_Strings {
 			'err_email_failed' => 'The email couldn’t be sent.',
 		),
 		'es' => array(
-			'title'            => 'Asistente',
+			'title'            => 'Asistente PDS',
 			'welcome'          => '¡Hola! ¿En qué te puedo ayudar?',
 			'placeholder'      => 'Escribe tu mensaje…',
 			'send'             => 'Enviar',
@@ -92,7 +92,7 @@ class PDSWT_Strings {
 			'err_email_failed' => 'No se ha podido enviar el email.',
 		),
 		'ca' => array(
-			'title'            => 'Assistent',
+			'title'            => 'Assistent PDS',
 			'welcome'          => 'Hola! En què et puc ajudar?',
 			'placeholder'      => 'Escriu el teu missatge…',
 			'send'             => 'Envia',
