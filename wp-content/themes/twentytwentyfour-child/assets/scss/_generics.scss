@@ -608,6 +608,29 @@ p strong {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
 }
 
+// En los bloques de imagen la sombra va en la <img>, no en el <figure>: el redondeo
+// del bloque (has-custom-border) lo lleva la imagen y el figure es recto, así que la
+// sombra asomaba en punta por las esquinas (22/10/2026).
+.wp-block-image {
+  &.shadow,
+  &.shadow10,
+  &.shadow20 {
+    box-shadow: none;
+  }
+
+  &.shadow img {
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  &.shadow10 img {
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+  }
+
+  &.shadow20 img {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+  }
+}
+
 /* IMG */
 
 .responsive,
