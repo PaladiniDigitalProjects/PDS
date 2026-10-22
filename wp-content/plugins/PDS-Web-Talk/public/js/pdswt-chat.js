@@ -628,6 +628,7 @@
 	// Botón del chat flotante: abre y cierra el panel. El estado abierto se
 	// recuerda durante la sesión, así que sigue abierto al cambiar de página.
 	var OPEN_KEY = 'pdswtFloatOpen';
+	var AUTO_KEY = 'pdswtFloatAuto'; // ya se abrió solo (o se cerró a mano) en esta sesión
 	var MOBILE   = window.matchMedia ? window.matchMedia( '(max-width: 600px)' ) : null;
 
 	function initFloat( wrap ) {
@@ -655,6 +656,8 @@
 			if ( focus ) { input.focus(); }
 		}
 		function shut() {
+			// Cerrado a mano: ya no se vuelve a abrir solo en esta sesión.
+			try { sessionStorage.setItem( AUTO_KEY, '1' ); } catch ( e ) {}
 			panel.hidden = true;
 			wrap.classList.remove( 'is-open' );
 			fab.setAttribute( 'aria-expanded', 'false' );
@@ -675,6 +678,31 @@
 		try { was = sessionStorage.getItem( OPEN_KEY ); } catch ( e ) {}
 		// En móvil no se reabre solo: taparía la página nada más entrar.
 		if ( '1' === was && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
+
+		// Apertura automática al recorrer un % de la página: una vez por sesión,
+		// nunca si ya se cerró, solo en escritorio y sin robar el foco.
+		var autoAt = parseInt( ( window.pdswtChat && pdswtChat.floatAutoOpen ) || 0, 10 );
+		var autoDone = false;
+		try { autoDone = '1' === sessionStorage.getItem( AUTO_KEY ); } catch ( e ) {}
+		if ( autoAt > 0 && ! autoDone ) {
+			var raf = null;
+			var onScroll = function () {
+				if ( raf ) { return; }
+				raf = requestAnimationFrame( function () {
+					raf = null;
+					var range = document.documentElement.scrollHeight - window.innerHeight;
+					if ( range <= 0 || window.scrollY / range * 100 < autoAt ) { return; }
+					window.removeEventListener( 'scroll', onScroll );
+					// Si mientras tanto lo ha abierto y cerrado a mano, ya no.
+					var closed = false;
+					try { closed = '1' === sessionStorage.getItem( AUTO_KEY ); } catch ( e ) {}
+					if ( closed ) { return; }
+					try { sessionStorage.setItem( AUTO_KEY, '1' ); } catch ( e ) {}
+					if ( panel.hidden && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
+				} );
+			};
+			window.addEventListener( 'scroll', onScroll, { passive: true } );
+		}
 	}
 
 	ready( function () {

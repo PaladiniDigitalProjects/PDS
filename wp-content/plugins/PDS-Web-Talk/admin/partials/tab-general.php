@@ -21,6 +21,7 @@ $maxlen     = isset( $settings['max_message_length'] ) ? $settings['max_message_
 $top_n      = isset( $settings['top_n'] ) ? $settings['top_n'] : 4;
 $floating_on  = ! empty( $settings['floating_enabled'] );
 $floating_pts = isset( $settings['floating_post_types'] ) ? (array) $settings['floating_post_types'] : array();
+$floating_auto = isset( $settings['floating_auto_open'] ) ? (int) $settings['floating_auto_open'] : 70;
 
 $prov      = PDSWT_Usage::provider_totals();
 $month     = gmdate( 'Y-m' );
@@ -124,6 +125,13 @@ $usage_line = function ( $key ) use ( $prov ) {
 					<?php endforeach; ?>
 				</fieldset>
 				<p class="description"><?php esc_html_e( 'Sale en las páginas individuales de los tipos marcados.', 'pds-web-talk' ); ?></p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="pdswt_floating_auto"><?php esc_html_e( 'Abrir solo al bajar', 'pds-web-talk' ); ?></label></th>
+			<td>
+				<input type="number" step="5" min="0" max="100" id="pdswt_floating_auto" name="<?php echo esc_attr( PDSWT_OPTION_KEY ); ?>[floating_auto_open]" value="<?php echo esc_attr( $floating_auto ); ?>" class="small-text" /> %
+				<p class="description"><?php esc_html_e( 'Abre el panel cuando el visitante ha recorrido este porcentaje de la página. Una vez por sesión, nunca si ya lo ha cerrado, y solo en escritorio. 0 = no se abre solo.', 'pds-web-talk' ); ?></p>
 			</td>
 		</tr>
 	</table>

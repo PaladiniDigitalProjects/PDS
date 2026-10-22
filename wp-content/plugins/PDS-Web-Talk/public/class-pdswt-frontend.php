@@ -167,6 +167,8 @@ class PDSWT_Frontend {
 				// la pregunta llegue claramente en otro.
 				'lang'          => (string) apply_filters( 'wpml_current_language', '' ),
 				'emailAfter'    => 2, // Ofrecer el envío por email tras N preguntas.
+				// Chat flotante: % de la página a partir del que se abre solo (0 = nunca).
+				'floatAutoOpen' => isset( $settings['floating_auto_open'] ) ? (int) $settings['floating_auto_open'] : 70,
 				'maxLen'        => isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000,
 				// Textos de la interfaz en el idioma de la página.
 				'i18n'          => $t,

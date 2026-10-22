@@ -83,6 +83,7 @@ class PDSWT_Admin {
 			$out['floating_enabled']    = ! empty( $input['floating_enabled'] );
 			$types                      = isset( $input['floating_post_types'] ) ? (array) $input['floating_post_types'] : array();
 			$out['floating_post_types'] = array_values( array_intersect( array_map( 'sanitize_key', $types ), array_keys( PDSWT_Frontend::floating_candidate_types() ) ) );
+			$out['floating_auto_open']  = isset( $input['floating_auto_open'] ) ? min( 100, max( 0, absint( $input['floating_auto_open'] ) ) ) : 0;
 		}
 		// Selección de post types indexables + visibilidad (solo si el formulario de indexación se envió).
 		if ( isset( $input['index_types_submitted'] ) ) {
