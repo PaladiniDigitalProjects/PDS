@@ -654,6 +654,11 @@ html.pds-dark .pdswt-chat__sources {
 	display: none;
 }
 
+/* El velo solo existe en móvil (ver la media query de abajo). */
+.pdswt-float__backdrop {
+	display: none;
+}
+
 /* El panel. Las variables de color las pone .pdswt-chat (y el modo oscuro del tema). */
 .pdswt-chat.pdswt-chat--floating {
 	position: fixed;
@@ -833,6 +838,15 @@ html.pds-dark .pdswt-chat__sources {
 
 	.pdswt-chat--floating .pdswt-chat__stage::-webkit-scrollbar {
 		display: none;
+	}
+
+	/* Velo sobre la franja de página que queda a la izquierda: tocarlo cierra. */
+	.pdswt-float.is-open .pdswt-float__backdrop {
+		display: block;
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, .3);
+		animation: pdswt-float-in .25s ease-out;
 	}
 }
 

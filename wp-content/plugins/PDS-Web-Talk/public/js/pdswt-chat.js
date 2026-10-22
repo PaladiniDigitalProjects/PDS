@@ -670,6 +670,12 @@
 			if ( panel.hidden ) { open( true ); } else { shut(); fab.focus(); }
 		} );
 		if ( close ) { close.addEventListener( 'click', function () { shut(); fab.focus(); } ); }
+		// Móvil: tocar la franja de página que queda a la izquierda cierra el panel.
+		var backdrop = wrap.querySelector( '.pdswt-float__backdrop' );
+		if ( backdrop ) {
+			backdrop.hidden = false; // lo muestra o no el CSS según el ancho y el estado
+			backdrop.addEventListener( 'click', function () { shut(); } );
+		}
 		document.addEventListener( 'keydown', function ( e ) {
 			if ( e.key === 'Escape' && ! panel.hidden ) { shut(); fab.focus(); }
 		} );

@@ -11,6 +11,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 ?>
 <div class="pdswt-float">
+	<div class="pdswt-float__backdrop" hidden></div>
 	<section id="pdswt-float-panel" class="pdswt-chat pdswt-chat--floating" data-welcome="<?php echo esc_attr( $welcome ); ?>" aria-label="<?php echo esc_attr( $title ); ?>" hidden>
 		<div class="pdswt-chat__inner">
 			<div class="pdswt-chat__tools">
