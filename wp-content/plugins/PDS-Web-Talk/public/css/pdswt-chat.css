@@ -797,11 +797,165 @@ html.pds-dark .pdswt-chat__sources {
 	font-size: 1rem;
 }
 
-/* La oferta de email, dentro del panel y bajo el campo de escribir. */
-.pdswt-chat--floating .pdswt-chat__email {
-	margin: 0 1.25rem 1rem;
-	max-height: 45%;
-	overflow-y: auto;
+/* Sobre de la cabecera: abre la burbuja de email. */
+.pdswt-float__mail {
+	display: grid;
+	place-items: center;
+	background: none;
+	border: 0;
+	color: #fff;
+	opacity: .8;
+	cursor: pointer;
+	padding: .3rem .45rem;
+}
+
+.pdswt-float__mail:hover {
+	opacity: 1;
+}
+
+.pdswt-float__mail[hidden] {
+	display: none;
+}
+
+/* La oferta de email en el panel: burbuja blanca y pequeña con flecha hacia
+ * el sobre, como los avisos del navegador (no la tarjeta azul de la home). */
+.pdswt-chat--floating .pdswt-chat__tools {
+	position: relative;
+	z-index: 3;
+}
+
+.pdswt-chat__email.pdswt-chat__email--pop {
+	--pdswt-arrow: 96px;
+	position: absolute;
+	top: calc(100% + 10px);
+	right: 10px;
+	left: 10px;
+	margin: 0;
+	padding: .9rem 2.4rem .9rem 1rem;
+	border-radius: 10px;
+	background: #fff;
+	color: #1d1d22;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, .22);
+	font-size: .9rem;
+	animation: pdswt-float-in .18s ease-out;
+}
+
+.pdswt-chat__email--pop::before {
+	content: "";
+	position: absolute;
+	top: -6px;
+	right: calc(var(--pdswt-arrow) - 16px);
+	width: 12px;
+	height: 12px;
+	background: #fff;
+	transform: rotate(45deg);
+	border-radius: 2px 0 0 0;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-prompt {
+	margin: 0 0 .6rem;
+	font-size: .95rem;
+	font-weight: 600;
+	color: inherit;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-form {
+	gap: .5rem;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-input {
+	flex: 1 1 auto;
+	min-width: 0;
+	height: 36px;
+	padding: 0 .6rem;
+	border: 1px solid #c9c9cf;
+	border-radius: 6px;
+	font-size: .95rem;
+	color: #1d1d22;
+	background: #fff;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-input::placeholder {
+	color: #1d1d22;
+	opacity: .45;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-input:focus {
+	border-color: var(--wp--preset--color--custom-primary, #0000ff);
+	border-width: 1px;
+	box-shadow: 0 0 0 2px rgba(0, 0, 255, .15);
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-send {
+	height: 36px;
+	padding: 0 12px;
+	border: 0;
+	border-radius: 6px;
+	background: var(--wp--preset--color--custom-primary, #0000ff);
+	color: #fff;
+	font-size: .9rem;
+	white-space: nowrap;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-send:hover {
+	background: var(--wp--preset--color--custom-primary, #0000ff);
+	color: #fff;
+	filter: brightness(1.15);
+}
+
+/* La ✕ arriba a la derecha de la burbuja. */
+.pdswt-chat__email--pop .pdswt-chat__email-skip {
+	position: absolute;
+	top: .55rem;
+	right: .6rem;
+	margin: 0;
+	color: #1d1d22;
+	opacity: .5;
+	font-size: .95rem;
+	text-decoration: none;
+	line-height: 1;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-privacy {
+	margin-top: .55rem;
+	font-size: .75rem;
+	color: inherit;
+	opacity: .6;
+}
+
+.pdswt-chat__email--pop .pdswt-chat__email-status {
+	color: #b32d2e;
+	font-size: .85rem;
+}
+
+.pdswt-chat__email--pop.is-error {
+	box-shadow: 0 6px 24px rgba(0, 0, 0, .22), inset 0 0 0 2px #f2b8b8;
+}
+
+.pdswt-chat__email--pop.is-sent .pdswt-chat__email-prompt {
+	margin: 0;
+	color: #1d1d22;
+}
+
+/* En modo oscuro, la burbuja en la superficie oscura del tema. */
+html.pds-dark .pdswt-chat__email--pop,
+html.pds-dark .pdswt-chat__email--pop::before {
+	background: #2a2a31;
+	color: #e8e8ec;
+}
+
+html.pds-dark .pdswt-chat__email--pop .pdswt-chat__email-input {
+	background: #1d1d22;
+	border-color: #3a3a42;
+	color: #e8e8ec;
+}
+
+html.pds-dark .pdswt-chat__email--pop .pdswt-chat__email-input::placeholder,
+html.pds-dark .pdswt-chat__email--pop .pdswt-chat__email-skip,
+html.pds-dark .pdswt-chat__email--pop.is-sent .pdswt-chat__email-prompt {
+	color: #e8e8ec;
 }
 
 /* Móvil: botón pequeño y el panel entra desde la derecha, alto completo y

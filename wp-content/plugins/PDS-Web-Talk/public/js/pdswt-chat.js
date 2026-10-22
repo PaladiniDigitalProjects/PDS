@@ -71,6 +71,7 @@
 		var closeBtn= root.querySelector( '.pdswt-chat__close' );
 		// Panel del chat flotante: el scroll es el del propio escenario.
 		var floating = root.classList.contains( 'pdswt-chat--floating' );
+		var mailBtn  = root.querySelector( '.pdswt-float__mail' );
 		var i18n    = ( window.pdswtChat && pdswtChat.i18n ) || {};
 		var history = loadHistory();
 		var busy    = false;
@@ -182,8 +183,15 @@
 			try { localStorage.setItem( 'pdswtEmailDone', '1' ); } catch ( e ) {}
 		}
 
+		// Sobre de la cabecera del panel: solo cuando ya hay algo que enviar.
+		function syncMail() {
+			if ( ! mailBtn ) { return; }
+			mailBtn.hidden = ! history.some( function ( m ) { return 'user' === m.role; } );
+		}
+
 		// Tras la respuesta: si ya hay suficientes preguntas y no se ofreció, propone.
 		function maybeOfferEmail() {
+			syncMail();
 			if ( emailDone() || root.querySelector( '.pdswt-chat__email' ) ) { return; }
 			var asks = 0;
 			for ( var k = 0; k < history.length; k++ ) {
@@ -251,7 +259,8 @@
 				prompt.textContent    = T( 'emailPrompt', 'Want a copy of this conversation by email?' );
 				mail.placeholder      = T( 'emailPlaceholder', 'your@email.com' );
 				sendBtnEl.textContent = T( 'emailSend', 'Send it to me' );
-				skip.textContent      = T( 'emailSkip', 'No, thanks' );
+				if ( floating ) { skip.setAttribute( 'aria-label', T( 'emailSkip', 'No, thanks' ) ); }
+				else { skip.textContent = T( 'emailSkip', 'No, thanks' ); }
 				priv.textContent      = T( 'emailPrivacy' );
 			};
 
@@ -325,6 +334,24 @@
 				setEmailDone();
 				box.remove();
 			} );
+
+			// Panel flotante: burbuja bajo el icono del sobre de la cabecera, con
+			// una ✕ en lugar del «No, gracias».
+			if ( floating ) {
+				box.classList.add( 'pdswt-chat__email--pop' );
+				box.setAttribute( 'role', 'dialog' );
+				box.setAttribute( 'aria-label', T( 'emailOpen', 'Email this conversation' ) );
+				skip.textContent = '✕';
+				skip.setAttribute( 'aria-label', T( 'emailSkip', 'No, thanks' ) );
+				var tools = root.querySelector( '.pdswt-chat__tools' );
+				tools.appendChild( box );
+				// La flecha apunta al centro del sobre.
+				if ( mailBtn && ! mailBtn.hidden ) {
+					var tr = tools.getBoundingClientRect(), mr = mailBtn.getBoundingClientRect();
+					box.style.setProperty( '--pdswt-arrow', Math.round( tr.right - ( mr.left + mr.width / 2 ) ) + 'px' );
+				}
+				return box;
+			}
 
 			// Debajo del campo de escribir: en móvil no se interpone entre la
 			// respuesta y el input; en escritorio el JS la acopla a la derecha.
@@ -618,11 +645,25 @@
 				var box = root.querySelector( '.pdswt-chat__email' );
 				if ( box ) { box.remove(); }
 				renderConversation();
+				syncMail();
 				input.focus();
 			} );
 		}
 
+		// El sobre abre o cierra la burbuja de email a voluntad (aunque ya se
+		// hubiera descartado la oferta automática).
+		if ( mailBtn ) {
+			mailBtn.addEventListener( 'click', function () {
+				var open = root.querySelector( '.pdswt-chat__email' );
+				if ( open ) { open.remove(); return; }
+				var box = offerEmail();
+				var field = box && box.querySelector( '.pdswt-chat__email-input' );
+				if ( field ) { field.focus(); }
+			} );
+		}
+
 		renderConversation();
+		syncMail();
 	}
 
 	// Botón del chat flotante: abre y cierra el panel. El estado abierto se

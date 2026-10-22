@@ -33,6 +33,7 @@ class PDSWT_Strings {
 			'open'             => 'Open chat',
 			'close'            => 'Close chat',
 			// Caja de email.
+			'emailOpen'        => 'Email this conversation',
 			'emailPrompt'      => 'Want a copy of this conversation by email?',
 			'emailPlaceholder' => 'your@email.com',
 			'emailSend'        => 'Send it to me',
@@ -71,6 +72,7 @@ class PDSWT_Strings {
 			'piece_service'    => 'servicios:',
 			'open'             => 'Abrir el chat',
 			'close'            => 'Cerrar el chat',
+			'emailOpen'        => 'Enviar la conversación por email',
 			'emailPrompt'      => '¿Quieres una copia de esta conversación por email?',
 			'emailPlaceholder' => 'tu@email.com',
 			'emailSend'        => 'Envíamela',
@@ -108,6 +110,7 @@ class PDSWT_Strings {
 			'piece_service'    => 'serveis:',
 			'open'             => 'Obre el xat',
 			'close'            => 'Tanca el xat',
+			'emailOpen'        => 'Envia la conversa per correu',
 			'emailPrompt'      => 'Vols una còpia d’aquesta conversa per correu?',
 			'emailPlaceholder' => 'el-teu@correu.com',
 			'emailSend'        => 'Envia-me-la',

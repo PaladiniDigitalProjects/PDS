@@ -16,6 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 		<div class="pdswt-chat__inner">
 			<div class="pdswt-chat__tools">
 				<p class="pdswt-chat__title"><?php echo esc_html( $title ); ?></p>
+				<button type="button" class="pdswt-float__mail" title="<?php echo esc_attr( $t['emailOpen'] ); ?>" aria-label="<?php echo esc_attr( $t['emailOpen'] ); ?>" hidden><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3.5 6h17v12h-17z M3.5 6.5l8.5 7 8.5-7"/></svg></button>
 				<button type="button" class="pdswt-chat__clear" title="<?php echo esc_attr( $t['clear'] ); ?>" aria-label="<?php echo esc_attr( $t['clear'] ); ?>">↺</button>
 				<button type="button" class="pdswt-float__close" title="<?php echo esc_attr( $t['close'] ); ?>" aria-label="<?php echo esc_attr( $t['close'] ); ?>">✕</button>
 			</div>
