@@ -300,9 +300,12 @@ html.has-modal-open {
       top: 1.25rem;
       right: 0;
       left: -5.15rem;
+      // El hueco hasta la lista es padding del bloque, no margen de la lista: así el
+      // ratón no sale del selector al bajar y la lista no se cierra (2026-10-22).
+      padding-top: 1.25rem;
 
       ul.vertical-list {
-        margin-top: 2rem;
+        margin-top: 0;
         display: block;
         width: 20rem;
         background-color: $white;
