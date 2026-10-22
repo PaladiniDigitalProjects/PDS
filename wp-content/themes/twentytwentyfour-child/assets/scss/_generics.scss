@@ -608,26 +608,44 @@ p strong {
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
 }
 
-// En los bloques de imagen la sombra va en la <img>, no en el <figure>: el redondeo
-// del bloque (has-custom-border) lo lleva la imagen y el figure es recto, así que la
-// sombra asomaba en punta por las esquinas (22/10/2026).
-.wp-block-image {
-  &.shadow,
-  &.shadow10,
-  &.shadow20 {
-    box-shadow: none;
-  }
+// Sombra y redondeo de los medios (imagen, vídeo), para toda la web (22/10/2026).
+// El redondeo lo lleva el medio —el bloque de imagen lo pone en línea en la <img>
+// (has-custom-border), con cualquier valor— y el contenedor (<figure>, <picture>, <a>)
+// es recto y un poco más alto por el hueco de línea de la imagen. Con la sombra en el
+// contenedor asomaba en punta por las esquinas y dejaba una franja debajo. Así que en
+// cualquier figure con sombra la sombra pasa al propio medio, que ya tiene su forma,
+// y el medio va en bloque para que no quede hueco.
+figure:is(.shadow, .shadow10, .shadow20) {
+  box-shadow: none;
 
-  &.shadow img {
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  :is(img, video) {
+    display: block;
   }
+}
 
-  &.shadow10 img {
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
-  }
+figure.shadow :is(img, video) {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+}
 
-  &.shadow20 img {
-    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+figure.shadow10 :is(img, video) {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+figure.shadow20 :is(img, video) {
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
+}
+
+// .radius20 se usaba en el editor pero no existía en el CSS. En un figure redondea el
+// medio (si la imagen trae su propio radio en línea, manda ese); en lo demás, la caja.
+.radius20 {
+  border-radius: 20px;
+}
+
+figure.radius20 {
+  border-radius: 0;
+
+  :is(img, video) {
+    border-radius: 20px;
   }
 }
 
