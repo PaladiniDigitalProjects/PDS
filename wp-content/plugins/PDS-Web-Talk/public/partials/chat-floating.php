@@ -29,7 +29,7 @@ if ( ! defined( 'WPINC' ) ) {
 	</section>
 
 	<button type="button" class="pdswt-float__fab" aria-controls="pdswt-float-panel" aria-expanded="false" aria-label="<?php echo esc_attr( $t['open'] ); ?>" data-label-open="<?php echo esc_attr( $t['open'] ); ?>" data-label-close="<?php echo esc_attr( $t['close'] ); ?>">
-		<svg class="pdswt-float__icon pdswt-float__icon--chat" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm3 6.5a1.5 1.5 0 1 0 0 .01zm5 0a1.5 1.5 0 1 0 0 .01zm5 0a1.5 1.5 0 1 0 0 .01z"/></svg>
-		<svg class="pdswt-float__icon pdswt-float__icon--close" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
+		<svg class="pdswt-float__icon pdswt-float__icon--chat" viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+		<svg class="pdswt-float__icon pdswt-float__icon--close" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
 	</button>
 </div>

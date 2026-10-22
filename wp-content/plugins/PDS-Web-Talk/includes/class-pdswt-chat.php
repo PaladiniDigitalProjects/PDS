@@ -133,9 +133,11 @@ class PDSWT_Chat {
 				"Write your ENTIRE reply in ENGLISH, including the follow-up question. " .
 				"The instructions above are in Spanish — ignore that: your output MUST be English. Never switch languages.",
 			'ca' => "\n\n═══ IDIOMA — CRÍTIC ═══\n" .
-				"Escriu TOTA la teva resposta en CATALÀ, inclosa la pregunta de seguiment. No canviïs mai d'idioma.",
+				"Escriu TOTA la teva resposta en CATALÀ, inclosa la pregunta de seguiment. No canviïs mai d'idioma. " .
+				"Encara que el missatge sigui una salutació o unes poques paraules que també existeixen en castellà (\"Hola\", \"Gracias\", \"Ok\"), respon en català.",
 			'es' => "\n\n═══ IDIOMA — CRÍTICO ═══\n" .
-				"Escribe TODA tu respuesta en CASTELLANO, incluida la pregunta de seguimiento. No cambies nunca de idioma.",
+				"Escribe TODA tu respuesta en CASTELLANO, incluida la pregunta de seguimiento. No cambies nunca de idioma. " .
+				"Aunque el mensaje sea un saludo o unas pocas palabras que también existen en catalán (\"Hola\", \"Ok\"), responde en castellano.",
 		);
 
 		if ( isset( $map[ $lang ] ) ) {

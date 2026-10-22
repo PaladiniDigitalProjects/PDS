@@ -615,6 +615,7 @@ html.pds-dark .pdswt-chat__sources {
  * lectura (no editorial), escenario con scroll propio y cabecera con título. */
 .pdswt-float {
 	--pdswt-float-gap: 20px;
+	--pdswt-fab: 70px;
 	position: fixed;
 	right: var(--pdswt-float-gap);
 	bottom: var(--pdswt-float-gap);
@@ -625,8 +626,8 @@ html.pds-dark .pdswt-chat__sources {
 .pdswt-float__fab {
 	display: grid;
 	place-items: center;
-	width: 56px;
-	height: 56px;
+	width: var(--pdswt-fab);
+	height: var(--pdswt-fab);
 	padding: 0;
 	border: 0;
 	border-radius: 50%;
@@ -661,10 +662,10 @@ html.pds-dark .pdswt-chat__sources {
 .pdswt-chat.pdswt-chat--floating {
 	position: fixed;
 	right: var(--pdswt-float-gap);
-	bottom: calc(var(--pdswt-float-gap) + 56px + 12px);
+	bottom: calc(var(--pdswt-float-gap) + var(--pdswt-fab) + 12px);
 	width: min(390px, calc(100vw - 2 * var(--pdswt-float-gap)));
-	height: min(620px, calc(100vh - 56px - 3 * var(--pdswt-float-gap) - 12px));
-	height: min(620px, calc(100dvh - 56px - 3 * var(--pdswt-float-gap) - 12px));
+	height: min(620px, calc(100vh - var(--pdswt-fab) - 3 * var(--pdswt-float-gap) - 12px));
+	height: min(620px, calc(100dvh - var(--pdswt-fab) - 3 * var(--pdswt-float-gap) - 12px));
 	max-width: none;
 	margin: 0;
 	border-radius: 0.75rem;
