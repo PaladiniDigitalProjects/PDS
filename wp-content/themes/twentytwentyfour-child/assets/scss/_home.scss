@@ -204,6 +204,13 @@ li.type-service {
     }
 }
 
+// En los relacionados del detalle de servicio el «More» no se ve (Daniel, 22/10), como
+// en la página Services. En la home se queda. Tamaño 0 y no display:none: el ::after
+// del propio enlace es el que hace clicable la tarjeta.
+.single-service li.type-service .wp-block-read-more {
+    font-size: 0 !important;
+}
+
 // Tarjetas de la página de servicios (media-text con imagen destacada, dentro de
 // un query; /paladini-services/ en/es/ca). Como en la home, la tarjeta entera
 // enlaza: el «More» del extracto se estira con un ::after sobre toda la tarjeta.
