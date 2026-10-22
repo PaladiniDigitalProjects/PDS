@@ -158,13 +158,16 @@ class PDSWT_Chat {
 		// Señales de puntuación antes de limpiarla.
 		if ( preg_match( '/[¿¡]/u', $raw ) ) { $score['es'] += 1; }
 		if ( preg_match( '/l·l|ç/u', $raw ) ) { $score['ca'] += 1; }
+		// Apóstrofo de elisión (m'acabes, l'equip, d'IA): en castellano no existe.
+		$score['ca'] += preg_match_all( "/(?<![\\p{L}])[mtsdln]['’]\\p{L}/u", $raw );
 		// Sin puntuación: «feu?» o «hacéis,» deben contar como palabra.
 		$t = ' ' . preg_replace( '/[^\p{L}\p{M}·\'’]+/u', ' ', $raw ) . ' ';
 
 		$sw = array(
 			'en' => array( ' the ', ' you ', ' do ', ' does ', ' with ', ' for ', ' are ', ' is ', ' what ', ' how ', ' can ', ' we ', ' your ', ' our ', ' and ', ' of ', ' this ', ' help ', ' offer ', ' work ', ' who ', ' where ' ),
 			'es' => array( ' el ', ' la ', ' los ', ' las ', ' con ', ' para ', ' que ', ' qué ', ' cómo ', ' una ', ' más ', ' está ', ' según ', ' trabajáis ', ' empresas ', ' ustedes ', ' vuestro ', ' hacéis ', ' sois ', ' dónde ' ),
-			'ca' => array( ' els ', ' les ', ' amb ', ' què ', ' com ', ' una ', ' més ', ' està ', ' segons ', ' treballeu ', ' empreses ', ' vostre ', ' feu ', ' volem ', ' nostra ', ' aquesta ', ' sou ', ' on ' ),
+			// « el », « la », « que » y « una » también son catalanes: cuentan para los dos.
+			'ca' => array( ' els ', ' les ', ' amb ', ' què ', ' com ', ' una ', ' més ', ' està ', ' segons ', ' treballeu ', ' empreses ', ' vostre ', ' feu ', ' volem ', ' nostra ', ' aquesta ', ' sou ', ' on ', ' el ', ' la ', ' que ', ' és ', ' pots ', ' també ', ' perquè ', ' molt ', ' vau ', ' heu ', ' em ', ' et ' ),
 		);
 
 		foreach ( $sw as $lg => $words ) {

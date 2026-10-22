@@ -78,6 +78,12 @@ class PDSWT_Admin {
 		if ( isset( $input['top_n'] ) ) {
 			$out['top_n'] = max( 1, absint( $input['top_n'] ) );
 		}
+		// Chat flotante (solo si se envió su sección: si no, una casilla desmarcada no llega).
+		if ( isset( $input['floating_submitted'] ) ) {
+			$out['floating_enabled']    = ! empty( $input['floating_enabled'] );
+			$types                      = isset( $input['floating_post_types'] ) ? (array) $input['floating_post_types'] : array();
+			$out['floating_post_types'] = array_values( array_intersect( array_map( 'sanitize_key', $types ), array_keys( PDSWT_Frontend::floating_candidate_types() ) ) );
+		}
 		// Selección de post types indexables + visibilidad (solo si el formulario de indexación se envió).
 		if ( isset( $input['index_types_submitted'] ) ) {
 			$types = isset( $input['index_post_types'] ) ? (array) $input['index_post_types'] : array();

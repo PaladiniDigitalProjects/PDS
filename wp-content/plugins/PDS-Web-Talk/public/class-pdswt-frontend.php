@@ -11,6 +11,8 @@ if ( ! defined( 'WPINC' ) ) {
 class PDSWT_Frontend {
 
 	private $enqueued = false;
+	private $floating = false; // esta página lleva el chat flotante
+	private $inline   = false; // esta página ya pintó el chat en el contenido
 
 	public function register_assets() {
 		wp_register_style( 'pdswt-chat', PDSWT_PLUGIN_URL . 'public/css/pdswt-chat.css', array(), PDSWT_VERSION );
@@ -55,19 +57,22 @@ class PDSWT_Frontend {
 	public function render_widget( $atts = array() ) {
 		$atts = shortcode_atts(
 			array(
-				'title'   => __( 'Asistente', 'pds-web-talk' ),
-				'welcome' => __( '¡Hola! ¿En qué te puedo ayudar?', 'pds-web-talk' ),
+				'title'   => '',
+				'welcome' => '',
 			),
 			is_array( $atts ) ? $atts : array(),
 			'pds_web_talk'
 		);
 
 		$this->enqueue();
+		$this->inline = true;
 
 		$settings = PDSWT::get_settings();
-		$title    = $atts['title'];
-		$welcome  = $atts['welcome'];
-		$maxlen   = isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000;
+		// Sin título o bienvenida en el bloque, los del idioma de la página.
+		$title   = '' !== trim( $atts['title'] ) ? $atts['title'] : PDSWT_Strings::get( 'title' );
+		$welcome = '' !== trim( $atts['welcome'] ) ? $atts['welcome'] : PDSWT_Strings::get( 'welcome' );
+		$maxlen  = isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000;
+		$t       = PDSWT_Strings::all();
 
 		// Plantilla con posibilidad de override desde el tema:
 		// {tema}/pds-web-talk/chat-widget.php
@@ -81,12 +86,74 @@ class PDSWT_Frontend {
 		return ob_get_clean();
 	}
 
+	/**
+	 * Post types que pueden llevar el chat flotante: los públicos con página
+	 * propia (sin adjuntos).
+	 */
+	public static function floating_candidate_types() {
+		$objs = get_post_types( array( 'public' => true ), 'objects' );
+		unset( $objs['attachment'] );
+		return $objs;
+	}
+
+	/**
+	 * ¿Lleva esta página el chat flotante? Activado en ajustes, página individual
+	 * de un tipo marcado, que no sea la portada y que no tenga ya el chat en el
+	 * contenido (bloque o shortcode): dos chats a la vez no tienen sentido.
+	 */
+	private function should_float() {
+		$s = PDSWT::get_settings();
+		if ( empty( $s['floating_enabled'] ) || empty( $s['floating_post_types'] ) || is_admin() || is_front_page() ) {
+			return false;
+		}
+		if ( ! is_singular( (array) $s['floating_post_types'] ) ) {
+			return false;
+		}
+		$post = get_queried_object();
+		if ( $post instanceof WP_Post && ( has_block( 'pdswt/chat', $post ) || has_shortcode( $post->post_content, 'pds_web_talk' ) ) ) {
+			return false;
+		}
+		return true;
+	}
+
+	public function maybe_floating() {
+		if ( $this->should_float() ) {
+			$this->floating = true;
+			$this->enqueue();
+		}
+	}
+
+	/** Botón y panel del chat flotante, al pie de la página. */
+	public function render_floating() {
+		if ( ! $this->floating || $this->inline ) {
+			return;
+		}
+		$settings = PDSWT::get_settings();
+		$t        = PDSWT_Strings::all();
+		$title    = $t['title'];
+		$welcome  = $t['welcome'];
+		$maxlen   = isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000;
+
+		$template = locate_template( 'pds-web-talk/chat-floating.php' );
+		if ( ! $template ) {
+			$template = PDSWT_PLUGIN_DIR . 'public/partials/chat-floating.php';
+		}
+		include $template;
+	}
+
 	private function enqueue() {
 		if ( $this->enqueued ) {
 			return;
 		}
 		$this->enqueued = true;
 		$settings       = PDSWT::get_settings();
+		$t              = PDSWT_Strings::all();
+		$t['pieceLabels'] = array(
+			'partner' => $t['piece_partner'],
+			'project' => $t['piece_project'],
+			'page'    => $t['piece_page'],
+			'service' => $t['piece_service'],
+		);
 
 		wp_enqueue_style( 'pdswt-chat' );
 		wp_enqueue_script( 'pdswt-chat' );
@@ -101,67 +168,11 @@ class PDSWT_Frontend {
 				'lang'          => (string) apply_filters( 'wpml_current_language', '' ),
 				'emailAfter'    => 2, // Ofrecer el envío por email tras N preguntas.
 				'maxLen'        => isset( $settings['max_message_length'] ) ? (int) $settings['max_message_length'] : 1000,
-				'i18n'          => array(
-					'placeholder' => __( 'Type your message…', 'pds-web-talk' ),
-					'send'        => __( 'Send', 'pds-web-talk' ),
-					'typing'      => __( 'Typing…', 'pds-web-talk' ),
-					'error'       => __( 'Sorry, something went wrong. Please try again.', 'pds-web-talk' ),
-					'sources'     => __( 'Sources', 'pds-web-talk' ),
-					'clear'       => __( 'Clear conversation', 'pds-web-talk' ),
-					'example'     => __( 'examples:', 'pds-web-talk' ),
-					'pieceLabels' => array(
-						'partner' => __( 'partners:', 'pds-web-talk' ),
-						'project' => __( 'projects:', 'pds-web-talk' ),
-						'page'    => __( 'pages:', 'pds-web-talk' ),
-						'service' => __( 'services:', 'pds-web-talk' ),
-					),
-					'emailPrompt'      => __( 'Want a copy of this conversation by email?', 'pds-web-talk' ),
-					'emailPlaceholder' => __( 'your@email.com', 'pds-web-talk' ),
-					'emailSend'        => __( 'Send it to me', 'pds-web-talk' ),
-					'emailSkip'        => __( 'No, thanks', 'pds-web-talk' ),
-					'emailPrivacy'     => __( 'We’ll email you the conversation and keep a copy. No spam.', 'pds-web-talk' ),
-					'emailSent'        => __( 'Done! We’ve emailed you the conversation — check your inbox.', 'pds-web-talk' ),
-					'emailInvalid'     => __( 'Please enter a valid email.', 'pds-web-talk' ),
-					'emailError'       => __( 'Couldn’t send it. Please try again.', 'pds-web-talk' ),
-					'emailRate'        => __( 'You’ve sent a few already. Please try again later.', 'pds-web-talk' ),
-				),
-				// Textos de la caja de email por idioma: la caja sigue el idioma en
-				// el que responde el bot, no el de la instalación.
-				'emailI18n'     => array(
-					'en' => array(
-						'emailPrompt'      => 'Want a copy of this conversation by email?',
-						'emailPlaceholder' => 'your@email.com',
-						'emailSend'        => 'Send it to me',
-						'emailSkip'        => 'No, thanks',
-						'emailPrivacy'     => 'We’ll email you the conversation and keep a copy. No spam.',
-						'emailSent'        => 'Done! We’ve emailed you the conversation — check your inbox.',
-						'emailInvalid'     => 'Please enter a valid email.',
-						'emailError'       => 'Couldn’t send it. Please try again.',
-						'emailRate'        => 'You’ve sent a few already. Please try again later.',
-					),
-					'es' => array(
-						'emailPrompt'      => '¿Quieres una copia de esta conversación por email?',
-						'emailPlaceholder' => 'tu@email.com',
-						'emailSend'        => 'Envíamela',
-						'emailSkip'        => 'No, gracias',
-						'emailPrivacy'     => 'Te enviaremos la conversación por email y guardaremos una copia. Sin spam.',
-						'emailSent'        => '¡Hecho! Te hemos enviado la conversación: revisa tu bandeja de entrada.',
-						'emailInvalid'     => 'Introduce un email válido.',
-						'emailError'       => 'No se ha podido enviar. Inténtalo de nuevo.',
-						'emailRate'        => 'Ya has enviado varias. Inténtalo más tarde.',
-					),
-					'ca' => array(
-						'emailPrompt'      => 'Vols una còpia d’aquesta conversa per correu?',
-						'emailPlaceholder' => 'el-teu@correu.com',
-						'emailSend'        => 'Envia-me-la',
-						'emailSkip'        => 'No, gràcies',
-						'emailPrivacy'     => 'T’enviarem la conversa per correu i en guardarem una còpia. Sense correu brossa.',
-						'emailSent'        => 'Fet! T’hem enviat la conversa: revisa la safata d’entrada.',
-						'emailInvalid'     => 'Introdueix un correu vàlid.',
-						'emailError'       => 'No s’ha pogut enviar. Torna-ho a provar.',
-						'emailRate'        => 'Ja n’has enviat unes quantes. Torna-ho a provar més tard.',
-					),
-				),
+				// Textos de la interfaz en el idioma de la página.
+				'i18n'          => $t,
+				// Los tres idiomas: la caja de email sigue el idioma en el que
+				// responde el bot, que puede no ser el de la página.
+				'emailI18n'     => PDSWT_Strings::by_lang(),
 			)
 		);
 	}

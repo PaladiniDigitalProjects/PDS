@@ -19,6 +19,8 @@ $budget     = isset( $settings['monthly_budget'] ) ? $settings['monthly_budget']
 $rate       = isset( $settings['rate_limit_per_hour'] ) ? $settings['rate_limit_per_hour'] : 30;
 $maxlen     = isset( $settings['max_message_length'] ) ? $settings['max_message_length'] : 1000;
 $top_n      = isset( $settings['top_n'] ) ? $settings['top_n'] : 4;
+$floating_on  = ! empty( $settings['floating_enabled'] );
+$floating_pts = isset( $settings['floating_post_types'] ) ? (array) $settings['floating_post_types'] : array();
 
 $prov      = PDSWT_Usage::provider_totals();
 $month     = gmdate( 'Y-m' );
@@ -102,6 +104,27 @@ $usage_line = function ( $key ) use ( $prov ) {
 		<tr>
 			<th scope="row"><label for="pdswt_maxlen"><?php esc_html_e( 'Longitud máxima de mensaje', 'pds-web-talk' ); ?></label></th>
 			<td><input type="number" step="1" min="1" id="pdswt_maxlen" name="<?php echo esc_attr( PDSWT_OPTION_KEY ); ?>[max_message_length]" value="<?php echo esc_attr( $maxlen ); ?>" class="small-text" /></td>
+		</tr>
+	</table>
+
+	<h2><?php esc_html_e( 'Chat flotante', 'pds-web-talk' ); ?></h2>
+	<p class="description"><?php esc_html_e( 'Botón fijo abajo a la derecha que abre el chat en un panel. No sale en la portada ni en las páginas que ya llevan el chat en el contenido. La conversación es la misma en toda la web.', 'pds-web-talk' ); ?></p>
+	<input type="hidden" name="<?php echo esc_attr( PDSWT_OPTION_KEY ); ?>[floating_submitted]" value="1" />
+	<table class="form-table" role="presentation">
+		<tr>
+			<th scope="row"><?php esc_html_e( 'Activar', 'pds-web-talk' ); ?></th>
+			<td><label><input type="checkbox" name="<?php echo esc_attr( PDSWT_OPTION_KEY ); ?>[floating_enabled]" value="1" <?php checked( $floating_on ); ?> /> <?php esc_html_e( 'Mostrar el chat flotante', 'pds-web-talk' ); ?></label></td>
+		</tr>
+		<tr>
+			<th scope="row"><?php esc_html_e( 'Dónde', 'pds-web-talk' ); ?></th>
+			<td>
+				<fieldset>
+					<?php foreach ( PDSWT_Frontend::floating_candidate_types() as $pt => $obj ) : ?>
+						<label style="display:block;margin-bottom:.35em"><input type="checkbox" name="<?php echo esc_attr( PDSWT_OPTION_KEY ); ?>[floating_post_types][]" value="<?php echo esc_attr( $pt ); ?>" <?php checked( in_array( $pt, $floating_pts, true ) ); ?> /> <?php echo esc_html( $obj->labels->name ); ?> <code><?php echo esc_html( $pt ); ?></code></label>
+					<?php endforeach; ?>
+				</fieldset>
+				<p class="description"><?php esc_html_e( 'Sale en las páginas individuales de los tipos marcados.', 'pds-web-talk' ); ?></p>
+			</td>
 		</tr>
 	</table>
 

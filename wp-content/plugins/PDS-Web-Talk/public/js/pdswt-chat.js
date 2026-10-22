@@ -24,6 +24,29 @@
 		try { localStorage.setItem( STORAGE_KEY, JSON.stringify( h.slice( -20 ) ) ); } catch ( e ) {}
 	}
 
+	// Solo enlaces e imágenes http(s): los datos vienen del índice, pero no se
+	// pinta nada que pueda ser javascript: u otro esquema.
+	function safeUrl( u ) {
+		try {
+			var url = new URL( String( u || '' ), window.location.href );
+			return ( 'http:' === url.protocol || 'https:' === url.protocol ) ? url.href : '';
+		} catch ( e ) { return ''; }
+	}
+	// Valor para background-image con comillas, barras y saltos escapados.
+	function cssUrl( u ) {
+		return 'url("' + u.replace( /["\\\n\r]/g, function ( c ) { return '\\' + c.charCodeAt( 0 ).toString( 16 ) + ' '; } ) + '")';
+	}
+
+	// Historial tal como se manda al servidor: rol, texto y, en el bot, la firma.
+	function wireHistory( h ) {
+		return h.filter( function ( m ) { return m.role === 'user' || m.role === 'assistant'; } )
+			.map( function ( m ) {
+				var o = { role: m.role, content: m.content };
+				if ( m.role === 'assistant' && m.sig ) { o.sig = m.sig; }
+				return o;
+			} );
+	}
+
 	// Separa el cuerpo de la respuesta de la pregunta de seguimiento final
 	// (última línea no vacía que termina en «?»), para poder estilarlas distinto.
 	function splitFollowup( text ) {
@@ -46,6 +69,8 @@
 		var sendBtn = root.querySelector( '.pdswt-chat__send' );
 		var clearBtn= root.querySelector( '.pdswt-chat__clear' );
 		var closeBtn= root.querySelector( '.pdswt-chat__close' );
+		// Panel del chat flotante: el scroll es el del propio escenario.
+		var floating = root.classList.contains( 'pdswt-chat--floating' );
 		var i18n    = ( window.pdswtChat && pdswtChat.i18n ) || {};
 		var history = loadHistory();
 		var busy    = false;
@@ -115,23 +140,27 @@
 			el.appendChild( label );
 
 			pieces.forEach( function ( pz ) {
+				var link = safeUrl( pz.link );
+				if ( ! link ) { return; }
 				var a = document.createElement( 'a' );
 				a.className = 'pdswt-piece-card solution zoom10';
-				a.href = pz.link; a.target = '_blank'; a.rel = 'noopener';
+				a.href = link; a.target = '_blank'; a.rel = 'noopener';
 
 				var media = document.createElement( 'div' );
 				media.className = 'pdswt-piece-card__media';
-				if ( pz.image ) {
-					media.style.backgroundImage = 'url("' + pz.image + '")';
+				var image = safeUrl( pz.image );
+				if ( image ) {
+					media.style.backgroundImage = cssUrl( image );
 				} else {
 					// Sin imagen (p. ej. una página de PDS): fondo azul de marca.
 					a.classList.add( 'pdswt-piece-card--flat' );
 				}
 
-				if ( pz.logo ) {
+				var logoUrl = safeUrl( pz.logo );
+				if ( logoUrl ) {
 					var logo = document.createElement( 'img' );
 					logo.className = 'pdswt-piece-card__logo';
-					logo.src = pz.logo; logo.alt = '';
+					logo.src = logoUrl; logo.alt = '';
 					media.appendChild( logo );
 				}
 				var title = document.createElement( 'div' );
@@ -272,7 +301,7 @@
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					credentials: 'same-origin',
-					body: JSON.stringify( { email: addr, website: hp.value, history: history } )
+					body: JSON.stringify( { email: addr, website: hp.value, lang: chatLang, history: wireHistory( history ) } )
 				} ).then( function ( r ) {
 					return r.json().then( function ( d ) { return { ok: r.ok, status: r.status, data: d }; },
 						function () { return { ok: false, status: r.status, data: {} }; } );
@@ -326,6 +355,7 @@
 		}
 
 		function dockEmail( box ) {
+			if ( floating ) { return false; }
 			var inner   = root.querySelector( '.pdswt-chat__inner' );
 			var section = dockSection();
 			var cols    = root.closest( '.wp-block-columns' ) || section;
@@ -372,7 +402,7 @@
 			el.appendChild( document.createTextNode( ( i18n.sources || 'Sources' ) + ': ' ) );
 			sources.forEach( function ( s, i ) {
 				var a = document.createElement( 'a' );
-				a.href = s.link; a.target = '_blank'; a.rel = 'noopener';
+				a.href = safeUrl( s.link ) || '#'; a.target = '_blank'; a.rel = 'noopener';
 				a.textContent = s.title;
 				el.appendChild( a );
 				if ( i < sources.length - 1 ) { el.appendChild( document.createTextNode( ' · ' ) ); }
@@ -404,7 +434,7 @@
 		// Mantiene el final del texto visible mientras se escribe: dentro del
 		// escenario en pantalla completa, o siguiendo el scroll de la ventana.
 		function keepInView( el ) {
-			if ( isFull() ) {
+			if ( isFull() || floating ) {
 				stage.scrollTop = stage.scrollHeight;
 				return;
 			}
@@ -455,7 +485,11 @@
 
 			// Nuevo turno con la pregunta; sube a la parte alta de la vista.
 			var t = addTurn( text );
-			t.turn.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+			if ( floating ) {
+				stage.scrollTop += t.turn.getBoundingClientRect().top - stage.getBoundingClientRect().top - 16;
+			} else {
+				t.turn.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+			}
 
 			// Estado "pensando" mientras llega la respuesta: cursor + puntos animados.
 			var caret = document.createElement( 'span' );
@@ -471,8 +505,7 @@
 			var payload = {
 				message: text,
 				lang: ( window.pdswtChat && pdswtChat.lang ) || '',
-				history: history.filter( function ( m ) { return m.role === 'user' || m.role === 'assistant'; } )
-					.slice( -6 ).map( function ( m ) { return { role: m.role, content: m.content }; } )
+				history: wireHistory( history ).slice( -6 )
 			};
 
 			fetch( pdswtChat.restUrl, {
@@ -495,9 +528,13 @@
 					typewrite( t.reply, split.body, function () {
 						setFollowup( t.followup, split.followup );
 						renderPieces( t.pieces, pieces );
+						// En el panel, que las tarjetas no queden bajo el campo de escribir.
+						if ( floating ) { stage.scrollTop = stage.scrollHeight; }
 						maybeOfferEmail();
 					} );
-					history.push( { role: 'assistant', content: res.data.reply, sources: sources, pieces: pieces } );
+					// La firma del servidor viaja con la respuesta: sin ella, el turno no
+					// cuenta como del bot en las peticiones siguientes.
+					history.push( { role: 'assistant', content: res.data.reply, sig: res.data.sig || '', sources: sources, pieces: pieces } );
 					saveHistory( history );
 				} else {
 					t.reply.textContent = ( res.data && res.data.error ) ? res.data.error : ( i18n.error || 'Error' );
@@ -518,7 +555,8 @@
 			if ( welcome ) {
 				var w = addTurn( null );
 				w.turn.classList.add( 'is-welcome' );
-				if ( fresh ) { typewrite( w.reply, welcome ); }
+				// Panel cerrado: sin máquina de escribir (nadie la vería).
+				if ( fresh && ! root.hidden ) { typewrite( w.reply, welcome ); }
 				else { w.reply.textContent = welcome; }
 			}
 
@@ -587,9 +625,62 @@
 		renderConversation();
 	}
 
+	// Botón del chat flotante: abre y cierra el panel. El estado abierto se
+	// recuerda durante la sesión, así que sigue abierto al cambiar de página.
+	var OPEN_KEY = 'pdswtFloatOpen';
+	var MOBILE   = window.matchMedia ? window.matchMedia( '(max-width: 600px)' ) : null;
+
+	function initFloat( wrap ) {
+		var fab   = wrap.querySelector( '.pdswt-float__fab' );
+		var panel = wrap.querySelector( '.pdswt-chat--floating' );
+		var close = wrap.querySelector( '.pdswt-float__close' );
+		var input = panel.querySelector( '.pdswt-chat__input' );
+		var stage = panel.querySelector( '.pdswt-chat__stage' );
+		if ( ! fab || ! panel ) { return; }
+
+		function remember( v ) { try { sessionStorage.setItem( OPEN_KEY, v ? '1' : '0' ); } catch ( e ) {} }
+		function lockPage( v ) {
+			// En móvil el panel es pantalla completa: la página de detrás no debe moverse.
+			document.documentElement.style.overflow = ( v && MOBILE && MOBILE.matches ) ? 'hidden' : '';
+		}
+
+		function open( focus ) {
+			panel.hidden = false;
+			wrap.classList.add( 'is-open' );
+			fab.setAttribute( 'aria-expanded', 'true' );
+			fab.setAttribute( 'aria-label', fab.getAttribute( 'data-label-close' ) );
+			stage.scrollTop = stage.scrollHeight;
+			lockPage( true );
+			remember( true );
+			if ( focus ) { input.focus(); }
+		}
+		function shut() {
+			panel.hidden = true;
+			wrap.classList.remove( 'is-open' );
+			fab.setAttribute( 'aria-expanded', 'false' );
+			fab.setAttribute( 'aria-label', fab.getAttribute( 'data-label-open' ) );
+			lockPage( false );
+			remember( false );
+		}
+
+		fab.addEventListener( 'click', function () {
+			if ( panel.hidden ) { open( true ); } else { shut(); fab.focus(); }
+		} );
+		if ( close ) { close.addEventListener( 'click', function () { shut(); fab.focus(); } ); }
+		document.addEventListener( 'keydown', function ( e ) {
+			if ( e.key === 'Escape' && ! panel.hidden ) { shut(); fab.focus(); }
+		} );
+
+		var was = '0';
+		try { was = sessionStorage.getItem( OPEN_KEY ); } catch ( e ) {}
+		// En móvil no se reabre solo: taparía la página nada más entrar.
+		if ( '1' === was && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
+	}
+
 	ready( function () {
 		if ( ! window.pdswtChat ) { return; }
 		var widgets = document.querySelectorAll( '.pdswt-chat' );
 		Array.prototype.forEach.call( widgets, initWidget );
+		Array.prototype.forEach.call( document.querySelectorAll( '.pdswt-float' ), initFloat );
 	} );
 } )();

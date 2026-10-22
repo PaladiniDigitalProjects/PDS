@@ -609,3 +609,210 @@ html.pds-dark .pdswt-chat__sources {
 		animation: none;
 	}
 }
+/* ── Chat flotante ──────────────────────────────────────────────────────── *
+ * Botón fijo abajo a la derecha y panel compacto con la misma conversación.
+ * Reutiliza los estilos del chat de la home, a escala de panel: texto de
+ * lectura (no editorial), escenario con scroll propio y cabecera con título. */
+.pdswt-float {
+	--pdswt-float-gap: 20px;
+	position: fixed;
+	right: var(--pdswt-float-gap);
+	bottom: var(--pdswt-float-gap);
+	z-index: 99990;
+	font-family: var(--wp--preset--font-family--ibm-plex-sans, "IBM Plex Sans", -apple-system, sans-serif);
+}
+
+.pdswt-float__fab {
+	display: grid;
+	place-items: center;
+	width: 56px;
+	height: 56px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: var(--wp--preset--color--custom-primary, #0000ff);
+	color: #fff;
+	cursor: pointer;
+	box-shadow: 0 6px 20px rgba(0, 0, 0, .22);
+	transition: transform .15s ease, filter .15s ease;
+}
+
+.pdswt-float__fab:hover {
+	filter: brightness(1.15);
+	transform: translateY(-1px);
+}
+
+.pdswt-float__fab:focus-visible {
+	outline: 3px solid #fff;
+	outline-offset: 2px;
+	box-shadow: 0 0 0 6px var(--wp--preset--color--custom-primary, #0000ff);
+}
+
+.pdswt-float__icon--close,
+.pdswt-float.is-open .pdswt-float__icon--chat {
+	display: none;
+}
+
+.pdswt-float.is-open .pdswt-float__icon--close {
+	display: block;
+}
+
+/* El panel. Las variables de color las pone .pdswt-chat (y el modo oscuro del tema). */
+.pdswt-chat.pdswt-chat--floating {
+	position: fixed;
+	right: var(--pdswt-float-gap);
+	bottom: calc(var(--pdswt-float-gap) + 56px + 12px);
+	width: min(390px, calc(100vw - 2 * var(--pdswt-float-gap)));
+	height: min(620px, calc(100vh - 56px - 3 * var(--pdswt-float-gap) - 12px));
+	height: min(620px, calc(100dvh - 56px - 3 * var(--pdswt-float-gap) - 12px));
+	max-width: none;
+	margin: 0;
+	border-radius: 0.75rem;
+	box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+	overflow: hidden;
+	animation: pdswt-float-in .18s ease-out;
+}
+
+.pdswt-chat--floating[hidden] {
+	display: none;
+}
+
+@keyframes pdswt-float-in {
+	from { opacity: 0; transform: translateY(8px); }
+	to   { opacity: 1; transform: none; }
+}
+
+.pdswt-chat--floating .pdswt-chat__inner {
+	max-width: none;
+	height: 100%;
+	gap: 0;
+}
+
+.pdswt-chat--floating .pdswt-chat__tools {
+	position: static;
+	display: flex;
+	align-items: center;
+	gap: .25rem;
+	padding: .75rem .75rem .75rem 1.25rem;
+	border-bottom: 1px solid rgba(0, 0, 0, .1);
+}
+
+.pdswt-chat__title {
+	flex: 1;
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 600;
+	color: var(--pdswt-ink);
+}
+
+.pdswt-chat--floating .pdswt-chat__clear {
+	font-size: 18px;
+	opacity: .55;
+	padding: .35rem .5rem;
+}
+
+.pdswt-float__close {
+	background: none;
+	border: 0;
+	color: var(--pdswt-ink);
+	opacity: .55;
+	cursor: pointer;
+	font-size: 1.05rem;
+	line-height: 1;
+	padding: .35rem .5rem;
+}
+
+.pdswt-float__close:hover {
+	opacity: 1;
+}
+
+.pdswt-chat--floating .pdswt-chat__stage {
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	padding: 1.25rem;
+	gap: 1.5rem;
+}
+
+.pdswt-chat--floating .pdswt-chat__turn {
+	gap: .6rem;
+	scroll-margin-top: 1rem;
+}
+
+.pdswt-chat--floating .pdswt-chat__ask,
+.pdswt-chat--floating .pdswt-chat__reply,
+.pdswt-chat--floating .pdswt-chat__followup {
+	font-size: 1rem;
+	line-height: 1.5;
+	letter-spacing: 0;
+}
+
+.pdswt-chat--floating .pdswt-chat__reply {
+	font-weight: 400;
+}
+
+.pdswt-chat--floating .pdswt-chat__followup {
+	margin-top: .5rem;
+}
+
+.pdswt-chat--floating .pdswt-chat__pieces {
+	margin-top: .5rem;
+	gap: .5rem;
+}
+
+.pdswt-chat--floating .pdswt-piece-card {
+	width: calc(50% - .25rem);
+}
+
+.pdswt-chat--floating .pdswt-piece-card__media {
+	padding: .75rem;
+}
+
+.pdswt-chat--floating .pdswt-piece-card__title {
+	font-size: .85rem;
+}
+
+.pdswt-chat--floating .pdswt-chat__form {
+	margin: 0 1.25rem 1rem;
+}
+
+.pdswt-chat--floating .pdswt-chat__input {
+	font-size: 1rem;
+}
+
+/* La oferta de email, dentro del panel y bajo el campo de escribir. */
+.pdswt-chat--floating .pdswt-chat__email {
+	margin: 0 1.25rem 1rem;
+	max-height: 45%;
+	overflow-y: auto;
+}
+
+html.pds-dark .pdswt-chat--floating .pdswt-chat__tools {
+	border-bottom-color: rgba(255, 255, 255, .1);
+}
+
+/* Móvil: el panel ocupa toda la pantalla y el botón se oculta mientras está abierto. */
+@media (max-width: 600px) {
+	.pdswt-float {
+		--pdswt-float-gap: 16px;
+	}
+
+	.pdswt-chat.pdswt-chat--floating {
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		height: 100dvh;
+		border-radius: 0;
+	}
+
+	.pdswt-float.is-open .pdswt-float__fab {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.pdswt-chat--floating {
+		animation: none;
+	}
+}

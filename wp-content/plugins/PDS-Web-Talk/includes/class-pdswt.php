@@ -107,6 +107,9 @@ class PDSWT {
 		$this->loader->add_action( 'init', $front, 'register_assets' );
 		$this->loader->add_action( 'init', $front, 'register_block' );
 		$this->loader->add_action( 'init', $front, 'register_shortcode' );
+		// Chat flotante: se decide al encolar (ya hay consulta) y se pinta al pie.
+		$this->loader->add_action( 'wp_enqueue_scripts', $front, 'maybe_floating' );
+		$this->loader->add_action( 'wp_footer', $front, 'render_floating' );
 	}
 
 	public function run() {

@@ -10,20 +10,22 @@ if ( ! defined( 'WPINC' ) ) {
 class PDSWT_Rate_Limiter {
 
 	/**
-	 * IP del cliente (best-effort, saneada).
+	 * IP del cliente (saneada). Las cabeceras X-Forwarded-For y CF-Connecting-IP
+	 * las puede poner cualquiera: solo se miran si la petición llega desde una
+	 * IP privada o local (un proxy propio delante de PHP), y entonces se toma el
+	 * último valor de X-Forwarded-For, que es el que añade ese proxy.
 	 */
 	public static function client_ip() {
-		$ip = '';
-		if ( ! empty( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) {
-			$ip = wp_unslash( $_SERVER['HTTP_CF_CONNECTING_IP'] );
-		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-			$parts = explode( ',', wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) );
-			$ip    = trim( $parts[0] );
-		} elseif ( ! empty( $_SERVER['REMOTE_ADDR'] ) ) {
-			$ip = wp_unslash( $_SERVER['REMOTE_ADDR'] );
+		$remote = isset( $_SERVER['REMOTE_ADDR'] ) ? filter_var( wp_unslash( $_SERVER['REMOTE_ADDR'] ), FILTER_VALIDATE_IP ) : false;
+		$public = $remote && filter_var( $remote, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE );
+		if ( $remote && ! $public && ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+			$parts = array_map( 'trim', explode( ',', wp_unslash( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) );
+			$fwd   = filter_var( end( $parts ), FILTER_VALIDATE_IP );
+			if ( $fwd ) {
+				return $fwd;
+			}
 		}
-		$ip = filter_var( $ip, FILTER_VALIDATE_IP );
-		return $ip ? $ip : 'unknown';
+		return $remote ? $remote : 'unknown';
 	}
 
 	/**
