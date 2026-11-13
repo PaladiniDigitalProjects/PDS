@@ -1,0 +1,507 @@
+@use 'variables' as *;
+
+// INSIGHTS (/digital-insights/, es y ca) — 13/11/2026
+// Maquetación según la plantilla «News» de Mētis (referencia de Daniel):
+// franja de color arriba, título gigante cortado por una línea de lado a lado,
+// entradilla a la derecha, artículo destacado (texto + imagen), «From the studio»
+// con los 4 siguientes y «Browse the archive» con el resto en lista.
+// Contenido de las páginas: grupo .pds-insights con 3 queries (destacado, rejilla,
+// archivo) en la BBDD. El color de la franja es el azul PDS muy rebajado.
+
+// Colores PDS de los estilos globales: Primary #0000ff y Crema #ede8dd.
+$pds-primary: #0000ff;
+$pds-crema: #ede8dd;
+
+
+// ── Fondo: degradado de crema (arriba, bajo el header) a blanco ──
+// (solo en claro: en oscuro, el fondo blanco dejaría la página en blanco)
+// También en las entradas del blog (Daniel, 13/11): el mismo fondo que Insights
+html:not(.pds-dark) body:has(.pds-insights),
+html:not(.pds-dark) body.single-post,
+html:not(.pds-dark) body.single-service, // fichas de servicio (Daniel, 13/11)
+html:not(.pds-dark) body.single-proyecto { // fichas de proyecto (Daniel, 13/11)
+  // De crema arriba a blanco (Daniel, 13/11); el resto de la página, blanco
+  background-color: #fff;
+  // PRUEBA (Daniel, 13/11): todo en blanco, sin degradado. Para volver al degradado,
+  // descomentar la línea de abajo (crema → blanco, la mitad del paso a 100vh).
+  // background-image: linear-gradient(180deg, $pds-crema 0, #fff 200vh);
+  background-image: none;
+  background-repeat: no-repeat;
+}
+
+// En modo oscuro la página ya es oscura: sin franja
+html.pds-dark body:has(.pds-insights) {
+  background-image: none;
+}
+
+.pds-insights {
+  padding-top: 7rem;
+
+  @include laptop {
+    padding-top: 9rem;
+  }
+}
+
+// ── Cabecera: título gigante cortado por una línea de lado a lado ──
+.pds-insights-cap {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  // Sin recorte: ya no hay línea y el título no se corta (Daniel, 13/11)
+
+  // Desde portátil, título a la izquierda y entradilla en la misma fila a la derecha,
+  // alineada con lo alto del título (con el título a 10vw ya cabe «Reflexiones»).
+  @include laptop {
+    // la columna del título mide lo que la palabra; la entradilla va justo al lado (Daniel)
+    grid-template-columns: max-content minmax(0, 30rem);
+    justify-content: start;
+    column-gap: 3rem;
+  }
+
+  // La línea: 1 px que se alarga a toda la ventana con box-shadow (no crea scroll lateral)
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    box-shadow: 0 0 0 100vmax currentColor;
+    clip-path: inset(0 -100vmax);
+    opacity: 0.6;
+  }
+
+  .pds-insights-titol {
+    order: 2;
+    margin: 0 0 1rem -0.5rem; // valores de Daniel (13/11): el título ya no queda cortado por la línea
+    font-size: clamp(1rem, 10vw, 10rem); // valores de Daniel (13/11)
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.045em;
+
+    @include laptop {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
+
+  .pds-insights-intro {
+    order: 1;
+    margin: 0;
+    max-width: 30rem; // Daniel (13/11)
+    font-size: 1.2rem; // valores de Daniel (13/11)
+    font-weight: 500;
+    line-height: 1.4;
+
+    @include laptop {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: end; // alineada abajo, con el pie del título (Daniel, 13/11)
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+// ── Elementos comunes de las tarjetas ──
+.pds-insights {
+  .pds-insights-img {
+    margin: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 0.25rem;
+      object-fit: cover;
+    }
+  }
+
+  .pds-insights-cos {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pds-insights-titol-post {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: $blue;
+    }
+  }
+
+  .pds-insights-meta {
+    gap: 0.75rem;
+    font-size: 0.8125rem;
+    color: #6f6f6f;
+
+    .wp-block-post-date,
+    .wp-block-post-terms {
+      margin: 0;
+      font-size: inherit;
+    }
+
+    .wp-block-post-terms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    // «PDS» la llevan casi todas las entradas; los separadores de WP sobran (gap).
+    a[href*='/category/pds/'],
+    .wp-block-post-terms__separator {
+      display: none;
+    }
+  }
+
+  .wp-block-post-excerpt {
+    margin: 0;
+
+    // Valores de Daniel (13/11)
+    .wp-block-post-excerpt__excerpt {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 1.55;
+      color: #5c5c5c;
+    }
+  }
+}
+
+// ── Destacado: texto a la izquierda, imagen a la derecha ──
+.pds-insights-destacat {
+  margin-top: 3rem;
+
+  @include laptop {
+    margin-top: 5rem;
+  }
+
+  .wp-block-post-template {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 0;
+
+    @include laptop {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: start;
+    }
+  }
+
+  .pds-insights-img {
+    order: -1; // en móvil, la imagen primero
+
+    @include laptop {
+      order: 0;
+    }
+  }
+
+  .pds-insights-cos {
+    gap: 1.5rem;
+
+    @include laptop {
+      padding-right: 3rem;
+    }
+  }
+
+  .pds-insights-titol-post {
+    font-size: clamp(1.6rem, 6vw, 2.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+
+    // valores de Daniel (13/11), desde portátil
+    @include laptop {
+      font-size: 3.5rem;
+      padding-right: 6rem;
+    }
+  }
+}
+
+// ── Títulos de sección («From the studio», «Browse the archive») ──
+.pds-insights-seccio {
+  margin: 5rem 0 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  @include laptop {
+    margin-top: 7rem;
+  }
+}
+
+// ── Rejilla de 4: imágenes alternas, altas y cuadradas ──
+.pds-insights-graella.wp-block-post-template {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem 3rem; // valores de Daniel (13/11)
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include laptop {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  > li {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  > li:nth-child(odd) .pds-insights-img img {
+    aspect-ratio: 3 / 4 !important;
+  }
+}
+
+// ── Archivo: lista con título a la izquierda y fecha a la derecha ──
+.pds-insights-arxiu {
+  .wp-block-post-template {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // Fila: miniatura | título | fecha
+  li {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr) auto; // miniatura de 70 px (Daniel)
+    align-items: center;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(137, 137, 137, 0.4);
+
+    .pds-insights-titol-post {
+      text-align: left;
+      justify-self: start;
+    }
+  }
+
+  // Miniatura de la imagen destacada (13/11, Daniel)
+  .pds-insights-mini {
+    margin: 0;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 3px; // Daniel (13/11)
+    }
+  }
+
+  .pds-insights-titol-post {
+    font-size: 1.125rem;
+    font-weight: 500;
+
+    @include laptop {
+      font-size: 1.3rem;
+    }
+  }
+
+  .wp-block-post-date {
+    flex-shrink: 0;
+    margin: 0;
+    font-size: 0.8125rem;
+    color: #6f6f6f;
+  }
+}
+
+// Móvil: el tema pone las rejillas de entradas a 2 columnas por debajo de 600 px
+// (_noticias.scss). A ese ancho el extracto no cabe: solo imagen, título y meta.
+@media (max-width: 600px) {
+  .pds-insights-graella {
+    .wp-block-post-excerpt {
+      display: none;
+    }
+
+    .pds-insights-titol-post {
+      font-size: 1rem;
+    }
+  }
+}
+
+// Modo oscuro
+html.pds-dark {
+  .pds-insights .wp-block-post-excerpt__excerpt {
+    color: #b5b5b5;
+  }
+
+  .pds-insights-meta,
+  .pds-insights-arxiu .wp-block-post-date {
+    color: #9a9a9a;
+  }
+}
+
+
+// ── Filtro de categorías en píldoras (bajo la línea del título) ──
+.pds-insights-filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0 0;
+
+  button {
+    padding: 0.35rem 0.9rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $pds-primary;
+      color: $pds-primary;
+    }
+
+    &.is-actiu {
+      border-color: $pds-primary;
+      background: $pds-primary;
+      color: #fff;
+    }
+  }
+}
+
+// Lo que el filtro esconde (el [hidden] de WP puede perder contra display:grid/flex)
+.pds-insights [hidden] {
+  display: none !important;
+}
+
+// Con filtro, el destacado deja de estar tan separado del filtro
+.pds-insights.is-filtrant .pds-insights-destacat {
+  margin-top: 3rem;
+}
+
+// Sin el padding lateral global de WordPress (has-global-padding) en Insights (Daniel)
+// (no en About: el resto de su contenido cuenta con ese padding)
+.entry-content.wp-block-post-content:has(> .pds-insights:not(.pds-about)) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// ── Destacado: fecha como antetítulo y «Leer más» (Daniel, 13/11) ──
+.pds-insights-destacat {
+  .pds-insights-meta {
+    order: -1; // encima del título
+    margin-bottom: -0.75rem;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+  }
+
+  .wp-block-post-excerpt__more-text {
+    margin: 1.25rem 0 0;
+  }
+
+  .wp-block-post-excerpt__more-link {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 500;
+    color: $pds-primary;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+}
+
+// Soluciones: en «Últimos proyectos» todas las imágenes iguales, en horizontal 4/3,
+// sin la alternancia alta/cuadrada de Reflexiones (Daniel, 13/11)
+.pds-solucions .pds-insights-graella.wp-block-post-template > li .pds-insights-img img {
+  aspect-ratio: 4 / 3 !important;
+}
+
+// About Us: solo la cabecera (título gigante con la línia) y el fondo; el resto de la
+// página sigue con su contenido de siempre (Daniel, 13/11)
+.pds-about {
+  margin-bottom: 4rem;
+
+  @include laptop {
+    margin-bottom: 6rem;
+  }
+}
+
+// Sin el filete de 1 px bajo el título en ninguna página (Daniel, 13/11: home,
+// Soluciones, About y por último Reflexiones). El ::after de arriba queda anulado.
+.pds-insights-cap::after {
+  display: none;
+}
+
+// Home: título a 7 (Daniel, 13/11)
+.pds-home .pds-insights-cap .pds-insights-titol {
+  font-size: clamp(1rem, 7vw, 7rem);
+}
+
+// Home: la entradilla debajo del título, en todas las anchuras (Daniel, 13/11)
+.pds-home .pds-insights-cap {
+  grid-template-columns: minmax(0, 1fr);
+
+  .pds-insights-titol {
+    order: 1;
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .pds-insights-intro {
+    order: 2;
+    grid-column: 1;
+    grid-row: auto;
+    align-self: start;
+    padding-bottom: 2rem;
+    // valores de Daniel (13/11)
+    max-width: 56rem;
+    font-size: 2.2rem;
+    font-weight: 300;
+    line-height: 1.3;
+  }
+}
+
+// Soluciones, «Últimos proyectos»: sin el extracto, solo imagen y título (Daniel, 13/11)
+.pds-solucions .pds-insights-graella .wp-block-post-excerpt {
+  display: none;
+}
+
+// Página Services (/paladini-services/): solo la cabecera nueva; las tarjetas de
+// servicio siguen igual (Daniel, 13/11)
+.pds-serveis {
+  margin-bottom: 3rem;
+
+  @include laptop {
+    margin-bottom: 5rem;
+  }
+}

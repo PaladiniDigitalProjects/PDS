@@ -1,6 +1,7 @@
 @use './variables' as *;
 @use './generics';
 @use './header';
+@use './logo';
 @use './nav';
 @use './editlink';
 @use './buttons';
@@ -13,5 +14,6 @@
 @use './popup';
 @use './contenido-relacionado';
 @use './noticias';
+@use './insights';
 @use './components';
 @use './darkmode';

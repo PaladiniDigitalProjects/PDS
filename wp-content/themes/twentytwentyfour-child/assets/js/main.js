@@ -163,3 +163,77 @@ document.addEventListener('DOMContentLoaded', function () {
     idioma.parentNode.insertBefore(boton, idioma);
     pintar();
 });
+
+
+// Logo animado (13/11/2026). El SVG va en línea (functions.php) y el CSS en _logo.scss.
+// Estado con la clase 'is-tancat' en el enlace del logo (letras escondidas bajo el círculo):
+// - se cierra solo a los 2,5 s de cargar la página;
+// - hover (o foco de teclado) sobre el círculo → se abre;
+// - al sacar el ratón del logo → se cierra;
+// - scroll hacia abajo → se cierra.
+(function () {
+    var enlace = document.querySelector('header .custom-logo-link');
+    var circulo = enlace && enlace.querySelector('.pds-logo__hit');
+    if (!enlace || !circulo) return;
+
+    var temporizador = null;
+    function tanca() { clearTimeout(temporizador); enlace.classList.add('is-tancat'); }
+    function obre() { clearTimeout(temporizador); enlace.classList.remove('is-tancat'); }
+
+    temporizador = setTimeout(tanca, 2500);
+
+    circulo.addEventListener('mouseenter', obre);
+    enlace.addEventListener('mouseleave', function () {
+        clearTimeout(temporizador);
+        temporizador = setTimeout(tanca, 400);
+    });
+    enlace.addEventListener('focus', obre);
+    enlace.addEventListener('blur', tanca);
+
+    var ultimaY = window.pageYOffset;
+    window.addEventListener('scroll', function () {
+        var y = window.pageYOffset;
+        if (y > ultimaY && y > 10) tanca();
+        ultimaY = y;
+    }, { passive: true });
+})();
+
+
+
+// Insights: filtro de categorías en píldoras (13/11/2026).
+// Los botones los pinta [pds_insights_filtres] (functions.php); cada entrada lleva la
+// clase category-<slug>. Filtra las tres secciones (destacado, últimas y archivo) y
+// esconde las que se quedan vacías junto con su título (el párrafo .pds-insights-seccio
+// que las precede).
+(function () {
+    var filtres = document.querySelector('.pds-insights-filtres');
+    var pagina = document.querySelector('.pds-insights');
+    if (!filtres || !pagina) return;
+    var seccions = pagina.querySelectorAll('.wp-block-query');
+
+    filtres.addEventListener('click', function (e) {
+        var boto = e.target.closest('button[data-cat]');
+        if (!boto) return;
+        var cat = boto.getAttribute('data-cat');
+
+        filtres.querySelectorAll('button').forEach(function (b) {
+            var actiu = b === boto;
+            b.classList.toggle('is-actiu', actiu);
+            b.setAttribute('aria-pressed', actiu ? 'true' : 'false');
+        });
+
+        seccions.forEach(function (q) {
+            var visibles = 0;
+            q.querySelectorAll('.wp-block-post-template > li').forEach(function (li) {
+                var amaga = cat !== '*' && !li.classList.contains('category-' + cat);
+                li.hidden = amaga;
+                if (!amaga) visibles++;
+            });
+            q.hidden = visibles === 0;
+            var titol = q.previousElementSibling;
+            if (titol && titol.classList.contains('pds-insights-seccio')) titol.hidden = visibles === 0;
+        });
+        pagina.classList.toggle('is-filtrant', cat !== '*');
+    });
+})();
+

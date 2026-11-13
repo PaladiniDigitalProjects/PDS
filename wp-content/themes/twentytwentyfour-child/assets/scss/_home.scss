@@ -223,35 +223,43 @@ li.type-service {
     font-size: 0 !important;
 }
 
-// Imagen destacada en la tarjeta de servicio (patrón «Serveis», 12/11, Daniel).
-// Con ratón: en reposo la imagen llena todo lo que no ocupa el título; al pasar
-// por encima, imagen 60 % / texto 40 % y aparece el extracto. En táctil, 50 / 50 con el extracto
-// siempre visible. La imagen va a todo el ancho y sin padding; el texto, en
-// .pds-service-card-body. Alto fijo (--pds-card-h) para que la tarjeta no salte al
-// cambiar el reparto. La imagen no lleva
-// el zoom ni la sombra de las tarjetas de rejilla (li.hentry, más abajo) y solo
+// Imagen destacada en la tarjeta de servicio (patrón «Serveis»).
+// Desde el 13/11 (Daniel): la imagen no se deforma ni cambia al pasar el ratón
+// (proporción fija 4/3) y el extracto se ve siempre, debajo del título. La tarjeta
+// ya no tiene alto fijo: crece con su texto. La imagen va a todo el ancho y sin
+// padding, sin el zoom ni la sombra de las tarjetas de rejilla (li.hentry) y solo
 // redondea las esquinas de arriba, con el radio de la tarjeta.
 li.type-service > .wp-block-cover:has(.pds-service-card-img) {
     padding: 0 !important;
     align-items: stretch;
     overflow: hidden;
-    --pds-card-h: 400px; // alto de la tarjeta (Daniel, 12/11)
-    min-height: var(--pds-card-h) !important; // el bloque pone 18rem en línea
+    min-height: 0 !important; // el bloque pone 18rem en línea
 
     > .wp-block-cover__inner-container {
-        display: grid;
-        // minmax(0, …): el reparto lo manda la proporción, no el contenido
-        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+        display: flex;
+        flex-direction: column;
         width: 100%;
     }
 
     .pds-service-card-img {
         position: relative;
+        flex: none;
+        // vertical 3/4; en móvil 4/3 (Daniel, 13/11)
+        aspect-ratio: 4 / 3;
+
+        @include tablet {
+            aspect-ratio: 3 / 4;
+        }
         margin: 0;
         border-radius: 0.5rem 0.5rem 0 0 !important;
         overflow: hidden;
         transform: none !important;
         box-shadow: none !important;
+
+        // El zoom del hover (regla de li.hentry, más abajo) escala la imagen: el recorte
+        // con clip-path mantiene las esquinas redondeadas también en Safari, que con
+        // overflow:hidden + border-radius no recorta bien un hijo transformado (13/11)
+        clip-path: inset(0 round 0.5rem 0.5rem 0 0);
 
         img {
             position: absolute;
@@ -260,14 +268,14 @@ li.type-service > .wp-block-cover:has(.pds-service-card-img) {
             height: 100%;
             object-fit: cover;
             border-radius: 0.5rem 0.5rem 0 0;
-            box-shadow: none;
+            box-shadow: none !important;
         }
     }
 
     .pds-service-card-body {
+        flex: 1;
         margin: 0;
         padding: 15px 20px 20px; // laterales y abajo 20 (Daniel, 12/11)
-        overflow: hidden;
 
         h3.wp-block-post-title {
             font-weight: 600 !important; // el bloque lleva 700 en línea
@@ -292,47 +300,22 @@ li.type-service > .wp-block-cover:has(.pds-service-card-img) {
         }
     }
 
-    // El extracto aparece al pasar por encima (Daniel, 12/11). Solo con ratón:
-    // en táctil no hay hover y se ve siempre. Con el teclado, al enfocar el enlace.
-    // Opacidad y no display, para que la tarjeta no cambie de alto.
+    // El extracto: invisible en reposo y aparece al pasar el ratón (Daniel, 13/11).
+    // Opacidad y no display: ocupa su sitio y la tarjeta no cambia de alto. Solo con
+    // ratón; en táctil se ve siempre. Con el teclado, al enfocar el enlace.
     @media (hover: hover) {
-        // En reposo el texto ocupa solo lo que mide el título y la imagen llena el
-        // resto (sin hueco blanco debajo del título). Al pasar por encima, el texto
-        // crece hasta el 40 % de la tarjeta (imagen al 60 %) y entra el extracto.
-        > .wp-block-cover__inner-container {
-            grid-template-rows: minmax(0, 1fr) auto;
-        }
-
-        // En reposo, sitio para dos líneas de título en todas (también en las de una
-        // línea): el blanco es igual en las cuatro y las imágenes acaban a la misma altura.
-        .pds-service-card-body {
-            min-height: calc(2 * 1.85rem * 1.15 + 35px);
-            transition: min-height 0.3s ease;
-        }
-
-        &:hover .pds-service-card-body,
-        &:focus-within .pds-service-card-body {
-            min-height: calc(var(--pds-card-h) * 0.4); // texto 40 %, imagen 60 % (si el texto no cabe, crece)
-        }
-
         .wp-block-post-excerpt {
-            max-height: 0;
-            margin-top: 0;
-            overflow: hidden;
             opacity: 0;
-            transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.2s ease 0.1s;
+            transition: opacity 0.3s ease;
         }
 
         &:hover .wp-block-post-excerpt,
         &:focus-within .wp-block-post-excerpt {
-            max-height: 12rem;
-            margin-top: var(--wp--preset--spacing--10);
             opacity: 1;
         }
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .pds-service-card-body,
         .wp-block-post-excerpt {
             transition: none;
         }
@@ -471,5 +454,24 @@ ul.wp-block-post-template-is-layout-grid {
                 }
             }
         }
+    }
+}
+// Chat del bot (PDS-Web-Talk) incrustado en la página: sin fondo, para que se vea el
+// degradado (Daniel, 13/11). A pantalla completa y en el panel flotante sigue opaco:
+// ahí tapa el contenido de detrás.
+.pdswt-chat.pdswt-chat:not(.is-fullscreen):not(.pdswt-float *) {
+  background: transparent;
+}
+
+// Página Services (/paladini-services/): las mismas tarjetas que la home (bloque
+// sincronizado #23354), pero con el extracto siempre visible (Daniel, 13/11) y, como
+// en la home, sin el «More» a la vista (el ::after sigue enlazando la tarjeta).
+body:has(.pds-serveis) li.type-service {
+    .wp-block-read-more {
+        font-size: 0 !important;
+    }
+
+    > .wp-block-cover .wp-block-post-excerpt {
+        opacity: 1 !important;
     }
 }

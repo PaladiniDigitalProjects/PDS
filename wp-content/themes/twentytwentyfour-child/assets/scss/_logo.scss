@@ -1,0 +1,63 @@
+@use 'variables' as *;
+
+// LOGO ANIMADO (13/11/2026)
+// El SVG va en línea (pds_logo_svg_en_linea, functions.php) y el estado lo pone
+// main.js con la clase .is-tancat en el enlace del logo:
+// - al cargar, el logo aparece con un fade;
+// - al cabo de unos segundos, las letras se deslizan a la izquierda bajo el círculo
+//   (el grupo .pds-logo__text está recortado por un clip que excluye el círculo);
+// - hover sobre el círculo: vuelven a salir de izquierda a derecha, con fade;
+// - scroll hacia abajo: se esconden otra vez.
+
+.wp-block-site-logo .pds-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  animation: pds-logo-entra 0.8s ease both;
+}
+
+@keyframes pds-logo-entra {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.pds-logo__track {
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.pds-logo__letter {
+  // --d (0–1) = posición horizontal de la letra: al aparecer, de izquierda a derecha
+  transition: opacity 0.45s ease calc(var(--d, 0) * 0.35s);
+}
+
+.pds-logo__hit {
+  cursor: pointer;
+}
+
+// Letras escondidas bajo el círculo
+.custom-logo-link.is-tancat {
+  .pds-logo__track {
+    transform: translateX(-180px);
+    transition: transform 0.8s cubic-bezier(0.6, 0, 0.4, 1);
+  }
+
+  .pds-logo__letter {
+    opacity: 0;
+    // al esconderse, de derecha a izquierda: primero las que más camino tienen
+    transition: opacity 0.5s ease calc((1 - var(--d, 0)) * 0.25s + 0.15s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wp-block-site-logo .pds-logo {
+    animation: none;
+  }
+
+  .pds-logo__track,
+  .pds-logo__letter,
+  .custom-logo-link.is-tancat .pds-logo__track,
+  .custom-logo-link.is-tancat .pds-logo__letter {
+    transition: none;
+  }
+}

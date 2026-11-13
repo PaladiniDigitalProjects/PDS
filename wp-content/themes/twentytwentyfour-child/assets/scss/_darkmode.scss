@@ -130,13 +130,10 @@ html.pds-dark {
 
   // ── Header ──
   // Logo: la variante de círculo blanco con letras azules (la misma de header-sobre-media)
-  header .custom-logo-link {
-    display: inline-block;
-    background: url('../images/Paladini_Logo_sobre_imagen.svg') no-repeat center / contain;
-  }
-
-  header .custom-logo {
-    opacity: 0;
+  // (SVG en línea desde el 13/11: se pinta en blanco en vez de cambiar de fichero)
+  header .pds-logo__circle,
+  header .pds-logo__letter {
+    fill: #fff;
   }
 
   // Iconos de trazo azul del header (globo, menú) → blanco

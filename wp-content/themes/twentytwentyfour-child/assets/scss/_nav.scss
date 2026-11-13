@@ -160,3 +160,83 @@
 //     color: $white !important;
 //   }
 // }
+// Menú de escritorio (Daniel, 13/11): desde el 13/11 la navegación ya no va siempre en
+// hamburguesa (overlayMenu por defecto, «mobile»): en escritorio los ítems van en línea
+// en el header. Textos a 1rem y en semibold. El menú abierto (móvil) no se toca.
+// !important en el tamaño: los ítems llevan una clase de tamaño de WordPress con !important.
+header .wp-block-navigation__responsive-container:not(.is-menu-open) {
+  .wp-block-navigation-item,
+  .wp-block-navigation-item__content {
+    font-size: 1rem !important;
+    font-weight: 600;
+  }
+}
+
+// Menú de escritorio: sin LinkedIn, Instagram ni X (Daniel, 13/11). Son un ítem del
+// mismo menú (#18689) que usa el menú de móvil: se ocultan aquí y no en el menú,
+// para que en móvil sigan saliendo.
+header .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-item:has(> .wp-block-social-links) {
+  display: none;
+}
+
+// Menú de escritorio: al pasar el ratón, con foco y en la página actual, subrayado
+// (Daniel, 13/11). Antes pasaba a light, pero el cambio de peso movía el menú.
+header .wp-block-navigation__responsive-container:not(.is-menu-open) {
+  .wp-block-navigation-item__content:hover,
+  .wp-block-navigation-item__content:focus-visible,
+  .current-menu-item > .wp-block-navigation-item__content,
+  .wp-block-navigation-item__content[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.3em;
+  }
+}
+
+// Menú de escritorio en blanco cuando los iconos del header van en blanco por contraste:
+// sobre la imagen de apertura (header-sobre-media) y en modo oscuro (Daniel, 13/11).
+// !important: el menú lleva has-custom-primary-color, que WordPress pone con !important.
+header.header-sobre-media .wp-block-navigation:has(.wp-block-navigation__responsive-container:not(.is-menu-open)),
+html.pds-dark header .wp-block-navigation:has(.wp-block-navigation__responsive-container:not(.is-menu-open)) {
+  color: #fff !important;
+
+  .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation-item__content {
+    color: #fff !important;
+  }
+}
+
+// Menú de escritorio: sin «Home» (primer ítem en/es/ca; el logo ya lleva a la portada)
+// (Daniel, 13/11). En el menú de móvil sigue.
+header .wp-block-navigation__responsive-container:not(.is-menu-open) .wp-block-navigation__container > .wp-block-navigation-item:first-child {
+  display: none;
+}
+
+// Menú de móvil (superposición «Superposición de navegación», #21061): los ítems
+// centrados en la pantalla y más grandes (Daniel, 13/11). El logo y la ✕ se quedan arriba.
+.wp-block-navigation__overlay-container {
+  > .wp-block-group {
+    position: relative;
+  }
+
+  .wp-block-navigation {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    .wp-block-navigation__container {
+      align-items: center;
+      gap: 1.25rem;
+      pointer-events: auto;
+    }
+
+    .wp-block-navigation-item,
+    .wp-block-navigation-item__content {
+      font-size: 1.75rem !important;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}

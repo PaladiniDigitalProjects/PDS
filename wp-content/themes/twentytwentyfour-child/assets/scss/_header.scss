@@ -92,13 +92,11 @@ header.wp-block-template-part {
     // El logo no se puede invertir sin más: las letras PDS son huecos transparentes
     // dentro del círculo, así que al volverlo blanco se pierden sobre la imagen.
     // Se cambia por una variante con el círculo blanco y las letras en azul.
-    .custom-logo-link {
-      display: inline-block;
-      background: url('../images/Paladini_Logo_sobre_imagen.svg') no-repeat center / contain;
-    }
-
-    .custom-logo {
-      opacity: 0;
+    // Desde el 13/11 el logo es un SVG en línea (pds_logo_svg_en_linea, functions.php):
+    // la variante es el mismo logo con todo en blanco y las letras PDS como huecos.
+    .pds-logo__circle,
+    .pds-logo__letter {
+      fill: #fff;
     }
 
     // Los demás iconos son trazos planos: basta con pasarlos a blanco.
@@ -342,4 +340,46 @@ html.has-modal-open {
   }
 
 
+}
+// Escritorio (Daniel, 13/11): idioma y modo claro/oscuro intercambiados (primero el
+// globo, luego la luna) a 18 px. En móvil, como estaban.
+@include laptop {
+  header .lenguage_nav {
+    order: 1;
+
+    figure {
+      width: 18px;
+      height: 18px;
+      padding: 0;
+
+      img {
+        width: 18px !important;
+        height: 18px !important;
+      }
+    }
+  }
+
+  header .pds-tema {
+    order: 2;
+    width: 18px;
+    height: 18px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+// Escritorio: el desplegable de idiomas, pegado al globo de 18 px (Daniel, 13/11).
+// La flecha de la lista (::before, 0.5rem del borde derecho) queda centrada bajo el
+// icono y tocándolo. El hueco sigue siendo padding del bloque, para que el ratón no
+// salga del selector al bajar.
+@include laptop {
+  header .lenguage_nav:hover .wpml-language-switcher-block {
+    top: 18px;
+    padding-top: 4px; // más arriba (Daniel, 13/11)
+    left: calc(-5.15rem - 6px);
+    right: 9px;
+  }
 }

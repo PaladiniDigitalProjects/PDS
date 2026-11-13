@@ -616,3 +616,132 @@ function pds_schema_faq( $graph, $context ) {
 	return $graph;
 }
 add_filter( 'wpseo_schema_graph', 'pds_schema_faq', 10, 2 );
+
+
+/**
+ * Logo animado: el SVG del logo va en línea en vez de como <img>, para poder
+ * animar el círculo y las letras por separado (CSS en _logo.scss, JS en main.js).
+ *
+ * Estructura que se genera:
+ * - .pds-logo__text: grupo de las letras, recortado por un clip que excluye el
+ *   círculo; así, al deslizarse a la izquierda, las letras «se meten» bajo él.
+ * - .pds-logo__letter: cada letra, con --d (0–1) según su posición horizontal,
+ *   para que aparezcan de izquierda a derecha.
+ * - .pds-logo__circle: el círculo con PDS, encima de las letras.
+ * - .pds-logo__hit: área transparente del círculo para detectar el hover (las
+ *   letras PDS son huecos y no recibirían el ratón).
+ * Si el logo no es un SVG legible, se deja el <img> original.
+ */
+function pds_logo_svg_en_linea( $html ) {
+	if ( is_admin() || false === strpos( $html, 'custom-logo' ) ) {
+		return $html;
+	}
+	$id   = (int) get_theme_mod( 'custom_logo' );
+	$file = $id ? get_attached_file( $id ) : '';
+	if ( ! $file || '.svg' !== strtolower( substr( $file, -4 ) ) || ! is_readable( $file ) ) {
+		return $html;
+	}
+
+	$doc = new DOMDocument();
+	if ( ! @$doc->loadXML( file_get_contents( $file ) ) ) {
+		return $html;
+	}
+	$svg   = $doc->documentElement;
+	$paths = $svg->getElementsByTagName( 'path' );
+	if ( $paths->length < 2 ) {
+		return $html;
+	}
+	$viewbox = $svg->getAttribute( 'viewBox' ) ?: '0 0 271 100';
+	list( , , $vw, $vh ) = array_map( 'floatval', preg_split( '/[\s,]+/', trim( $viewbox ) ) );
+
+	// Primer trazado = círculo; el resto, letras. Posición x del primer punto de cada letra.
+	$circulo = $paths->item( 0 )->getAttribute( 'd' );
+	$letras  = [];
+	for ( $i = 1; $i < $paths->length; $i++ ) {
+		$p = $paths->item( $i );
+		preg_match( '/^\s*M\s*(-?[\d.]+)/i', $p->getAttribute( 'd' ), $m );
+		$letras[] = [ 'd' => $p->getAttribute( 'd' ), 'fill' => $p->getAttribute( 'fill' ) ?: 'black', 'x' => isset( $m[1] ) ? (float) $m[1] : 0 ];
+	}
+	$xs   = array_column( $letras, 'x' );
+	$xmin = min( $xs );
+	$rang = max( max( $xs ) - $xmin, 1 );
+
+	static $n = 0;
+	$n++;
+	$clip = 'pds-logo-clip-' . $n;
+	$alt  = preg_match( '/alt="([^"]*)"/', $html, $m ) ? $m[1] : get_bloginfo( 'name' );
+
+	// Radio del círculo a partir de la altura del viewBox (el logo lo tiene de 0 a $vh).
+	$r = $vh / 2;
+	$c = sprintf( 'M%1$s %2$sA%2$s %2$s 0 1 1 0 %2$sA%2$s %2$s 0 1 1 %1$s %2$sZ', $r * 2, $r );
+
+	$out  = sprintf( '<svg class="custom-logo pds-logo" viewBox="%s" role="img" aria-label="%s" xmlns="http://www.w3.org/2000/svg">', esc_attr( $viewbox ), esc_attr( $alt ) );
+	$out .= sprintf( '<defs><clipPath id="%s"><path clip-rule="evenodd" d="M%s 0H%s V%s H%s Z %s"/></clipPath></defs>', $clip, $r, $vw, $vh, $r, $c );
+	$out .= sprintf( '<g class="pds-logo__text" clip-path="url(#%s)"><g class="pds-logo__track">', $clip );
+	foreach ( $letras as $l ) {
+		$out .= sprintf( '<path class="pds-logo__letter" style="--d:%s" d="%s" fill="%s"/>', round( ( $l['x'] - $xmin ) / $rang, 3 ), esc_attr( $l['d'] ), esc_attr( $l['fill'] ) );
+	}
+	$out .= '</g></g>';
+	$out .= sprintf( '<path class="pds-logo__circle" d="%s" fill="%s"/>', esc_attr( $circulo ), esc_attr( $paths->item( 0 )->getAttribute( 'fill' ) ?: '#0000FF' ) );
+	$out .= sprintf( '<circle class="pds-logo__hit" cx="%1$s" cy="%1$s" r="%1$s" fill="transparent"/>', $r );
+	$out .= '</svg>';
+
+	return preg_replace( '/<img[^>]*class="custom-logo"[^>]*>/', $out, $html, 1 );
+}
+add_filter( 'get_custom_logo', 'pds_logo_svg_en_linea' );
+
+
+/**
+ * Insights: filtro de categorías en píldoras ([pds_insights_filtres]).
+ * Saca las categorías de las entradas publicadas en el idioma activo, sin «PDS»
+ * (la tienen casi todas) ni «Uncategorized». El filtrado lo hace main.js en el
+ * cliente, con las clases category-<slug> que WordPress pone en cada tarjeta.
+ */
+function pds_insights_filtres() {
+	$lang  = apply_filters( 'wpml_current_language', 'en' );
+	$tots  = [ 'en' => 'All', 'es' => 'Todos', 'ca' => 'Tots' ][ $lang ] ?? 'All';
+	$aria  = [ 'en' => 'Filter by topic', 'es' => 'Filtrar por tema', 'ca' => 'Filtra per tema' ][ $lang ] ?? 'Filter by topic';
+	$fora  = [ 'pds', 'uncategorized', 'sin-categoria', 'sense-categoria' ];
+	$posts = get_posts( [ 'post_type' => 'post', 'numberposts' => -1, 'fields' => 'ids', 'suppress_filters' => false ] );
+
+	$cats = [];
+	foreach ( $posts as $id ) {
+		foreach ( get_the_category( $id ) as $t ) {
+			if ( in_array( $t->slug, $fora, true ) ) {
+				continue;
+			}
+			if ( ! isset( $cats[ $t->slug ] ) ) {
+				$cats[ $t->slug ] = [ 'name' => $t->name, 'n' => 0 ];
+			}
+			$cats[ $t->slug ]['n']++;
+		}
+	}
+	uasort( $cats, fn( $a, $b ) => $b['n'] <=> $a['n'] ?: strcasecmp( $a['name'], $b['name'] ) );
+
+	$out  = sprintf( '<nav class="pds-insights-filtres" aria-label="%s">', esc_attr( $aria ) );
+	$out .= sprintf( '<button type="button" class="is-actiu" data-cat="*" aria-pressed="true">%s</button>', esc_html( $tots ) );
+	foreach ( $cats as $slug => $c ) {
+		$out .= sprintf( '<button type="button" data-cat="%s" aria-pressed="false">%s</button>', esc_attr( $slug ), esc_html( $c['name'] ) );
+	}
+	return $out . '</nav>';
+}
+add_shortcode( 'pds_insights_filtres', 'pds_insights_filtres' );
+
+
+/**
+ * Menús por idioma (13/11/2026). El header es uno solo para los tres idiomas y su bloque
+ * de navegación apunta al menú en (Menu2025, #18689). WPML no cambia solo el `ref` del
+ * bloque: aquí se sustituye por la traducción del menú en el idioma activo (Menu2025 ES
+ * #24392 y CA #24393, registradas como traducciones en WPML). Vale también para el
+ * menú de móvil (la superposición usa el mismo menú).
+ */
+function pds_navegacio_per_idioma( $block ) {
+	if ( 'core/navigation' === ( $block['blockName'] ?? '' ) && ! empty( $block['attrs']['ref'] ) ) {
+		$t = apply_filters( 'wpml_object_id', (int) $block['attrs']['ref'], 'wp_navigation', true );
+		if ( $t ) {
+			$block['attrs']['ref'] = (int) $t;
+		}
+	}
+	return $block;
+}
+add_filter( 'render_block_data', 'pds_navegacio_per_idioma' );
