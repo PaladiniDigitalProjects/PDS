@@ -34,7 +34,10 @@ class PDSWT {
 		$cpt = new PDSWT_CPT();
 		$this->loader->add_action( 'init', $cpt, 'register' );
 
-		$this->loader->add_action( 'save_post', $this, 'on_save_post', 20, 3 );
+		// wp_after_insert_post y no save_post: el editor de bloques guarda los
+		// metas (p. ej. los de la tarjeta del bot) DESPUÉS de save_post, y el
+		// índice leería los valores antiguos.
+		$this->loader->add_action( 'wp_after_insert_post', $this, 'on_save_post', 20, 3 );
 		$this->loader->add_action( 'trashed_post', $this, 'on_delete_post' );
 		$this->loader->add_action( 'before_delete_post', $this, 'on_delete_post' );
 	}
@@ -60,8 +63,10 @@ class PDSWT {
 		$usage = new PDSWT_Usage_Page();
 		$this->loader->add_action( 'admin_post_pdswt_save_rates', $usage, 'handle_save_rates' );
 
-		// Metabox "Pieza para el chatbot" en proyecto/partners.
+		// "Pieza para el chatbot": panel del editor de bloques (+ metabox para el clásico).
 		$piece = new PDSWT_Piece_Meta();
+		$this->loader->add_action( 'init', $piece, 'register_meta' );
+		$this->loader->add_action( 'enqueue_block_editor_assets', $piece, 'enqueue_block_editor' );
 		$this->loader->add_action( 'add_meta_boxes', $piece, 'add_meta_box' );
 		$this->loader->add_action( 'save_post', $piece, 'save', 10, 1 );
 		$this->loader->add_action( 'admin_enqueue_scripts', $piece, 'enqueue' );

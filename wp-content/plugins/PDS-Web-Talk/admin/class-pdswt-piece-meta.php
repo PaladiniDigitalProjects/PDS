@@ -23,6 +23,52 @@ class PDSWT_Piece_Meta {
 	const M_TITLE   = '_pdswt_piece_title';
 	const M_WEIGHT  = '_pdswt_piece_weight';
 
+	/**
+	 * Registra los metas para la REST API: el panel del editor de bloques
+	 * (admin/js/pdswt-piece-panel.js) los lee y escribe como meta del post.
+	 * Son claves protegidas (empiezan por «_»): auth_callback las abre solo a
+	 * quien puede editar el post.
+	 */
+	public function register_meta() {
+		$auth = function ( $allowed, $meta_key, $post_id ) {
+			return current_user_can( 'edit_post', $post_id );
+		};
+		$fields = array(
+			self::M_ENABLED => array( 'boolean', false, 'rest_sanitize_boolean' ),
+			self::M_IMAGE   => array( 'integer', 0, 'absint' ),
+			self::M_LOGO    => array( 'integer', 0, 'absint' ),
+			self::M_TITLE   => array( 'string', '', 'sanitize_text_field' ),
+			self::M_WEIGHT  => array( 'integer', 5, array( __CLASS__, 'sanitize_weight' ) ),
+		);
+		foreach ( self::POST_TYPES as $pt ) {
+			// El editor solo expone meta por REST si el tipo admite custom-fields
+			// (partners no lo tiene de serie).
+			add_post_type_support( $pt, 'custom-fields' );
+			foreach ( $fields as $key => $def ) {
+				register_post_meta(
+					$pt,
+					$key,
+					array(
+						'type'              => $def[0],
+						'default'           => $def[1],
+						'single'            => true,
+						'show_in_rest'      => true,
+						'sanitize_callback' => $def[2],
+						'auth_callback'     => $auth,
+					)
+				);
+			}
+		}
+	}
+
+	public static function sanitize_weight( $value ) {
+		return max( 0, min( 10, absint( $value ) ) );
+	}
+
+	/**
+	 * Metabox clásico: solo para el editor clásico. En el de bloques lo
+	 * sustituye el panel lateral (__back_compat_meta_box lo oculta allí).
+	 */
 	public function add_meta_box() {
 		foreach ( self::POST_TYPES as $pt ) {
 			add_meta_box(
@@ -31,7 +77,8 @@ class PDSWT_Piece_Meta {
 				array( $this, 'render' ),
 				$pt,
 				'side',
-				'default'
+				'default',
+				array( '__back_compat_meta_box' => true )
 			);
 		}
 	}
@@ -141,6 +188,23 @@ class PDSWT_Piece_Meta {
 			'pdswt-piece-meta',
 			PDSWT_PLUGIN_URL . 'admin/js/pdswt-piece-meta.js',
 			array( 'jquery' ),
+			PDSWT_VERSION,
+			true
+		);
+	}
+
+	/**
+	 * Panel «Pieza para el chatbot» en la barra lateral del editor de bloques.
+	 */
+	public function enqueue_block_editor() {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen || ! in_array( $screen->post_type, self::POST_TYPES, true ) ) {
+			return;
+		}
+		wp_enqueue_script(
+			'pdswt-piece-panel',
+			PDSWT_PLUGIN_URL . 'admin/js/pdswt-piece-panel.js',
+			array( 'wp-plugins', 'wp-editor', 'wp-components', 'wp-element', 'wp-data', 'wp-core-data', 'wp-block-editor', 'wp-i18n' ),
 			PDSWT_VERSION,
 			true
 		);

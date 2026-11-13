@@ -168,6 +168,12 @@ body.home {
 // 2×2 o a una columna; la tarjeta (cover) llena su celda (01/10/2026).
 .wp-block-post-template-is-layout-grid:has(> li.type-service) {
     grid-auto-rows: 1fr;
+
+    // En móvil, sin rejilla: una tarjeta debajo de otra (Daniel, 12/11)
+    @media (max-width: #{$tablet - 1px}) {
+        display: flex !important;
+        flex-direction: column;
+    }
 }
 
 .wp-block-post-template-is-layout-grid > li.type-service > .wp-block-cover {
@@ -211,56 +217,124 @@ li.type-service {
     font-size: 0 !important;
 }
 
-// Tarjetas de la página de servicios (media-text con imagen destacada, dentro de
-// un query; /paladini-services/ en/es/ca). Como en la home, la tarjeta entera
-// enlaza: el «More» del extracto se estira con un ::after sobre toda la tarjeta.
-// Al pasar por encima, el zoom de .zoom10. En móvil (apilada, <600px, el corte de
-// `is-stacked-on-mobile`) la imagen va a todo el ancho, sin el padding de
-// _components, y hay 2rem hasta el título (22/10/2026).
-li.type-service > .wp-block-media-text {
-    position: relative;
-    transition: transform 0.15s;
+// En la home (en/es/ca) tampoco se ve el «More/Más/Més» de las tarjetas de servicio
+// (Daniel, 12/11). Mismo truco: tamaño 0, y el ::after sigue enlazando la tarjeta.
+.home li.type-service .wp-block-read-more {
+    font-size: 0 !important;
+}
 
-    &:hover {
-        transform: scale(1.10);
+// Imagen destacada en la tarjeta de servicio (patrón «Serveis», 12/11, Daniel).
+// Con ratón: en reposo la imagen llena todo lo que no ocupa el título; al pasar
+// por encima, imagen 60 % / texto 40 % y aparece el extracto. En táctil, 50 / 50 con el extracto
+// siempre visible. La imagen va a todo el ancho y sin padding; el texto, en
+// .pds-service-card-body. Alto fijo (--pds-card-h) para que la tarjeta no salte al
+// cambiar el reparto. La imagen no lleva
+// el zoom ni la sombra de las tarjetas de rejilla (li.hentry, más abajo) y solo
+// redondea las esquinas de arriba, con el radio de la tarjeta.
+li.type-service > .wp-block-cover:has(.pds-service-card-img) {
+    padding: 0 !important;
+    align-items: stretch;
+    overflow: hidden;
+    --pds-card-h: 400px; // alto de la tarjeta (Daniel, 12/11)
+    min-height: var(--pds-card-h) !important; // el bloque pone 18rem en línea
+
+    > .wp-block-cover__inner-container {
+        display: grid;
+        // minmax(0, …): el reparto lo manda la proporción, no el contenido
+        grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+        width: 100%;
     }
 
-    .wp-block-media-text__content,
-    .wp-block-media-text__content > .wp-block-group,
-    .wp-block-post-excerpt,
-    .wp-block-post-excerpt__more-text {
-        position: static;
+    .pds-service-card-img {
+        position: relative;
+        margin: 0;
+        border-radius: 0.5rem 0.5rem 0 0 !important;
+        overflow: hidden;
+        transform: none !important;
+        box-shadow: none !important;
+
+        img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem 0.5rem 0 0;
+            box-shadow: none;
+        }
     }
 
-    .wp-block-post-excerpt__more-link::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-    }
+    .pds-service-card-body {
+        margin: 0;
+        padding: 15px 20px 20px; // laterales y abajo 20 (Daniel, 12/11)
+        overflow: hidden;
 
-    // El «More» no se ve (lo pidió Daniel, 22/10): sobra si toda la tarjeta enlaza.
-    // Ni display:none ni visibility, que se llevarían el ::after y con él el enlace.
-    .wp-block-post-excerpt__more-text {
-        margin: 0 !important;
-        line-height: 0;
-    }
-
-    .wp-block-post-excerpt__more-link {
-        font-size: 0 !important;
-    }
-
-    @media (max-width: 600px) {
-        > .wp-block-media-text__media {
-            padding: 0;
+        h3.wp-block-post-title {
+            font-weight: 600 !important; // el bloque lleva 700 en línea
+            font-size: 1.85rem !important;
+            line-height: 115%;
         }
 
-        > .wp-block-media-text__content {
-            padding-top: 0;
+        > * + * {
+            margin-top: var(--wp--preset--spacing--10);
         }
 
-        > .wp-block-media-text__content > .wp-block-group {
-            padding-top: 2rem !important;
+        // el hueco era para el «More», que ya no se ve
+        .wp-block-spacer {
+            display: none;
+        }
+
+        // y el grupo que lo contiene no ocupa nada: sin margen ni alto de línea
+        // (el enlace sigue ahí, con su ::after sobre toda la tarjeta)
+        > .wp-block-group:last-child {
+            margin-top: 0;
+            line-height: 0;
+        }
+    }
+
+    // El extracto aparece al pasar por encima (Daniel, 12/11). Solo con ratón:
+    // en táctil no hay hover y se ve siempre. Con el teclado, al enfocar el enlace.
+    // Opacidad y no display, para que la tarjeta no cambie de alto.
+    @media (hover: hover) {
+        // En reposo el texto ocupa solo lo que mide el título y la imagen llena el
+        // resto (sin hueco blanco debajo del título). Al pasar por encima, el texto
+        // crece hasta el 40 % de la tarjeta (imagen al 60 %) y entra el extracto.
+        > .wp-block-cover__inner-container {
+            grid-template-rows: minmax(0, 1fr) auto;
+        }
+
+        // En reposo, sitio para dos líneas de título en todas (también en las de una
+        // línea): el blanco es igual en las cuatro y las imágenes acaban a la misma altura.
+        .pds-service-card-body {
+            min-height: calc(2 * 1.85rem * 1.15 + 35px);
+            transition: min-height 0.3s ease;
+        }
+
+        &:hover .pds-service-card-body,
+        &:focus-within .pds-service-card-body {
+            min-height: calc(var(--pds-card-h) * 0.4); // texto 40 %, imagen 60 % (si el texto no cabe, crece)
+        }
+
+        .wp-block-post-excerpt {
+            max-height: 0;
+            margin-top: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.2s ease 0.1s;
+        }
+
+        &:hover .wp-block-post-excerpt,
+        &:focus-within .wp-block-post-excerpt {
+            max-height: 12rem;
+            margin-top: var(--wp--preset--spacing--10);
+            opacity: 1;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .pds-service-card-body,
+        .wp-block-post-excerpt {
+            transition: none;
         }
     }
 }

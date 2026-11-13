@@ -125,9 +125,14 @@ function wpdocs_enqueue_custom_admin_style() {
 add_action( 'admin_enqueue_scripts', 'wpdocs_enqueue_custom_admin_style' );
 
 function login_stylesheet() {
-    wp_enqueue_style( 'custom-login', get_stylesheet_directory_uri() . '/assets/css/login-styles.css' );
+    $css = '/assets/css/login-styles.css';
+    wp_enqueue_style( 'custom-login', get_stylesheet_directory_uri() . $css, array(), filemtime( get_stylesheet_directory() . $css ) );
 }
 add_action( 'login_enqueue_scripts', 'login_stylesheet' );
+
+// El logo de la página de acceso lleva a la web de PDS, no a wordpress.org.
+add_filter( 'login_headerurl', function () { return home_url( '/' ); } );
+add_filter( 'login_headertext', function () { return get_bloginfo( 'name' ); } );
 
 /* ADD STYLE TO BUTTONS */
 

@@ -1,64 +1,308 @@
 @use './variables' as *;
 
-.login {
-  background-color:$primary;
+// Página de acceso (wp-login.php): fondo azul corporativo y logo en blanco.
+// Ojo: aquí no se usa $primary, que en el tema vale #fff.
+// Tamaños en px, explícitos: la raíz es la del navegador (16 px).
 
+.login {
+  background: $blue;
+  color: $white;
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0;
+
+  #login {
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 48px 20px;
+
+    // 100 px por encima del centro, solo si hay altura para ello
+    @media (min-height: 760px) {
+      position: relative;
+      top: -100px;
+    }
+  }
+
+  // Logo en blanco (círculo con las letras caladas: se ve el azul a través)
+  h1 {
+    margin-bottom: 40px;
+
+    a {
+      background-image: url('../img/logo-pds-blanc.svg');
+      background-size: contain;
+      background-position: left center;
+      background-repeat: no-repeat;
+      display: block;
+      width: 100%;
+      max-width: 203px; // 75 % de 271×100
+      height: 75px;
+      margin: 0;
+      padding: 0;
+      text-indent: -9999px;
+      overflow: hidden;
+
+      &:focus {
+        box-shadow: none;
+        outline: 2px solid $white;
+        outline-offset: 6px;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  // Formulario sin caja, directamente sobre el azul
   form {
-    margin-top: 0;
-    margin-left: 0;
-    padding: 10px 24px;
-    font-weight: 400;
-    overflow: hidden;
+    margin: 0;
+    padding: 0;
     background: transparent;
-    border: 0 solid $white;
-    box-shadow: 0 0 0 0 rgba(0,0,0,.04);
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+
+    .input,
+    input[type="text"],
+    input[type="password"],
+    input[type="email"] {
+      background: $white;
+      color: $black;
+      border: 2px solid $white;
+      border-radius: 4px;
+      font-size: 18px;
+      line-height: 1.3;
+      min-height: 48px;
+      padding: 8px 14px;
+      margin: 0 0 20px;
+      box-shadow: none;
+
+      &:focus {
+        border-color: $white;
+        outline: 3px solid rgba($white, 0.55);
+        outline-offset: 2px;
+        box-shadow: none;
+      }
+    }
   }
 
   label {
-    color:$white;
+    color: $white;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 6px;
   }
 
-  .button-primary {
-    background: $white;
-    border-color: $white;
-    color: $black;
-    text-decoration: none;
-    text-shadow: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 2rem;
-    
-    &:hover {
-      color:$white !important;
-      background: $primary !important;
-      border-color: $primary !important;
+  // El ojo de «mostrar contraseña», dentro del campo
+  .wp-pwd {
+    margin-bottom: 0;
+  }
+
+  .button.wp-hide-pw {
+    height: 48px;
+    min-width: 48px;
+    color: $blue;
+
+    .dashicons {
+      top: 0.5rem;
+    }
+
+    &:focus {
+      border-color: transparent;
+      box-shadow: 0 0 0 2px $blue;
     }
   }
-  a {
-    color: $white !important;
-    transition-duration: .035s;
-    transition-timing-function: ease-in-out;
-    text-decoration: underline;
+
+  // «Recuérdame»
+  // «Recuérdame» a la izquierda y el botón a la derecha, alineados por arriba
+  .forgetmenot {
+    float: left;
+    display: flex;
+    align-items: center;
+    margin: 4px 0 0;
+
+    label {
+      margin: 0;
+      font-weight: 400;
+    }
+
+    // ayuda de SiteGround (el «?»)
+    .dashicons,
+    svg {
+      color: $white;
+      fill: $white;
+      opacity: 0.8;
+    }
+  }
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 2px solid $white;
+    border-radius: 4px;
+    background: transparent;
+    margin: 0 10px 0 0;
+    box-shadow: none;
+
+    &:checked {
+      background: $white;
+
+      // la marca de WordPress, en azul
+      &::before {
+        content: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2020%2020%27%3E%3Cpath%20d%3D%27M14.83%204.89l1.34.94-5.81%208.38H9.02L5.78%209.67l1.34-1.25%202.57%202.4z%27%20fill%3D%27%230000ff%27%2F%3E%3C%2Fsvg%3E");
+        margin: -2px 0 0 -2px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &:focus {
+      outline: 3px solid rgba($white, 0.55);
+      outline-offset: 2px;
+      box-shadow: none;
+    }
+  }
+
+  // Botón de acceso
+  .submit {
+    float: right;
+    clear: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .button-primary,
+  #wp-submit {
+    float: none;
+    width: auto;
+    height: auto;
+    min-height: 44px;
+    line-height: 1.3;
+    margin: 0;
+    padding: 10px 28px;
+    background: $white;
+    border: 2px solid $white;
+    border-radius: 4px; // como los botones del tema (0.4rem)
+    color: $black;
+    font-size: 17px;
+    font-weight: 600;
+    text-transform: none;
+    text-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+
     &:hover {
+      background: $blue-dark;
+      border-color: $white;
+      color: $white;
+    }
+
+    &:focus {
+      outline: 3px solid rgba($white, 0.55);
+      outline-offset: 3px;
+      box-shadow: none;
+    }
+  }
+
+  // ¿Has olvidado la contraseña? / Volver a la web
+  #nav,
+  #backtoblog {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  #nav {
+    clear: both;
+    padding-top: 28px;
+  }
+
+  #backtoblog {
+    margin-top: 10px;
+  }
+
+  #nav a,
+  #backtoblog a,
+  .privacy-policy-page-link a {
+    color: $white;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+
+    &:hover {
+      color: $white;
       text-decoration: none;
     }
+
+    &:focus {
+      color: $white;
+      box-shadow: none;
+      outline: 2px solid $white;
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+  }
+
+  // Mensajes y errores: caja blanca legible
+  .message,
+  .notice,
+  .success,
+  #login_error {
+    background: $white;
+    color: $black;
+    border: 0;
+    border-radius: 6px;
+    box-shadow: none;
+    margin: 0 0 24px;
+    padding: 12px 16px;
+    font-size: 15px;
+
+    a {
+      color: $blue;
+    }
+  }
+
+  #login_error {
+    border-top: 4px solid #d63638;
+  }
+
+  // Selector de idioma de WordPress, al pie
+  .language-switcher {
+    margin-top: 32px;
+
+    label .dashicons {
+      color: $white;
+    }
+
+    select {
+      border-radius: 6px;
+      border: 2px solid $white;
+      color: $black;
+      min-height: 40px;
+    }
+
+    .button {
+      background: transparent;
+      border: 2px solid $white;
+      border-radius: 20px;
+      color: $white;
+      min-height: 40px;
+
+      &:hover,
+      &:focus {
+        background: $white;
+        color: $blue;
+      }
+    }
   }
 }
 
-.login #nav {
-  margin-top: 0;
+@media (prefers-reduced-motion: reduce) {
+  .login * {
+    transition: none !important;
+  }
 }
-
-
-#login h1 a, 
-.login h1 a {
-  // background-image: url('https://mtstech.eu/wp-content/uploads/2023/12/Logo-mts.svg');
-  background-size: 240px auto;
-  background-repeat: no-repeat;
-  padding-bottom: 0;
-  margin-bottom: 0;
-  display: block;
-  width: 100%;
-  height: 100px;
-}
-

@@ -52,7 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (header.contains(el)) continue;
         if (el.getBoundingClientRect().top + window.pageYOffset > 20) continue;
         if (el.offsetHeight < window.innerHeight * 0.4) continue;
-        if (!el.querySelector('img') && getComputedStyle(el).backgroundImage === 'none') continue;
+        // Imagen: un <img>, un vídeo de fondo, o la capa de fondo del cover con parallax
+        // (ahí WordPress no pone <img>: la imagen es el background de un div interior;
+        // pasaba en Marc Gómez del Moral y NEOM, 12/11/2026).
+        var conMedio = el.querySelector('img, video, .wp-block-cover__image-background');
+        if (!conMedio && getComputedStyle(el).backgroundImage === 'none') continue;
         apertura = el;
         break;
     }
