@@ -521,12 +521,12 @@ svg.pds-il {
     // El padding raíz de WordPress (spacing-50, ~40px en móvil) se colaba en los grupos
     // con has-global-padding y en los márgenes negativos de los bloques a sangre: a 0, y
     // el margen lo pone la regla de abajo (Daniel, 15/11).
-    body.single-proyecto {
+    body:is(.single-proyecto, .single-partners) { // también partners (Daniel, 15/11)
         --wp--style--root--padding-left: 0;
         --wp--style--root--padding-right: 0;
     }
 
-    .single-proyecto .wp-block-post-content {
+    :is(.single-proyecto, .single-partners) .wp-block-post-content {
         // Aperturas (covers): sin el padding propio del cover ni el de los grupos de
         // dentro; el margen va en el contenedor del texto, 1rem.
         .wp-block-cover {
