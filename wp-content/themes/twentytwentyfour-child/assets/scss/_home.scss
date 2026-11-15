@@ -518,7 +518,48 @@ svg.pds-il {
 // cada lado, alineado con el logo, como en servicios y artículos. Las secciones
 // alignfull (aperturas a sangre) no se tocan (Daniel, 15/11).
 @media (max-width: 767px) {
+    // El padding raíz de WordPress (spacing-50, ~40px en móvil) se colaba en los grupos
+    // con has-global-padding y en los márgenes negativos de los bloques a sangre: a 0, y
+    // el margen lo pone la regla de abajo (Daniel, 15/11).
+    body.single-proyecto {
+        --wp--style--root--padding-left: 0;
+        --wp--style--root--padding-right: 0;
+    }
+
     .single-proyecto .wp-block-post-content {
+        // Aperturas (covers): sin el padding propio del cover ni el de los grupos de
+        // dentro; el margen va en el contenedor del texto, 1rem.
+        .wp-block-cover {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+
+            .has-global-padding:not(.wp-block-cover__inner-container) {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+
+            > .wp-block-cover__inner-container {
+                box-sizing: border-box;
+                padding-left: 1rem !important;
+                padding-right: 1rem !important;
+            }
+        }
+
+        // bloques a sangre anidados: sin el desplazamiento de 24px que les daba el layout
+        .alignfull:not(.wp-block-cover) .alignfull:not(.wp-block-cover),
+        .alignwide .alignfull:not(.wp-block-cover) {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        // columnas apiladas en móvil: sin su padding lateral propio (y las filas de
+        // columnas anidadas tampoco: el margen ya lo da su contenedor)
+        .wp-block-column,
+        * .wp-block-columns {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
         // también dentro de los grupos a sangre que envuelven el contenido (mtstech y
         // otros): sus bloques que no van a sangre
         > :not(.alignfull):not(.wp-block-spacer),
