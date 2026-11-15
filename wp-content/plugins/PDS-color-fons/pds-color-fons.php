@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       PDS Color de fons
  * Description:       Color de fondo por contenido (proyectos y partners). Sustituye al antiguo «BKG Background Color» sin depender de ACF: usa el mismo campo `bkg-color`, así que los colores guardados siguen valiendo.
- * Version:           1.0.2
+ * Version:           1.0.3
  * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            Paladini Digital Solutions

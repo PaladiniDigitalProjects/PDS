@@ -1,0 +1,7 @@
+<wpml-config>
+	<custom-fields>
+		<!-- El color de fondo es el mismo en todos los idiomas: WPML lo copia del original
+		     (en) a las traducciones al guardar. -->
+		<custom-field action="copy">bkg-color</custom-field>
+	</custom-fields>
+</wpml-config>
