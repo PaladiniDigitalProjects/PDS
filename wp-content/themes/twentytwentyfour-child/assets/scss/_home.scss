@@ -513,3 +513,19 @@ svg.pds-il {
     height: auto;
     max-width: 100%;
 }
+
+// Fichas de proyecto en móvil: el texto iba pegado al borde (padding raíz 0). 1rem a
+// cada lado, alineado con el logo, como en servicios y artículos. Las secciones
+// alignfull (aperturas a sangre) no se tocan (Daniel, 15/11).
+@media (max-width: 767px) {
+    .single-proyecto .wp-block-post-content {
+        // también dentro de los grupos a sangre que envuelven el contenido (mtstech y
+        // otros): sus bloques que no van a sangre
+        > :not(.alignfull):not(.wp-block-spacer),
+        > .alignfull:not(.wp-block-cover) > :not(.alignfull):not(.wp-block-spacer) {
+            box-sizing: border-box;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+    }
+}
