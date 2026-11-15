@@ -37,6 +37,8 @@ wp-content/uploads/2024/10/abacus-roger-sunyer-720.mov
 
 !wp-content/plugins/PDS-Web-Talk/
 !wp-content/plugins/PDS-Web-Talk/**
+!wp-content/plugins/PDS-color-fons/
+!wp-content/plugins/PDS-color-fons/**
 wp-content/plugins/PDS-Web-Talk/node_modules/
 
 # Datos generados del corpus (no versionar: pesado + conocimiento oculto)
