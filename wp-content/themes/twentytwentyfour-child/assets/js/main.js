@@ -291,7 +291,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { threshold: 0.4 }) : null;
     ils.forEach(function (svg) {
         if (io) io.observe(svg); else anima(svg);
-        var zona = svg.closest('li, .wp-block-image, .wp-block-post-featured-image') || svg;
+        // La tarjeta entera (li): el enlace de la tarjeta la cubre con un ::after y el
+        // ratón nunca «entra» en la imagen. Fuera de tarjetas, el bloque de imagen.
+        var zona = svg.closest('li') || svg.closest('.wp-block-image, .wp-block-post-featured-image') || svg;
         zona.addEventListener('mouseenter', function () { anima(svg); });
     });
 })();
