@@ -745,3 +745,45 @@ function pds_navegacio_per_idioma( $block ) {
 	return $block;
 }
 add_filter( 'render_block_data', 'pds_navegacio_per_idioma' );
+
+
+/**
+ * Ilustraciones animadas de los servicios (15/11/2026).
+ *
+ * Las 4 ilustraciones (uploads/2026/11/pds-servei-*-v3.svg) llevan la animación en CSS
+ * dentro del propio SVG. Dentro de un <img> la animación no puede reaccionar a la página,
+ * así que en las tarjetas (imagen destacada) y en la apertura de las fichas (bloque de
+ * imagen) se cambia el <img> por el SVG en línea. Conserva la clase y el estilo del <img>
+ * (proporción, radio) y recorta como object-fit: cover. El disparo (al entrar en pantalla
+ * y al pasar el ratón) está en main.js. Donde sigue como <img> (chat, miniaturas) se ve
+ * quieto en su estado final.
+ */
+function pds_il_servei_en_linea( $html, $block ) {
+	if ( ! in_array( $block['blockName'] ?? '', array( 'core/post-featured-image', 'core/image' ), true ) || false === strpos( $html, 'pds-servei-' ) ) {
+		return $html;
+	}
+	return preg_replace_callback(
+		'/<img\b[^>]*\bsrc="[^"]*\/(pds-servei-[a-z-]+-v3\.svg)"[^>]*>/',
+		function ( $m ) {
+			static $cache = array();
+			$file = wp_get_upload_dir()['basedir'] . '/2026/11/' . $m[1];
+			if ( ! isset( $cache[ $file ] ) ) {
+				$cache[ $file ] = is_readable( $file ) ? file_get_contents( $file ) : '';
+			}
+			$svg = $cache[ $file ];
+			if ( '' === $svg ) {
+				return $m[0];
+			}
+			$class = preg_match( '/\bclass="([^"]*)"/', $m[0], $c ) ? $c[1] : '';
+			$style = preg_match( '/\bstyle="([^"]*)"/', $m[0], $s ) ? $s[1] : '';
+			return preg_replace(
+				'/<svg\b([^>]*)\bclass="pds-il"/',
+				'<svg$1class="pds-il ' . esc_attr( $class ) . '" style="' . esc_attr( $style ) . '" preserveAspectRatio="xMidYMid slice"',
+				$svg,
+				1
+			);
+		},
+		$html
+	);
+}
+add_filter( 'render_block', 'pds_il_servei_en_linea', 10, 2 );

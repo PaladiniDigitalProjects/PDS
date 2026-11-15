@@ -1,19 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" class="pds-il" role="img" aria-label="Illustration: a glass drawn as a technical plan, with dimensions">
 <defs>
-  <filter id="grano" x="0" y="0" width="100%" height="100%">
+  <filter id="pd-grano" x="0" y="0" width="100%" height="100%">
     <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
     <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.10 0"/>
   </filter>
-  <filter id="pinzell" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+  <filter id="pd-pinzell" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
     <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="51" result="t"/>
     <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
-  <filter id="paper" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+  <filter id="pd-paper" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
     <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="27" result="t"/>
     <feDisplacementMap in="SourceGraphic" in2="t" scale="5" xChannelSelector="R" yChannelSelector="G"/>
   </filter>
 </defs>
+<style>
+  .pd-aigua, .pd-cw, .pd-ch { transform-box: fill-box; }
+  .pd-aigua { transform-origin: 50% 100%; }
+  .pd-cw { transform-origin: 50% 50%; }
+  .pd-ch { transform-origin: 50% 50%; }
+  .is-anima .pd-contorn { animation: pd-traça 2.6s ease-out both; }
+  .is-anima .pd-aigua { animation: pd-omple 2.6s cubic-bezier(.25,.8,.3,1) both; }
+  .is-anima .pd-cw { animation: pd-cotaw 2.6s ease-out both; }
+  .is-anima .pd-ch { animation: pd-cotah 2.6s ease-out both; }
+  @keyframes pd-traça { 0% { stroke-dashoffset: 260; opacity: .2; } 45% { opacity: 1; } 70%,100% { stroke-dashoffset: 0; opacity: 1; } }
+  @keyframes pd-omple { 0%,35% { transform: scaleY(0); } 85%,100% { transform: scaleY(1); } }
+  @keyframes pd-cotaw { 0%,50% { opacity: 0; transform: scaleX(.3); } 75%,100% { opacity: 1; transform: scaleX(1); } }
+  @keyframes pd-cotah { 0%,60% { opacity: 0; transform: scaleY(.3); } 85%,100% { opacity: 1; transform: scaleY(1); } }
+  @media (prefers-reduced-motion: reduce) { .is-anima * { animation: none !important; } }
+</style>
 <rect width="600" height="800" fill="#0000ff"/>
-<rect width="600" height="800" filter="url(#grano)"/>
-<path d="M218.76923076923077 470 L226.0 583 L374.0 583 L381.2307692307692 470 Z" fill="#f7f5ef" filter="url(#paper)" /><path d="M200 330 L220.0 590 L380.0 590 L400 330" fill="none" stroke="#0b0b14" stroke-width="9" stroke-linecap="round" stroke-dasharray="12 14" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M200 260 L400 260" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M200 246 L200 274" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M400 246 L400 274" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><text x="300.0" y="244" text-anchor="middle" font-family="PDS Roboto Mono, Roboto Mono, monospace" font-size="30" fill="#f7f5ef">Ø 80</text><path d="M460 330 L460 590" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M446 330 L474 330" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M446 590 L474 590" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><g transform="translate(490 460.0) rotate(90)"><text x="0" y="0" text-anchor="middle" font-family="PDS Roboto Mono, Roboto Mono, monospace" font-size="30" fill="#f7f5ef">120</text></g>
+<rect width="600" height="800" filter="url(#pd-grano)"/>
+<defs><style>@font-face{font-family:"PDS Roboto Mono";src:url(data:font/woff2;base64,d09GMgABAAAAAAUkAA0AAAAACIwAAATOAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHDQGYD9TVEFUSABMEQgKhmyFcQsQAAE2AiQDEAQgBYRYByAbIgfIxIf/tvXnDqAs2IFdWGAURiRh1JgB25nEvoy/zZiJa+oqRKtBp/a1aqqK8wlvQBt12QhnKUAbxm5YaaoMBAAPocID7JS07GI4yYZ72mHX1KNog117Q18n7MAp2aaZYVIW9gOyGJwazlpOGECczSjrCRqpRjOmKGW/g2JMIKhilYJ8miQvT4IEOvScK/2moSdwpZSfAGRTHqG97BjOYRAVsY1c4FFZ+Ch3z2BTc98472rpa2gnxiCwABssEFDEpB+woZQFgAJFFtMm6nwNnlJZgIGhlY2oxYKkqykIEIooPF+STYDgtIr5g3nKPGACgaVWNgFhGBjHKv2ywkhU8OW4FUDWAOjYoOBQz0fAAsvO1FTfL9jGxtPCaJSl0pZqtby56mK1GpRSU6LR8OfpynS6TpWKEJUu+ZKOP08jvqApqVCqE86reXO1cRe1pb1KJUxHee2Qcc2JUdMzXfI1HVFpC59qeXPV+Y/V4Kt08Zd0/HlwL0Cp9t+vLm7GaGumUhNwQBN9uzoCpabgyZDGomcEVgde1GbueuR3SVetVIv66yMqbKhalXcdJfAsNejQkQOa0TKdtrSKV7z3oefZ5ZCKUReyRZNYzi97sCjFiEQpu7bXZ8cFn6G1R+02ammo1cWX+7lp9IgmhQoomRevjc0QZRzM7qIPZseWeO28igmidFHmoUy660AWRYpN/6+9PWQXavu20XvtYk+5d1Ki1MPS3btTX8L63ua74bF5g0e8qM7VNDmgk5secdihxBh64Bw29ny2Z2zxdfit+mnmrjbpUE2O30RimWjZjBnbRU1dByXn78dvrT6b4toh9Gj1yRDVeptRrrVCf8vCDRtLOuLTfjadgaS/w+sSly9duiGiumZ9RM/U+OV1QseG3Xtykj4MVki+fnNpF8sla/5S746Q1u8S/v0sfY1M7Nr2zbAybZAZbGQiJlbWxHtLQxIVbuKERreQEE9pvNhTER6m8IoXN3olp3grXBqj3KoYVLhGCMtdXxq7VkZHu1a/fFnmKhRWuOOVexVSp07HDnQK/4qs3Wy8ULprsPnFiSYb0dRzXTFlSTWij2R4p9h4jP8lhDbZZLiw6dCiBcKqsVMtouLUusSv4Rjbne961js7b6iyyjfV7MrG1Vxnt6w93KoN3Jo5T3eTWveHsYVF7fE5SbLAdKdjcQFGSgBAHAgAFpI+3Tv8oM5Y9I7L5wIArr80DQSAv01c/v/K+abRk3ClAKaAAgAQgHu/R7IffOV8n6knuUlQq4n9IKxZgscowRHQ4+njCKwwCxxQ+O5a+JgbK9lvi/04sdPpBFaETadghPd0FmJwns6GJ1bSObDDGF0P7iinGUEIVz4CGMAKbYznKUyEbUAhaHSgAZ3IQJ8g3o4WyFAGRbQJzehzy/vQhV7EIEgop9EFBTrRyNo70QcMlub1QoFA0OhBE8lqKWj0gUYOUJhGAArpbU3oRzsa0INSKNBDqVraXhUgDIEIRjBCEHUCUZKgBfTXYyFBHvIgQeygHXNdB1IlL9I5jJ5NAN9XkK2OgADFaIZiMj1Mcl4+ekCjFQrIkBSJLLiN4MYM7oUA3ltqbUJLa3Y/pAiE7EjAmjANGk20TrHZ1l4EEZYOqekQVD6/AyAPY1ohhwUAAAA=) format("woff2")}</style></defs><g class="pd-aigua"><path d="M218.76923076923077 470 L226.0 583 L374.0 583 L381.2307692307692 470 Z" fill="#f7f5ef" filter="url(#pd-paper)" /></g><path class="pd-contorn" d="M200 330 L220.0 590 L380.0 590 L400 330" fill="none" stroke="#0b0b14" stroke-width="9" stroke-linecap="round" stroke-dasharray="12 14" stroke-linejoin="round" filter="url(#pd-pinzell)"/><g class="pd-cw"><path d="M200 260 L400 260" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pd-pinzell)"/><path d="M200 246 L200 274" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pd-pinzell)"/><path d="M400 246 L400 274" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pd-pinzell)"/><text x="300.0" y="244" text-anchor="middle" font-family="PDS Roboto Mono, Roboto Mono, monospace" font-size="30" fill="#f7f5ef">Ø 80</text></g><g class="pd-ch"><path d="M460 330 L460 590" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pd-pinzell)"/><path d="M446 330 L474 330" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pd-pinzell)"/><path d="M446 590 L474 590" fill="none" stroke="#f7f5ef" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#pd-pinzell)"/><g transform="translate(490 460.0) rotate(90)"><text x="0" y="0" text-anchor="middle" font-family="PDS Roboto Mono, Roboto Mono, monospace" font-size="30" fill="#f7f5ef">120</text></g></g>
 </svg>

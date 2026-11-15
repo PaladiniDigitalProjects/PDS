@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800" class="pds-il" role="img" aria-label="Illustration: a glass pouring water into another glass">
+<defs>
+  <filter id="cm-grano" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.10 0"/>
+  </filter>
+  <filter id="cm-pinzell" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="43" result="t"/>
+    <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="cm-paper" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+    <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="19" result="t"/>
+    <feDisplacementMap in="SourceGraphic" in2="t" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs>
+<style>
+  .cm-vessa, .cm-raig, .cm-nivell, .cm-gota { transform-box: fill-box; }
+  .cm-vessa { transform-box: view-box; transform-origin: 302px 227px; }  /* gira sobre el borde por el que vierte */
+  .cm-gota { transform-origin: 50% 50%; }
+  .is-anima .cm-vessa  { animation: cm-inclina 2.6s cubic-bezier(.3,.7,.2,1) both; }
+  .is-anima .cm-raig   { animation: cm-cau 2.6s ease-in-out both; }
+  .is-anima .cm-nivell { animation: cm-puja 2.6s cubic-bezier(.25,.8,.3,1) both; }
+  .is-anima .cm-gota   { animation: cm-esquitx 2.6s ease-out both; }
+  .is-anima .cm-gota.g2 { animation-delay: .12s; }
+  .is-anima .cm-gota.g3 { animation-delay: .24s; }
+  @keyframes cm-inclina { 0% { transform: rotate(-24deg); } 22%,100% { transform: rotate(0); } }
+  @keyframes cm-cau { 0%,14% { stroke-dashoffset: 1; } 42%,100% { stroke-dashoffset: 0; } }
+  @keyframes cm-puja { 0%,30% { transform: translateY(120px); } 92%,100% { transform: translateY(0); } }
+  @keyframes cm-esquitx { 0%,45% { opacity: 0; transform: translateY(26px) scale(.4); } 62% { opacity: 1; transform: translateY(-6px) scale(1); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .is-anima * { animation: none !important; } }
+</style>
+<rect width="600" height="800" fill="#0000ff"/>
+<rect width="600" height="800" filter="url(#cm-grano)"/>
+<g transform="translate(300 400) scale(0.86) translate(-330 -429)"><g class="cm-vessa"><g transform="rotate(68 200.0 190.0)"><clipPath id="cm-ga"><path d="M138 110 L150.0 263 L250.0 263 L262 110 Z"/></clipPath><g clip-path="url(#cm-ga)"><g transform="rotate(-68 200.0 190.0)"><g class=""><rect x="-200.0" y="225" width="800" height="800" fill="#f7f5ef" filter="url(#cm-paper)"/></g></g></g><path d="M130 110 L144.0 270 L256.0 270 L270 110" fill="none" stroke="#0b0b14" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" filter="url(#cm-pinzell)"/></g></g><path class="cm-raig" pathLength="1" stroke-dasharray="1 1" d="M302 227 C326 252 334 360 330 497" fill="none" stroke="#f7f5ef" stroke-width="14" stroke-linecap="round" filter="url(#cm-pinzell)"/><g transform="rotate(0 330.0 498.85)"><clipPath id="cm-gb"><path d="M221.7 347.7 L242.95999999999998 643.0 L417.03999999999996 643.0 L438.29999999999995 347.7 Z"/></clipPath><g clip-path="url(#cm-gb)"><g transform="rotate(0 330.0 498.85)"><g class="cm-nivell"><rect x="-70.0" y="510.942" width="800" height="800" fill="#f7f5ef" filter="url(#cm-paper)"/></g></g></g><path d="M213.7 347.7 L236.95999999999998 650.0 L423.03999999999996 650.0 L446.29999999999995 347.7" fill="none" stroke="#0b0b14" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" filter="url(#cm-pinzell)"/></g><circle class="cm-gota" cx="272" cy="479" r="7" fill="#f7f5ef"/><circle class="cm-gota g2" cx="388" cy="471" r="6" fill="#f7f5ef"/><circle class="cm-gota g3" cx="366" cy="445" r="4" fill="#f7f5ef"/></g>
+</svg>

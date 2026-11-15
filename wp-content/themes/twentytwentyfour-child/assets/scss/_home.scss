@@ -261,7 +261,8 @@ li.type-service > .wp-block-cover:has(.pds-service-card-img) {
         // overflow:hidden + border-radius no recorta bien un hijo transformado (13/11)
         clip-path: inset(0 round 0.5rem 0.5rem 0 0);
 
-        img {
+        img,
+        svg.pds-il { // la ilustración animada va en línea (15/11)
             position: absolute;
             inset: 0;
             width: 100%;
@@ -269,6 +270,7 @@ li.type-service > .wp-block-cover:has(.pds-service-card-img) {
             object-fit: cover;
             border-radius: 0.5rem 0.5rem 0 0;
             box-shadow: none !important;
+            aspect-ratio: auto !important;
         }
     }
 
@@ -500,4 +502,13 @@ body:has(.pds-serveis) li.type-service {
     > .wp-block-cover .wp-block-post-excerpt {
         opacity: 1 !important;
     }
+}
+
+// Ilustraciones de servicios en línea (functions.php, pds_il_servei_en_linea): ocupan
+// el sitio del <img> que sustituyen.
+svg.pds-il {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
 }

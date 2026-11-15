@@ -263,3 +263,28 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('cookieyes_banner_load', actualitza);
     window.addEventListener('load', actualitza);
 })();
+
+
+// Ilustraciones animadas de los servicios (15/11/2026). El SVG va en línea (functions.php,
+// pds_il_servei_en_linea) y la animación, en CSS dentro del SVG: corre mientras el <svg>
+// tiene la clase `is-anima`. Se lanza una vez al entrar en pantalla y otra cada vez que se
+// pasa el ratón por la tarjeta o la imagen. Con «reducir movimiento» el CSS la anula.
+(function () {
+    var ils = document.querySelectorAll('svg.pds-il');
+    if (!ils.length) return;
+    function anima(svg) {
+        svg.classList.remove('is-anima');
+        void svg.getBoundingClientRect(); // reinicia la animación
+        svg.classList.add('is-anima');
+    }
+    var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) { anima(e.target); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.4 }) : null;
+    ils.forEach(function (svg) {
+        if (io) io.observe(svg); else anima(svg);
+        var zona = svg.closest('li, .wp-block-image, .wp-block-post-featured-image') || svg;
+        zona.addEventListener('mouseenter', function () { anima(svg); });
+    });
+})();
