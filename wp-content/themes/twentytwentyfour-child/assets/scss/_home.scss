@@ -570,3 +570,38 @@ svg.pds-il {
         }
     }
 }
+
+// Fichas de partner (Daniel, 15/11):
+// - escritorio: sin el padding raíz de WordPress (104px a 1440) y el texto de las
+//   aperturas alineado con el logo: 2rem, o el hueco del ancho máximo en pantallas grandes;
+// - la foto de la apertura más oscura (velo al 50 %): el logo, el menú y el texto van en
+//   blanco y con fotos claras (San Juan de Dios) no se leían.
+body.single-partners {
+    --wp--style--root--padding-left: 0;
+    --wp--style--root--padding-right: 0;
+}
+
+@media (min-width: 768px) {
+    // el resto de secciones: a todo el ancho y el margen por dentro, como en servicios
+    .single-partners .wp-block-post-content {
+        > :not(.alignfull):not(.wp-block-spacer),
+        > .alignfull:not(.wp-block-cover) > .alignwide {
+            box-sizing: border-box;
+            max-width: none !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: max(2rem, calc((100% - 1420px) / 2)) !important;
+            padding-right: max(2rem, calc((100% - 1420px) / 2)) !important;
+        }
+    }
+
+    .single-partners .wp-block-post-content .wp-block-cover > .wp-block-cover__inner-container {
+        box-sizing: border-box;
+        padding-left: max(2rem, calc((100% - 1420px) / 2)) !important;
+        padding-right: max(2rem, calc((100% - 1420px) / 2)) !important;
+    }
+}
+
+.single-partners .apertura .wp-block-cover__background {
+    opacity: 0.5 !important;
+}
