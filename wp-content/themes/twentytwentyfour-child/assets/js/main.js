@@ -272,10 +272,17 @@ document.addEventListener('DOMContentLoaded', function () {
 (function () {
     var ils = document.querySelectorAll('svg.pds-il');
     if (!ils.length) return;
+    // Para que vuelva a empezar hay que quitar la clase, dejar pasar un momento y
+    // volver a ponerla: con quitar y poner seguido, el navegador no reinicia las
+    // animaciones de dentro del SVG (no se repetía al pasar el ratón, 15/11).
     function anima(svg) {
+        if (svg._pdsAnima) return; // ya está arrancando
+        svg._pdsAnima = true;
         svg.classList.remove('is-anima');
-        void svg.getBoundingClientRect(); // reinicia la animación
-        svg.classList.add('is-anima');
+        setTimeout(function () {
+            svg.classList.add('is-anima');
+            svg._pdsAnima = false;
+        }, 30);
     }
     var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
