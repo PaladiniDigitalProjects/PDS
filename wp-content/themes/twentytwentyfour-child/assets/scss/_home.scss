@@ -605,3 +605,9 @@ body.single-partners {
 .single-partners .apertura .wp-block-cover__background {
     opacity: 0.5 !important;
 }
+
+// Partners: la flecha «siguiente» del carrusel (margin-right -32px) se salía de la
+// pantalla y creaba scroll horizontal (Veritas, 15/11). Se recorta lo que sobresale.
+.single-partners .wp-block-post-content {
+    overflow-x: clip;
+}
