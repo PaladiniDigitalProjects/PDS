@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+  <defs>
+    <filter id="grano" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"></feTurbulence>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.10 0"></feColorMatrix>
+    </filter>
+    <filter id="pinzell" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="43" result="t"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+    <filter id="paper" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="19" result="t"></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="5" xChannelSelector="R" yChannelSelector="G"></feDisplacementMap>
+    </filter>
+  </defs>
+  <rect width="600" height="800" fill="#0000ff"></rect>
+  <rect width="600" height="800" filter="url(#grano)"></rect>
+  <g transform="translate(300 400) scale(0.86) translate(-330 -429)">
+    <g transform="rotate(68 200.0 190.0)">
+      <clipPath id="ga">
+        <path d="M138 110 L150.0 263 L250.0 263 L262 110 Z"></path>
+      </clipPath>
+      <g clip-path="url(#ga)">
+        <g transform="rotate(-68 200.0 190.0)">
+          <rect x="-200.0" y="225" width="800" height="800" fill="#f7f5ef" filter="url(#paper)"></rect>
+        </g>
+      </g>
+      <path d="M130 110 L144.0 270 L256.0 270 L270 110" fill="none" stroke="#0b0b14" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"></path>
+    </g>
+    <path d="M302 227 C326 252 334 360 330 497" fill="none" stroke="#f7f5ef" stroke-width="14" stroke-linecap="round" filter="url(#pinzell)"></path>
+    <g transform="rotate(0 330.0 498.85)">
+      <clipPath id="gb">
+        <path d="M221.7 347.7 L242.95999999999998 643.0 L417.03999999999996 643.0 L438.29999999999995 347.7 Z"></path>
+      </clipPath>
+      <g clip-path="url(#gb)">
+        <g transform="rotate(0 330.0 498.85)">
+          <rect x="-70.0" y="510.942" width="800" height="800" fill="#f7f5ef" filter="url(#paper)"></rect>
+        </g>
+      </g>
+      <path d="M213.7 347.7 L236.95999999999998 650.0 L423.03999999999996 650.0 L446.29999999999995 347.7" fill="none" stroke="#0b0b14" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"></path>
+    </g>
+    <circle cx="272" cy="479" r="7" fill="#f7f5ef"></circle>
+    <circle cx="388" cy="471" r="6" fill="#f7f5ef"></circle>
+    <circle cx="366" cy="445" r="4" fill="#f7f5ef"></circle>
+  </g>
+</svg>

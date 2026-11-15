@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<defs>
+  <filter id="grano" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
+    <feColorMatrix in="n" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.10 0"/>
+  </filter>
+  <filter id="pinzell" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+    <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="71" result="t"/>
+    <feDisplacementMap in="SourceGraphic" in2="t" scale="7" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+  <filter id="paper" filterUnits="userSpaceOnUse" x="-50" y="-50" width="700" height="900">
+    <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="41" result="t"/>
+    <feDisplacementMap in="SourceGraphic" in2="t" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</defs>
+<rect width="600" height="800" fill="#0000ff"/>
+<rect width="600" height="800" filter="url(#grano)"/>
+<circle cx="200" cy="330" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="205" cy="395" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="210" cy="460" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="215" cy="525" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="220" cy="590" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="400" cy="330" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="395" cy="395" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="390" cy="460" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="385" cy="525" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="380" cy="590" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="273" cy="590" r="9" fill="#f7f5ef" filter="url(#paper)"/><circle cx="327" cy="590" r="9" fill="#f7f5ef" filter="url(#paper)"/><path d="M322.0 206.9 A44 44 0 1 1 271.7 211.3" fill="none" stroke="#0b0b14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M249 222 L272 211" fill="none" stroke="#0b0b14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/><path d="M271 236 L272 211" fill="none" stroke="#0b0b14" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" filter="url(#pinzell)"/>
+</svg>

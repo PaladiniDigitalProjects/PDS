@@ -121,3 +121,21 @@
     line-height: 1.25;
   }
 }
+
+// Artículo en móvil: el espaciador de arriba de la plantilla (spacing-60 = min(10.5rem,
+// 13vw)) se quedaba en ~65px y la imagen pegaba con el header (Daniel, 15/11).
+@media (max-width: 767px) {
+    .single-post header.wp-block-template-part + .wp-block-spacer {
+        height: 5rem !important; // valor de Daniel (15/11)
+        margin: 0;
+    }
+}
+
+// Artículo en móvil: márgenes laterales de 1rem, alineados con el logo del header
+// (antes el padding global de la plantilla, ~30-48px) (Daniel, 15/11).
+@media (max-width: 767px) {
+    .single-post .wp-site-blocks > .has-global-padding {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}

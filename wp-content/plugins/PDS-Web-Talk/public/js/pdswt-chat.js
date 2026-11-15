@@ -76,6 +76,7 @@
 		var history = loadHistory();
 		var busy    = false;
 		var typer   = null; // timeout del efecto máquina de escribir en curso
+		var welcomeShown = false; // la bienvenida ya se ha escrito una vez en esta carga
 		// Idioma de la conversación: el de la página hasta que el servidor
 		// diga en cuál ha respondido. La caja de email lo sigue.
 		var chatLang = ( window.pdswtChat && pdswtChat.lang ) || 'en';
@@ -583,7 +584,17 @@
 				var w = addTurn( null );
 				w.turn.classList.add( 'is-welcome' );
 				// Panel cerrado: sin máquina de escribir (nadie la vería).
-				if ( fresh && ! root.hidden ) { typewrite( w.reply, welcome ); }
+				if ( fresh && ! root.hidden ) {
+					// Chat de la página (home): la bienvenida espera 2,5 s al cargar, para no
+					// coincidir con la animación de la cabecera (15/11/2026). Va en `typer`,
+					// así que si se escribe antes, el typewrite siguiente lo cancela.
+					var espera = ( ! welcomeShown && ! root.classList.contains( 'pdswt-chat--floating' ) ) ? 2500 : 0;
+					welcomeShown = true;
+					if ( espera ) {
+						if ( typer ) { clearTimeout( typer ); }
+						typer = setTimeout( function () { typer = null; typewrite( w.reply, welcome ); }, espera );
+					} else { typewrite( w.reply, welcome ); }
+				}
 				else { w.reply.textContent = welcome; }
 			}
 
@@ -688,6 +699,8 @@
 	var OPEN_KEY = 'pdswtFloatOpen';
 	var AUTO_KEY = 'pdswtFloatAuto'; // ya se abrió solo (o se cerró a mano) en esta sesión
 	var MOBILE   = window.matchMedia ? window.matchMedia( '(max-width: 600px)' ) : null;
+	// Sin apertura automática en móvil y tableta pequeña ni en pantallas táctiles (15/11/2026).
+	var NO_AUTO  = window.matchMedia ? window.matchMedia( '(max-width: 767px), (hover: none) and (pointer: coarse)' ) : null;
 
 	function initFloat( wrap ) {
 		var fab   = wrap.querySelector( '.pdswt-float__fab' );
@@ -787,7 +800,7 @@
 					try { closed = '1' === sessionStorage.getItem( AUTO_KEY ); } catch ( e ) {}
 					if ( closed ) { return; }
 					try { sessionStorage.setItem( AUTO_KEY, '1' ); } catch ( e ) {}
-					if ( panel.hidden && ! wrap.classList.contains( 'is-tucked' ) && ! ( MOBILE && MOBILE.matches ) ) { open( false ); }
+					if ( panel.hidden && ! wrap.classList.contains( 'is-tucked' ) && ! ( MOBILE && MOBILE.matches ) && ! ( NO_AUTO && NO_AUTO.matches ) ) { open( false ); }
 				} );
 			};
 			window.addEventListener( 'scroll', onScroll, { passive: true } );

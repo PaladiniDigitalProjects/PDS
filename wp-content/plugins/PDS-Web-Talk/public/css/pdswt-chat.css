@@ -676,8 +676,9 @@ html.pds-dark .pdswt-chat__sources {
 	/* Ocupa el sitio del botón, que se oculta mientras el panel está abierto. */
 	bottom: var(--pdswt-float-gap);
 	width: min(390px, calc(100vw - 2 * var(--pdswt-float-gap)));
-	height: min(680px, calc(100vh - 2 * var(--pdswt-float-gap)));
-	height: min(680px, calc(100dvh - 2 * var(--pdswt-float-gap)));
+	/* La mitad de alto que antes (680px → 340px), Daniel 15/11/2026. */
+	height: min(340px, calc(100vh - 2 * var(--pdswt-float-gap)));
+	height: min(340px, calc(100dvh - 2 * var(--pdswt-float-gap)));
 	max-width: none;
 	margin: 0;
 	border-radius: 0.75rem;

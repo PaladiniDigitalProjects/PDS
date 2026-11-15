@@ -237,3 +237,29 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 })();
 
+
+
+// Contacto: el mapa de Google solo se carga con las cookies funcionales aceptadas
+// (CookieYes). Mientras no, se ve el aviso con el botón que abre las preferencias
+// (.cky-banner-element) y un enlace a Google Maps (Daniel, 15/11/2026).
+(function () {
+    var mapes = document.querySelectorAll('.pds-contacte-mapa[data-cookie]');
+    if (!mapes.length) return;
+
+    function permes(cat) {
+        try { return !!(window.getCkyConsent && window.getCkyConsent().categories[cat]); } catch (e) { return false; }
+    }
+    function actualitza() {
+        mapes.forEach(function (m) {
+            var ok = permes(m.getAttribute('data-cookie'));
+            var iframe = m.querySelector('iframe');
+            if (ok && iframe && !iframe.getAttribute('src')) iframe.setAttribute('src', iframe.getAttribute('data-src'));
+            if (iframe) iframe.hidden = !ok;
+            m.classList.toggle('is-bloquejat', !ok);
+        });
+    }
+    actualitza();
+    document.addEventListener('cookieyes_consent_update', function () { setTimeout(actualitza, 0); });
+    document.addEventListener('cookieyes_banner_load', actualitza);
+    window.addEventListener('load', actualitza);
+})();

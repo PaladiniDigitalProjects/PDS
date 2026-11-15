@@ -1391,3 +1391,10 @@ figure.radius20 {
 footer.wp-block-template-part {
   // background-color: #ffffff;
 }
+// El header es fijo (fuera del flujo), así que el primer bloque «real» es el que va
+// detrás. WordPress le pone margin-block-start: 1.2rem (blockGap) y ese margen se
+// colapsa a través de .wp-site-blocks y del body: el body bajaba 19px y arriba quedaba
+// una franja (se veía con el inspector, en modo oscuro y al abrir el menú) (Daniel, 15/11).
+.wp-site-blocks > header.wp-block-template-part + * {
+  margin-block-start: 0;
+}

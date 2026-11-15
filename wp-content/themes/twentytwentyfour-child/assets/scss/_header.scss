@@ -22,17 +22,18 @@
 // HEADER PAGES
 
 header.wp-block-template-part {
-  padding: 1rem;
+  // Móvil: sin padding propio y a todo el ancho (Daniel, 15/11). Desde tableta, como antes.
+  padding: 0;
   width: 100%;
   position: fixed;
   z-index: 10;
-  width: calc(100% - 2rem);
 
   // background: #F1F1F1;
   // background: linear-gradient(0deg, rgba(241, 241, 241, 0) 0%, rgba(241, 241, 241, 1) 40%, rgba(241, 241, 241, 1) 100%);
 
   @include tablet {
     padding: 1rem;
+    width: calc(100% - 2rem);
   }
 
   @include laptop {
@@ -227,22 +228,19 @@ html.has-modal-open {
 // altura fija que toma tras el scroll encapsula el overflow del menú y este se
 // corta. En relative/absolute el menú puede desplegarse completo por encima.
 
+// 15/11/2026: con el overlay propio de WP 7.2 (a pantalla completa) eso ya no hace
+// falta y era lo que causaba la franja blanca arriba: el header entraba en el flujo y
+// la página bajaba. El header se queda fijo, sin el desplazamiento de headerup/fullheader
+// (un transform convierte al header en el contenedor del menú fijo y lo descoloca).
 html.has-modal-open {
-  header.wp-block-template-part {
-    position: relative;
+  header.wp-block-template-part,
+  header.wp-block-template-part.fullheader,
+  header.wp-block-template-part.headerup {
+    position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-
-    &.fullheader {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      z-index: 9999;
-    }
+    transform: none;
+    z-index: 9999;
   }
 }
 

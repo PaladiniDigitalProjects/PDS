@@ -17,6 +17,7 @@ $pds-crema: #ede8dd;
 // (solo en claro: en oscuro, el fondo blanco dejaría la página en blanco)
 // También en las entradas del blog (Daniel, 13/11): el mismo fondo que Insights
 html:not(.pds-dark) body:has(.pds-insights),
+html:not(.pds-dark) body:has(.pds-contacte-cols), // contacto (Daniel, 15/11)
 html:not(.pds-dark) body.single-post,
 html:not(.pds-dark) body.single-service, // fichas de servicio (Daniel, 13/11)
 html:not(.pds-dark) body.single-proyecto { // fichas de proyecto (Daniel, 13/11)
@@ -79,7 +80,7 @@ html.pds-dark body:has(.pds-insights) {
     font-size: clamp(1rem, 10vw, 10rem); // valores de Daniel (13/11)
     font-weight: 700;
     line-height: 0.85;
-    letter-spacing: -0.045em;
+    letter-spacing: -0.02em; // a -0.045em la «r» y la «v» se tocaban (Daniel, 15/11)
 
     @include laptop {
       grid-column: 1;
@@ -426,16 +427,26 @@ html.pds-dark {
     margin: 1.25rem 0 0;
   }
 
+  // Mismo botón que el «More» de la home (Daniel, 15/11): blanco, texto negro, radio
+  // 0.4rem y, al pasar el ratón, crece un 5 % con sombra.
   .wp-block-post-excerpt__more-link {
     display: inline-block;
-    font-size: 1rem;
-    font-weight: 500;
-    color: $pds-primary;
-    text-decoration: underline;
-    text-underline-offset: 0.25em;
+    min-width: 7rem;
+    box-sizing: border-box;
+    padding: 0.5rem var(--wp--preset--spacing--20);
+    border-radius: 0.4rem;
+    background: #fff;
+    color: #000;
+    font-size: clamp(0.875rem, 0.875rem + ((1vw - 0.2rem) * 0.473), 1.2rem);
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    transition: 0.25s;
 
     &:hover {
-      text-decoration-thickness: 2px;
+      transform: scale(105%);
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.3);
     }
   }
 }
@@ -452,7 +463,35 @@ html.pds-dark {
   margin-bottom: 4rem;
 
   @include laptop {
-    margin-bottom: 6rem;
+    margin-bottom: 2rem; // Daniel, 15/11 (antes 6rem)
+  }
+}
+
+// About: los márgenes laterales siguen la misma regla que el logo del header, igual que
+// en las fichas de servicio (_home.scss): 2rem, y en pantallas grandes el hueco lateral
+// del ancho máximo (1420px). Antes sumaba el padding de la plantilla (16px) y el del
+// contenido (104px a 1320px) y quedaba muy metido respecto al logo (Daniel, 15/11).
+.wp-block-group:has(> .entry-content > .pds-about),
+.wp-block-group:has(> .entry-content > .pds-contacte-cols),
+.entry-content:has(> .pds-about),
+.entry-content:has(> .pds-contacte-cols) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.entry-content:has(> .pds-about) > .alignwide,
+.entry-content:has(> .pds-contacte-cols) > .alignwide {
+  box-sizing: border-box;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: max(2rem, calc((100% - 1420px) / 2)) !important;
+  padding-right: max(2rem, calc((100% - 1420px) / 2)) !important;
+
+  // Móvil: 1rem, alineado con el logo (Daniel, 15/11)
+  @media (max-width: 767px) {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -488,6 +527,12 @@ html.pds-dark {
     font-size: 2.2rem;
     font-weight: 300;
     line-height: 1.3;
+
+    // Móvil: sin el padding inferior y a 1.5rem (Daniel, 15/11)
+    @media (max-width: 767px) {
+      padding-bottom: 0;
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -503,5 +548,174 @@ html.pds-dark {
 
   @include laptop {
     margin-bottom: 5rem;
+  }
+}
+
+// ── Contacto (Daniel, 15/11) ──
+// Misma cabecera y márgenes que About (lleva también .pds-about). Formulario en la
+// tarjeta azul, como en el pie; datos a la derecha; mapa debajo a todo el ancho útil.
+.pds-contacte-cols {
+  margin-bottom: 0;
+
+  @media (max-width: 781px) {
+    gap: 3rem !important;
+  }
+}
+
+// Título a la mitad del de las otras páginas (Daniel, 15/11)
+.pds-contacte .pds-insights-cap .pds-insights-titol {
+  font-size: clamp(1rem, 5vw, 5rem);
+  margin-left: -0.25rem;
+}
+
+// Desde el 15/11 (ajuste de Daniel en el editor) la cabecera va dentro de la caja azul:
+// título blanco a la izquierda y LinkedIn/Instagram a la derecha, a la altura del título.
+// Se anula la rejilla y el tamaño gigante de .pds-insights-cap.
+.pds-contacte-form .pds-insights-cap {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 2rem;
+  padding: 0;
+
+  .pds-insights-titol {
+    order: 0;
+    margin: 0;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+  }
+
+  .pds-insights-intro {
+    order: 0;
+    align-self: center;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+  }
+
+  .wp-block-social-links {
+    margin: 0;
+  }
+}
+
+.pds-contacte-dades {
+  > h3:first-of-type {
+    margin-top: 2rem;
+  }
+
+  h3 {
+    margin: 1.5rem 0 0.25rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+
+  .wp-block-social-links {
+    margin-top: 0.5rem;
+  }
+}
+
+.pds-contacte-mapa {
+  // Aviso mientras no hay consentimiento: ocupa el sitio del mapa
+  .pds-contacte-mapa__avis {
+    display: none;
+  }
+
+  &.is-bloquejat .pds-contacte-mapa__avis {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    aspect-ratio: 4 / 3;
+    padding: 2rem;
+    box-sizing: border-box;
+    text-align: center;
+    border-radius: 0.5rem;
+    background: #f1f1f1;
+
+    p {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: 1px solid currentColor;
+      border-radius: 0;
+      background: transparent;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 1rem;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 0;
+    border-radius: 0.5rem;
+
+    &[hidden] {
+      display: none; // sin consentimiento el iframe ocupaba su hueco vacío encima del aviso
+    }
+  }
+}
+
+html.pds-dark .pds-contacte-mapa iframe {
+  filter: invert(0.9) hue-rotate(180deg);
+}
+
+// En la página de contacto no se repite el formulario del pie.
+body:has(.pds-contacte-cols) #PDS_contactUs {
+  display: none;
+}
+
+html.pds-dark .pds-contacte-mapa.is-bloquejat .pds-contacte-mapa__avis {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+// Contacto: el mapa a la misma altura que la caja azul del formulario (Daniel, 15/11).
+// Las columnas se estiran (align-items: stretch por defecto) y la columna del mapa lo
+// llena entero. En móvil, una columna: el mapa vuelve a 4/3.
+@media (min-width: 782px) {
+  .pds-contacte-dades {
+    display: flex;
+    flex-direction: column;
+
+    > .pds-contacte-mapa {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      iframe,
+      .pds-contacte-mapa__avis {
+        flex: 1;
+        height: 100%;
+        aspect-ratio: auto !important;
+      }
+    }
+  }
+
+  .pds-contacte-cols > .wp-block-column:first-child {
+    display: flex;
+    flex-direction: column;
+
+    > .pds-contacte-form {
+      flex: 1;
+    }
   }
 }
