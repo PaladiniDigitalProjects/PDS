@@ -380,7 +380,8 @@ li.type-service > .wp-block-cover:has(.pds-service-card-img) {
 
 /* BUTTONS */
 
-.wp-block-buttons>.wp-block-button.has-custom-width .wp-block-button__link {
+// También los botones con la clase `click` (los «More» de las fichas de servicio, 15/11)
+.wp-block-buttons>.wp-block-button:is(.has-custom-width, .click) .wp-block-button__link {
     min-width: 7rem !important;
     transition: 0.25s;
 
