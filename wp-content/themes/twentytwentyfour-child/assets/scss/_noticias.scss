@@ -97,6 +97,12 @@
     text-align: right;
 }
 
+// Sin boletas de paginación en ningún carrusel de la web (Daniel, 16/11): se
+// recorren con la rueda, arrastrando o con las flechas.
+.swiper-pagination {
+    display: none !important;
+}
+
 /* Listado de entradas en rejilla (la sección de noticias del final de la home).
    Usa la rejilla de WordPress, no la del tema, y WordPress la colapsa a una sola
    columna por debajo de 600px:
