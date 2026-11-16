@@ -47,6 +47,16 @@ body.home {
     }
 }
 
+// Home, sección Solutions en móvil: el titular sumaba el padding del main (16) y el
+// del grupo (16) y quedaba a 32 px, más adentro que el logo (16). Sin el del grupo,
+// titular y primer proyecto del carrusel (main.js lo alinea con el titular) a 16 (16/11).
+@media (max-width: 767px) {
+    .wp-block-group.alignfull:has(> .carruselSolutions) {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
 .ghub-query-slider {
     &.destacats {
         .swiper-slide {

@@ -297,3 +297,43 @@ document.addEventListener('DOMContentLoaded', function () {
         zona.addEventListener('mouseenter', function () { anima(svg); });
     });
 })();
+
+// Carrusel de Solutions (home): al llegar, el primer proyecto tiene que estar quieto y
+// alineado con el titular «Solutions». Antes el autoplay (cada 3 s, en el bloque, ×3
+// idiomas) lo había movido cuando llegabas y faltaban proyectos por la izquierda (16/11).
+// Se para el autoplay, se vuelve al primero y se desplaza el inicio (slidesOffsetBefore)
+// hasta la izquierda del titular; al final, el mismo margen. La rueda sigue como antes:
+// encima del carrusel mueve los proyectos y en los extremos devuelve el scroll a la página.
+(function () {
+    var cont = document.querySelector('.carruselSolutions .swiper');
+    if (!cont) return;
+    var bloc = cont.closest('.carruselSolutions');
+    function titular() {
+        for (var el = bloc.previousElementSibling; el; el = el.previousElementSibling) {
+            var h = el.matches('h1,h2,h3') ? el : el.querySelector('h1,h2,h3');
+            if (h) return h;
+        }
+        return null;
+    }
+    function prepara(sw) {
+        if (sw.autoplay && sw.autoplay.running) sw.autoplay.stop();
+        var h = titular();
+        function alinea() {
+            if (!h) return;
+            var off = Math.max(0, Math.round(h.getBoundingClientRect().left - cont.getBoundingClientRect().left));
+            if (sw.params.slidesOffsetBefore === off) return;
+            sw.params.slidesOffsetBefore = off;
+            sw.params.slidesOffsetAfter = off;
+            sw.update();
+        }
+        alinea();
+        sw.slideTo(0, 0);
+        var t;
+        window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(alinea, 150); });
+    }
+    var intents = 0;
+    (function espera() {
+        if (cont.swiper) { prepara(cont.swiper); return; }
+        if (intents++ < 50) setTimeout(espera, 100);
+    })();
+})();
