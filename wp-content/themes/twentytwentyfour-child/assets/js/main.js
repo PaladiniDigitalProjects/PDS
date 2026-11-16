@@ -317,6 +317,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function prepara(sw) {
         if (sw.autoplay && sw.autoplay.running) sw.autoplay.stop();
+        // Menos proyectos por vista que en el bloque (1/2/3/4/5): con más,
+        // las tarjetas quedaban demasiado verticales (Daniel, 16/11). En tablet, 1,5: se ve que hay más.
+        sw.params.breakpoints = { 360: { slidesPerView: 1 }, 640: { slidesPerView: 1.5 }, 900: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } };
+        sw.currentBreakpoint = null;
+        sw.setBreakpoint();
         var h = titular();
         function alinea() {
             if (!h) return;
