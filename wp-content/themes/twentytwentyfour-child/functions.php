@@ -776,6 +776,10 @@ function pds_il_servei_en_linea( $html, $block ) {
 			}
 			$class = preg_match( '/\bclass="([^"]*)"/', $m[0], $c ) ? $c[1] : '';
 			$style = preg_match( '/\bstyle="([^"]*)"/', $m[0], $s ) ? $s[1] : '';
+			// El aria-label del SVG está en inglés: si el <img> trae alt (traducido en es/ca), manda el alt.
+			if ( preg_match( '/\balt="([^"]+)"/', $m[0], $a ) ) {
+				$svg = preg_replace( '/(<svg\b[^>]*\baria-label=")[^"]*"/', '${1}' . $a[1] . '"', $svg, 1 );
+			}
 			return preg_replace(
 				'/<svg\b([^>]*)\bclass="pds-il"/',
 				'<svg$1class="pds-il ' . esc_attr( $class ) . '" style="' . esc_attr( $style ) . '" preserveAspectRatio="xMidYMid slice"',
