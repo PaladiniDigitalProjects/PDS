@@ -692,6 +692,33 @@ add_filter( 'get_custom_logo', 'pds_logo_svg_en_linea' );
 
 
 /**
+ * Textos fijos de las plantillas (17/11/2026). WPML no traduce las plantillas (wp_template),
+ * así que los títulos escritos en ellas salen en inglés en es/ca. Se traducen aquí, solo
+ * en bloques de título cuyo texto es exactamente el de la lista.
+ * Ahora: «Services» de la plantilla de los servicios (sección de servicios relacionados).
+ */
+function pds_textos_plantilla( $html, $block ) {
+	if ( 'core/heading' !== ( $block['blockName'] ?? '' ) ) {
+		return $html;
+	}
+	$lang = apply_filters( 'wpml_current_language', 'en' );
+	if ( 'en' === $lang ) {
+		return $html;
+	}
+	$textos = array(
+		'Services' => array( 'es' => 'Servicios', 'ca' => 'Serveis' ),
+	);
+	foreach ( $textos as $en => $tr ) {
+		if ( isset( $tr[ $lang ] ) ) {
+			$html = preg_replace( '/(<h[1-6]\b[^>]*>)\s*' . preg_quote( $en, '/' ) . '\s*(<\/h[1-6]>)/', '${1}' . $tr[ $lang ] . '${2}', $html, 1 );
+		}
+	}
+	return $html;
+}
+add_filter( 'render_block', 'pds_textos_plantilla', 10, 2 );
+
+
+/**
  * Insights: filtro de categorías en píldoras ([pds_insights_filtres]).
  * Saca las categorías de las entradas publicadas en el idioma activo, sin «PDS»
  * (la tienen casi todas) ni «Uncategorized». El filtrado lo hace main.js en el
