@@ -113,8 +113,27 @@ function my_theme_enqueue_styles() {
 		array(), file_exists( $css ) ? filemtime( $css ) : '1.0.0' );
 	wp_enqueue_script('main',  get_template_directory_uri() . '-child/assets/js/main.js', array(),
 		file_exists( $js ) ? filemtime( $js ) : '1.0.0', true);
-	wp_enqueue_script('ajax',  'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js');	
+	wp_enqueue_script('ajax',  'https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js');
 }
+
+/**
+ * iPhone (18/11/2026): la web petaba en Safari y Chrome de iOS («Hi ha hagut un problema repetidament»).
+ * 1. Las ilustraciones en línea (svg.pds-il) llevan filtros feTurbulence/feDisplacementMap sobre piezas
+ *    animadas; WebKit de iOS los re-rasteriza en cada fotograma y se queda sin memoria. Solo en iOS
+ *    (@supports -webkit-touch-callout): sin filtros y sin la capa de grano (sin filtro saldría negra).
+ *    Android y escritorio conservan la textura.
+ * 2. Link Any Block Premium engancha su JS de editor a enqueue_block_assets, que también corre en el front:
+ *    cargaba React y wp-block-editor (~1 MB) en cada página y un 401 a /users/me. Se saca del front;
+ *    los enlaces de bloque siguen con su scripts/frontend.js.
+ */
+function pds_ios_i_front_lleuger() {
+	if ( is_admin() ) return;
+	wp_dequeue_script( 'ghub-link-any-block-script' );
+	wp_dequeue_style( 'ghub-link-any-block-editor-style' );
+	wp_add_inline_style( 'child-estils',
+		'@supports (-webkit-touch-callout:none){svg.pds-il [filter]{filter:none!important}svg.pds-il rect[filter]:not([fill]){display:none!important}}' );
+}
+add_action( 'wp_enqueue_scripts', 'pds_ios_i_front_lleuger', 100 );
 
 /* ADD ADMIN AND LOGIN STYLES */
 
